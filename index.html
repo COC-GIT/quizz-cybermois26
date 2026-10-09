@@ -1,44 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="icon" type="image/png" href="./favicon.png">
   <title>Cyber Quizz 2026 | Groupe COC</title>
-  <meta name="description" content="Participez au Cyber Quizz 2026 du Groupe COC et testez vos connaissances en cybersécurité.">
+  <meta name="description" content="Cyber Quizz 2026 du Groupe COC : testez vos connaissances en cybersécurité.">
+  <link rel="icon" type="image/png" href="./favicon.png">
 
   <link rel="stylesheet" href="./exolve-m.css">
   <script src="./exolve-m.js"></script>
 
   <style>
     :root {
-      --coc-green: #47c47f;
-      --coc-green-dark: #238653;
-      --coc-black: #171717;
-      --coc-gray: #666666;
-      --coc-border: #e5e7e6;
-      --coc-light: #f6f8f7;
+      --green: #47c47f;
+      --green-dark: #238653;
+      --black: #171717;
+      --gray: #666;
+      --border: #e5e7e6;
+      --light: #f6f8f7;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      color: var(--coc-black);
+      color: var(--black);
       background: #fff;
-      font-family: "Montserrat", Arial, sans-serif;
+      font-family: Montserrat, Arial, sans-serif;
       font-size: 15px;
       font-weight: 300;
       line-height: 1.7;
     }
 
-    /* Écran d'accès */
-    body.access-locked {
-      overflow: hidden;
-    }
+    /* Écran d'identification */
+    body.access-locked { overflow: hidden; }
 
     #access-gate {
       position: fixed;
@@ -56,14 +52,14 @@
       width: 100%;
       max-width: 430px;
       padding: 32px;
-      border: 1px solid var(--coc-border);
-      border-top: 4px solid var(--coc-green);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--green);
       background: #fff;
     }
 
-    #access-form .access-label {
+    .access-label {
       margin: 0 0 12px;
-      color: var(--coc-green-dark);
+      color: var(--green-dark);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 1.5px;
@@ -77,7 +73,7 @@
       line-height: 1.3;
     }
 
-    #access-form .access-description {
+    .access-description {
       margin: 0 0 24px;
       color: #555;
     }
@@ -96,47 +92,59 @@
       border: 1px solid #cfd5d1;
       border-radius: 3px;
       background: #fff;
-      color: var(--coc-black);
+      color: var(--black);
       font: inherit;
     }
 
     #access-form input:focus {
-      outline: 2px solid var(--coc-green);
+      outline: 2px solid var(--green);
       outline-offset: 1px;
     }
 
-    #access-form button {
-      width: 100%;
-      min-height: 46px;
-      margin-top: 24px;
-      padding: 10px 16px;
-      border: 0;
-      border-radius: 3px;
-      background: var(--coc-green);
-      color: var(--coc-black);
-      font: inherit;
-      font-weight: 700;
+    button {
+      font-family: inherit;
       cursor: pointer;
     }
 
-    #access-form button:hover {
+    #access-form button,
+    #submit-result {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 3px;
+      background: var(--green);
+      color: var(--black);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    #access-form button { margin-top: 24px; }
+
+    #access-form button:hover,
+    #submit-result:hover {
       background: #36b66e;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
     }
 
     /* En-tête */
     .site-header {
-      border-bottom: 1px solid var(--coc-border);
+      border-bottom: 1px solid var(--border);
       background: #fff;
     }
 
     .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 34px;
       max-width: 1160px;
       min-height: 112px;
       margin: 0 auto;
       padding: 22px 28px;
-      display: flex;
-      align-items: center;
-      gap: 34px;
     }
 
     .logo {
@@ -151,12 +159,12 @@
       width: 3px;
       height: 56px;
       flex: 0 0 3px;
-      background: var(--coc-green);
+      background: var(--green);
     }
 
     .header-label {
       margin: 0 0 3px;
-      color: var(--coc-green-dark);
+      color: var(--green-dark);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 1.5px;
@@ -171,7 +179,7 @@
       letter-spacing: -0.5px;
     }
 
-    /* Contenu */
+    /* Contenu principal */
     main {
       max-width: 1160px;
       margin: 0 auto;
@@ -190,21 +198,14 @@
       line-height: 1.4;
     }
 
-    .intro p {
-      margin: 0 0 12px;
-      color: #444;
-    }
+    .intro p { margin: 0 0 12px; color: #444; }
 
     .instructions {
       margin-top: 18px;
       padding-left: 15px;
-      border-left: 3px solid var(--coc-green);
+      border-left: 3px solid var(--green);
       color: #444;
       font-size: 14px;
-    }
-
-    .instructions strong {
-      font-weight: 700;
     }
 
     .puzzle-heading {
@@ -220,7 +221,7 @@
       width: 24px;
       height: 3px;
       flex: 0 0 24px;
-      background: var(--coc-green);
+      background: var(--green);
     }
 
     .puzzle-heading h2 {
@@ -232,7 +233,7 @@
     #puzzle {
       min-width: 0;
       padding: 20px;
-      border: 1px solid var(--coc-border);
+      border: 1px solid var(--border);
       background: #fff;
       overflow-x: auto;
     }
@@ -243,110 +244,95 @@
       font-family: inherit;
     }
 
-    /* Masquer les commandes de révélation */
+    /* Masquer les boutons permettant de révéler les réponses */
     #puzzle .xlv-controls button[id$="-reveal"],
     #puzzle .xlv-controls button[id$="-reveal-all"],
     #puzzle .xlv-controls button[id$="-revealcell"] {
       display: none !important;
     }
 
-    /* Message de vérification */
-    #message-verification {
-      margin-top: 16px;
-      font-size: 16px;
+    #submit-area {
+      margin-top: 22px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      background: var(--light);
+    }
+
+    #submit-area h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
       font-weight: 700;
     }
 
-    #message-verification:empty {
-      display: none;
+    #submit-area p {
+      margin: 0 0 16px;
+      color: #555;
+      font-size: 14px;
     }
 
-    #message-verification.success {
-      color: var(--coc-green-dark);
+    #submit-result { max-width: 360px; }
+
+    #result-message {
+      margin-top: 12px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
     }
 
-    #message-verification.error {
-      color: #c62828;
-    }
+    #result-message:empty { display: none; }
+    #result-message.success { color: var(--green-dark); }
+    #result-message.error { color: #b42318; }
 
     /* Pied de page */
     footer {
       margin-top: 46px;
-      border-top: 1px solid var(--coc-border);
-      background: var(--coc-light);
+      border-top: 1px solid var(--border);
+      background: var(--light);
     }
 
     .footer-inner {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 20px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      color: var(--coc-gray);
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 20px 28px;
+      color: var(--gray);
       font-size: 12px;
     }
 
-    .footer-inner p {
-      margin: 0;
-    }
+    .footer-inner p { margin: 0; }
 
     .footer-mark {
-      color: var(--coc-green-dark);
+      color: var(--green-dark);
       font-weight: 700;
     }
 
     @media (max-width: 640px) {
-      #access-form {
-        padding: 24px;
-      }
-
-      #access-form h1 {
-        font-size: 23px;
-      }
+      #access-form { padding: 24px; }
+      #access-form h1 { font-size: 23px; }
 
       .header-inner {
         min-height: auto;
-        padding: 18px 20px;
         gap: 18px;
+        padding: 18px 20px;
       }
 
-      .logo {
-        width: 105px;
-        max-height: 58px;
-      }
+      .logo { width: 105px; max-height: 58px; }
+      .header-divider { height: 48px; }
+      .header-title { font-size: 21px; }
+      .header-label { font-size: 9px; letter-spacing: 1px; }
 
-      .header-divider {
-        height: 48px;
-      }
-
-      .header-title {
-        font-size: 21px;
-      }
-
-      .header-label {
-        font-size: 9px;
-        letter-spacing: 1px;
-      }
-
-      main {
-        padding: 28px 16px 16px;
-      }
-
-      .intro h2 {
-        font-size: 21px;
-      }
-
-      #puzzle {
-        padding: 10px;
-      }
+      main { padding: 28px 16px 16px; }
+      .intro h2 { font-size: 21px; }
+      #puzzle { padding: 10px; }
+      #submit-area { padding: 16px; }
 
       .footer-inner {
-        padding: 18px 20px;
         flex-direction: column;
         align-items: flex-start;
         gap: 4px;
+        padding: 18px 20px;
       }
     }
   </style>
@@ -354,15 +340,13 @@
 
 <body class="access-locked">
 
-  <!-- Formulaire obligatoire avant l'accès au quiz -->
+  <!-- Identification obligatoire -->
   <div id="access-gate">
     <form id="access-form">
       <p class="access-label">Cybermois 2026 · Groupe COC</p>
-
       <h1>Bienvenue au Cyber Quizz</h1>
-
       <p class="access-description">
-        Pour accéder au quiz, veuillez renseigner votre prénom et votre nom.
+        Renseignez votre prénom et votre nom pour accéder au quiz.
       </p>
 
       <label for="prenom">Prénom</label>
@@ -393,14 +377,8 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <img
-        class="logo"
-        src="./logo-coc.png"
-        alt="Groupe COC"
-      >
-
+      <img class="logo" src="./logo-coc.png" alt="Groupe COC">
       <div class="header-divider" aria-hidden="true"></div>
-
       <div>
         <p class="header-label">Cybermois 2026</p>
         <h1 class="header-title">Cyber Quizz</h1>
@@ -411,18 +389,15 @@
   <main>
     <section class="intro">
       <h2>Un défi à relever</h2>
-
       <p>
         Dix mots à découvrir pour tester vos connaissances en
-        cybersécurité. Les définitions progressent du plus facile
-        au plus difficile.
+        cybersécurité. À vous de jouer !
       </p>
-
       <div class="instructions">
         <strong>Comment jouer ?</strong>
-        Cliquez sur une case de la grille, puis saisissez votre
-        réponse au clavier. Les réponses s’écrivent sans accents
-        ni espaces.
+        Cliquez sur une case de la grille, puis saisissez votre réponse
+        au clavier. Les réponses s'écrivent sans accents ni espaces.
+        Lorsque vous avez terminé, cliquez sur « Envoyer mon résultat ».
       </div>
     </section>
 
@@ -433,11 +408,17 @@
 
       <div id="puzzle"></div>
 
-      <div
-        id="message-verification"
-        role="status"
-        aria-live="polite"
-      ></div>
+      <div id="submit-area">
+        <h3>Terminer le quiz</h3>
+        <p>
+          Envoyez votre grille pour enregistrer votre résultat.
+          Les cases non remplies seront comptées comme incorrectes.
+        </p>
+        <button id="submit-result" type="button">
+          Envoyer mon résultat
+        </button>
+        <div id="result-message" role="status" aria-live="polite"></div>
+      </div>
     </section>
   </main>
 
@@ -449,45 +430,173 @@
   </footer>
 
   <script>
-    // L'écran d'accès est affiché par défaut.
-    // Les deux champs sont obligatoires.
+    const GOOGLE_SCRIPT_URL =
+      'https://script.google.com/macros/s/AKfycbzeP1MIUYgtcj9hAnyXxfEKZ_fUGdOJgX2HkgyOB9sm3KeMA5IrJceePcD9zT_jware/exec';
+
+    // Cette grille doit rester identique à celle d'Exolve
+    // et à la constante SOLUTION du Google Apps Script.
+    const SOLUTION_ROWS = [
+      '....Z.P...V..........',
+      'VULNERABILITE.....R.C',
+      '....R.R...R.X.....A.H',
+      '....O.E...U.F.....N.I',
+      '....D.F...S.I.....C.F',
+      '....A.E.....L.P...O.F',
+      '....Y.U.....T.H...N.R',
+      '............R.I...G.E',
+      '......MOTDEPASSE..I.M',
+      '............T.H...C.E',
+      '.....AUTHENTIFICATION',
+      '............O.N...E.T',
+      '............N.G...L..'
+    ];
+
+    let prenomParticipant = '';
+    let nomParticipant = '';
+    let heureDebut = 0;
+    let envoiEffectue = false;
+
+    const messageResultat = document.getElementById('result-message');
+    const boutonEnvoi = document.getElementById('submit-result');
+
     document.getElementById('access-form').addEventListener('submit', function (event) {
       event.preventDefault();
 
-      const prenom = document.getElementById('prenom').value.trim();
-      const nom = document.getElementById('nom').value.trim();
+      prenomParticipant =
+        document.getElementById('prenom').value.trim();
 
-      if (!prenom || !nom) {
+      nomParticipant =
+        document.getElementById('nom').value.trim();
+
+      if (!prenomParticipant || !nomParticipant) {
         return;
       }
 
-      // Masquer l'écran d'accès et autoriser l'utilisation de la page.
+      heureDebut = Date.now();
+
       document.getElementById('access-gate').remove();
       document.body.classList.remove('access-locked');
     });
 
-    // Personnalisation Exolve.
-    // Le comportement natif de ses boutons de vérification est conservé.
-    function customizeExolve(p) {
-      const message = document.getElementById('message-verification');
+    function afficherMessage(texte, type) {
+      messageResultat.textContent = texte;
+      messageResultat.className = type || '';
+    }
 
-      // Exolve signale les changements d'état de complétion de la grille.
+    function personnaliserExolve(p) {
+      // L'événement Exolve signale quand la grille est entièrement remplie
+      // et, si la solution est fournie, si les réponses sont correctes.
       p.frame.addEventListener('exolve', function (event) {
         const detail = event.detail;
-
-        if (!detail) {
-          return;
-        }
+        if (!detail) return;
 
         if (detail.knownCorrect) {
-          message.textContent = 'Bravo, toutes les réponses sont correctes !';
-          message.className = 'success';
+          afficherMessage(
+            'Bravo ! Toutes les réponses sont correctes. Vous pouvez envoyer votre résultat.',
+            'success'
+          );
         } else if (detail.knownIncorrect) {
-          message.textContent = 'Certaines réponses sont incorrectes. Réessaie !';
-          message.className = 'error';
+          afficherMessage(
+            'La grille contient encore des erreurs. Vous pouvez corriger vos réponses ou envoyer votre résultat.',
+            'error'
+          );
         }
       });
     }
+
+    function construireGrilleSoumise(p) {
+      let resultat = '';
+
+      for (let r = 0; r < SOLUTION_ROWS.length; r++) {
+        for (let c = 0; c < SOLUTION_ROWS[r].length; c++) {
+          // Les cases noires restent des points.
+          if (SOLUTION_ROWS[r][c] === '.') {
+            resultat += '.';
+            continue;
+          }
+
+          const cellule = p.grid[r][c];
+          let lettre = cellule && cellule.currLetter
+            ? String(cellule.currLetter).toUpperCase()
+            : '0';
+
+          // Exolve utilise 0 ou ? pour une case non remplie.
+          if (lettre === '0' || lettre === '?' || lettre === '.') {
+            lettre = '0';
+          }
+
+          resultat += lettre;
+        }
+      }
+
+      return resultat;
+    }
+
+    boutonEnvoi.addEventListener('click', function () {
+      if (envoiEffectue) return;
+
+      if (!prenomParticipant || !nomParticipant || !heureDebut) {
+        afficherMessage(
+          'Veuillez d’abord renseigner votre prénom et votre nom.',
+          'error'
+        );
+        return;
+      }
+
+      if (!window.quizExolve) {
+        afficherMessage(
+          'La grille n’est pas encore prête. Réessayez dans quelques secondes.',
+          'error'
+        );
+        return;
+      }
+
+      const reponse = construireGrilleSoumise(window.quizExolve);
+      const nomComplet = prenomParticipant + ' ' + nomParticipant;
+      const tempsEcoule = Math.max(
+        0,
+        Math.floor((Date.now() - heureDebut) / 1000)
+      );
+
+      const parametres = new URLSearchParams({
+        name: nomComplet,
+        prenom: prenomParticipant,
+        nom: nomParticipant,
+        k: reponse,
+        elapsed: String(tempsEcoule)
+      });
+
+      const url = GOOGLE_SCRIPT_URL + '?' + parametres.toString();
+
+      boutonEnvoi.disabled = true;
+      boutonEnvoi.textContent = 'Envoi en cours…';
+
+      // Envoi GET vers Apps Script. Le navigateur ne permet pas toujours
+      // de lire la réponse inter-domaine, même lorsque l'enregistrement réussit.
+      window.quizResultBeacon = new Image();
+
+      window.quizResultBeacon.onload = function () {
+        envoiEffectue = true;
+        boutonEnvoi.textContent = 'Résultat envoyé';
+        afficherMessage(
+          'Demande d’envoi effectuée. Vérifiez l’onglet « Résultats » de votre Google Sheets pour confirmer l’enregistrement.',
+          'success'
+        );
+      };
+
+      window.quizResultBeacon.onerror = function () {
+        // Une réponse texte Apps Script n'est pas une image : cet événement
+        // peut arriver même si le serveur a bien reçu la requête.
+        envoiEffectue = true;
+        boutonEnvoi.textContent = 'Envoi demandé';
+        afficherMessage(
+          'La demande a été transmise au navigateur. Vérifiez l’onglet « Résultats » de votre Google Sheets pour confirmer l’enregistrement.',
+          'success'
+        );
+      };
+
+      window.quizResultBeacon.src = url;
+    });
 
     createExolve(`
 exolve-begin
@@ -534,6 +643,16 @@ exolve-relabel:
   submit: Envoyer
 exolve-end
 `, 'puzzle');
+
+    // Récupérer l'instance Exolve créée dans le conteneur.
+    // customizeExolve est appelé automatiquement par createExolve.
+    // L'instance est également récupérée ci-dessous pour l'envoi du résultat.
+    const instanceOriginale = window.exolvePuzzles &&
+      window.exolvePuzzles['CyberQuizz26'];
+
+    if (instanceOriginale) {
+      window.quizExolve = instanceOriginale;
+    }
   </script>
 
 </body>
