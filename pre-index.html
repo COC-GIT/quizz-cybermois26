@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#47c47f">
 
   <title>Cyber Quizz 2026 | Groupe COC</title>
   <meta name="description" content="Cyber Quizz 2026 du Groupe COC : testez vos connaissances en cybersécurité.">
@@ -31,6 +33,19 @@
       font-size: 15px;
       font-weight: 300;
       line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     /* Écran d'identification */
@@ -101,9 +116,21 @@
       outline-offset: 1px;
     }
 
+    .access-note {
+      margin: 16px 0 0;
+      color: var(--gray);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
     button {
       font-family: inherit;
       cursor: pointer;
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--black);
+      outline-offset: 2px;
     }
 
     #access-form button,
@@ -179,6 +206,26 @@
       letter-spacing: -0.5px;
     }
 
+    .header-participant {
+      margin: 0 0 0 auto;
+      padding-left: 20px;
+      border-left: 1px solid var(--border);
+      color: var(--gray);
+      font-size: 13px;
+      line-height: 1.4;
+      text-align: right;
+    }
+
+    .header-participant strong {
+      display: block;
+      color: var(--black);
+      font-size: 15px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .header-participant:empty { display: none; }
+
     /* Contenu principal */
     main {
       max-width: 1160px;
@@ -206,6 +253,11 @@
       border-left: 3px solid var(--green);
       color: #444;
       font-size: 14px;
+    }
+
+    .instructions ul {
+      margin: 6px 0 0;
+      padding-left: 18px;
     }
 
     .puzzle-heading {
@@ -282,6 +334,54 @@
     #result-message.success { color: var(--green-dark); }
     #result-message.error { color: #b42318; }
 
+    /* Suivi en direct : chronomètre et progression */
+    #live-status {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 1000;
+      min-width: 190px;
+      padding: 10px 14px 12px;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--green);
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    #live-status.stopped { border-top-color: var(--gray); }
+
+    .live-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 14px;
+    }
+
+    .live-label { color: var(--gray); }
+
+    .live-value {
+      color: var(--black);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #live-time { font-size: 20px; }
+
+    .live-track {
+      height: 4px;
+      margin-top: 8px;
+      background: var(--border);
+    }
+
+    #live-bar {
+      width: 0;
+      height: 100%;
+      background: var(--green);
+      transition: width 0.25s ease;
+    }
+
     /* Pied de page */
     footer {
       margin-top: 46px;
@@ -313,6 +413,7 @@
       #access-form h1 { font-size: 23px; }
 
       .header-inner {
+        flex-wrap: wrap;
         min-height: auto;
         gap: 18px;
         padding: 18px 20px;
@@ -323,10 +424,28 @@
       .header-title { font-size: 21px; }
       .header-label { font-size: 9px; letter-spacing: 1px; }
 
+      .header-participant {
+        flex: 1 0 100%;
+        margin: 0;
+        padding: 10px 0 0;
+        border-top: 1px solid var(--border);
+        border-left: 0;
+        text-align: left;
+      }
+
       main { padding: 28px 16px 16px; }
       .intro h2 { font-size: 21px; }
       #puzzle { padding: 10px; }
       #submit-area { padding: 16px; }
+
+      #live-status {
+        right: 10px;
+        bottom: 10px;
+        min-width: 160px;
+        padding: 8px 12px 10px;
+      }
+
+      #live-time { font-size: 17px; }
 
       .footer-inner {
         flex-direction: column;
@@ -335,18 +454,30 @@
         padding: 18px 20px;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      #live-bar { transition: none; }
+    }
   </style>
 </head>
 
 <body class="access-locked">
 
+  <noscript>
+    <p style="padding:20px;margin:0;background:#fff3f2;color:#b42318;font-weight:700;">
+      JavaScript est nécessaire pour afficher et envoyer le quiz.
+      Activez-le dans votre navigateur, puis rechargez la page.
+    </p>
+  </noscript>
+
   <!-- Identification obligatoire -->
-  <div id="access-gate">
+  <div id="access-gate" role="dialog" aria-modal="true" aria-labelledby="access-title">
     <form id="access-form">
       <p class="access-label">Cybermois 2026 · Groupe COC</p>
-      <h1>Bienvenue au Cyber Quizz</h1>
+      <h1 id="access-title">Bienvenue au Cyber Quizz</h1>
       <p class="access-description">
         Renseignez votre prénom et votre nom pour accéder au quiz.
+        Le chronomètre démarre dès que vous cliquez sur le bouton.
       </p>
 
       <label for="prenom">Prénom</label>
@@ -372,6 +503,11 @@
       >
 
       <button type="submit">Accéder au quiz</button>
+
+      <p class="access-note">
+        Votre prénom, votre nom, votre grille et votre temps seront
+        enregistrés pour le classement du Cybermois.
+      </p>
     </form>
   </div>
 
@@ -383,6 +519,7 @@
         <p class="header-label">Cybermois 2026</p>
         <h1 class="header-title">Cyber Quizz</h1>
       </div>
+      <p class="header-participant" id="participant-info"></p>
     </div>
   </header>
 
@@ -395,9 +532,12 @@
       </p>
       <div class="instructions">
         <strong>Comment jouer ?</strong>
-        Cliquez sur une case de la grille, puis saisissez votre réponse
-        au clavier. Les réponses s'écrivent sans accents ni espaces.
-        Lorsque vous avez terminé, cliquez sur « Envoyer mon résultat ».
+        <ul>
+          <li>Cliquez sur une case de la grille, puis saisissez votre réponse au clavier.</li>
+          <li>Les réponses s'écrivent sans accents, sans espaces et sans tirets.</li>
+          <li>Le chronomètre tourne pendant que vous jouez : il est affiché en bas de l'écran.</li>
+          <li>Lorsque vous avez terminé, cliquez sur « Envoyer mon résultat ». L'envoi ne peut être fait qu'une seule fois.</li>
+        </ul>
       </div>
     </section>
 
@@ -422,6 +562,21 @@
     </section>
   </main>
 
+  <!-- Chronomètre et progression -->
+  <aside id="live-status" aria-label="Chronomètre et progression" hidden>
+    <div class="live-row">
+      <span class="live-label">Temps</span>
+      <span class="live-value" id="live-time">00:00</span>
+    </div>
+    <div class="live-row">
+      <span class="live-label">Cases remplies</span>
+      <span class="live-value" id="live-count">0 / 0</span>
+    </div>
+    <div class="live-track" aria-hidden="true">
+      <div id="live-bar"></div>
+    </div>
+  </aside>
+
   <footer>
     <div class="footer-inner">
       <p>Un quiz proposé par le service informatique du Groupe COC.</p>
@@ -430,6 +585,12 @@
   </footer>
 
   <script>
+    /* ==========================================================
+       PARTIE ENVOI VERS GOOGLE SHEETS (APPS SCRIPT)
+       Volontairement laissée identique à la version précédente :
+       GOOGLE_SCRIPT_URL, SOLUTION_ROWS, construireGrilleSoumise()
+       et le gestionnaire du bouton « Envoyer mon résultat ».
+       ========================================================== */
     const GOOGLE_SCRIPT_URL =
       'https://script.google.com/macros/s/AKfycbzuQwIB_t2QenPdHn4CifTBg_HT3_DiDVYn4f_PpH2-ffVIbnqaSrWow-A9ft3yc4uy/exec';
 
@@ -459,49 +620,9 @@
     const messageResultat = document.getElementById('result-message');
     const boutonEnvoi = document.getElementById('submit-result');
 
-    document.getElementById('access-form').addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      prenomParticipant =
-        document.getElementById('prenom').value.trim();
-
-      nomParticipant =
-        document.getElementById('nom').value.trim();
-
-      if (!prenomParticipant || !nomParticipant) {
-        return;
-      }
-
-      heureDebut = Date.now();
-
-      document.getElementById('access-gate').remove();
-      document.body.classList.remove('access-locked');
-    });
-
     function afficherMessage(texte, type) {
       messageResultat.textContent = texte;
       messageResultat.className = type || '';
-    }
-
-    function personnaliserExolve(p) {
-      // L'événement Exolve signale quand la grille est entièrement remplie
-      // et, si la solution est fournie, si les réponses sont correctes.
-      p.frame.addEventListener('exolve', function (event) {
-        const detail = event.detail;
-        if (!detail) return;
-
-        if (detail.knownCorrect) {
-          afficherMessage(
-            'Bravo ! Toutes les réponses sont correctes. Vous pouvez envoyer votre résultat.',
-            'success'
-          );
-        } else if (detail.knownIncorrect) {
-          afficherMessage(
-            'La grille contient encore des erreurs. Vous pouvez corriger vos réponses ou envoyer votre résultat.',
-            'error'
-          );
-        }
-      });
     }
 
     function construireGrilleSoumise(p) {
@@ -598,10 +719,173 @@
       window.quizResultBeacon.src = url;
     });
 
-    createExolve(`
+    /* ==========================================================
+       FIN DE LA PARTIE APPS SCRIPT
+       Tout ce qui suit est la partie améliorée de la page.
+       ========================================================== */
+
+    const CLE_SESSION = 'cyberQuizz2026CoC';
+    const TOTAL_CASES = SOLUTION_ROWS.join('').replace(/\./g, '').length;
+
+    const elChrono = document.getElementById('live-time');
+    const elCompteur = document.getElementById('live-count');
+    const elBarre = document.getElementById('live-bar');
+    const elStatut = document.getElementById('live-status');
+    const elParticipant = document.getElementById('participant-info');
+
+    let minuteur = null;
+
+    function nettoyerNom(valeur) {
+      return String(valeur || '').replace(/\s+/g, ' ').trim();
+    }
+
+    // Conserve l'identité et l'heure de départ pour la durée de l'onglet :
+    // un rechargement accidentel ne remet pas le chronomètre à zéro.
+    function ecrireSession() {
+      try {
+        sessionStorage.setItem(CLE_SESSION, JSON.stringify({
+          prenom: prenomParticipant,
+          nom: nomParticipant,
+          debut: heureDebut
+        }));
+      } catch (e) { /* stockage indisponible : on continue sans */ }
+    }
+
+    function lireSession() {
+      try {
+        const brut = sessionStorage.getItem(CLE_SESSION);
+        if (!brut) return null;
+        const d = JSON.parse(brut);
+        const valide =
+          d && d.prenom && d.nom &&
+          typeof d.debut === 'number' &&
+          d.debut > 0 && d.debut <= Date.now();
+        return valide ? d : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function formaterDuree(secondes) {
+      const h = Math.floor(secondes / 3600);
+      const m = Math.floor((secondes % 3600) / 60);
+      const s = secondes % 60;
+      const mm = String(m).padStart(2, '0');
+      const ss = String(s).padStart(2, '0');
+      return h > 0 ? h + ':' + mm + ':' + ss : mm + ':' + ss;
+    }
+
+    function compterCasesRemplies() {
+      if (!window.quizExolve || !window.quizExolve.grid) return 0;
+      try {
+        const grille = construireGrilleSoumise(window.quizExolve);
+        let n = 0;
+        for (let i = 0; i < grille.length; i++) {
+          if (grille[i] !== '.' && grille[i] !== '0') n++;
+        }
+        return n;
+      } catch (e) {
+        return 0;
+      }
+    }
+
+    function mettreAJourSuivi() {
+      if (!heureDebut) return;
+
+      if (envoiEffectue) {
+        // Résultat envoyé : on fige le chronomètre.
+        elStatut.classList.add('stopped');
+        if (minuteur) {
+          clearInterval(minuteur);
+          minuteur = null;
+        }
+        return;
+      }
+
+      const ecoule = Math.max(0, Math.floor((Date.now() - heureDebut) / 1000));
+      elChrono.textContent = formaterDuree(ecoule);
+
+      const remplies = compterCasesRemplies();
+      elCompteur.textContent = remplies + ' / ' + TOTAL_CASES;
+      elBarre.style.width = Math.round((remplies / TOTAL_CASES) * 100) + '%';
+    }
+
+    function demarrerQuiz() {
+      const porte = document.getElementById('access-gate');
+      if (porte) porte.remove();
+      document.body.classList.remove('access-locked');
+
+      elParticipant.textContent = '';
+      const etiquette = document.createTextNode('Participant');
+      const nomAffiche = document.createElement('strong');
+      nomAffiche.textContent = prenomParticipant + ' ' + nomParticipant;
+      elParticipant.appendChild(etiquette);
+      elParticipant.appendChild(nomAffiche);
+
+      elStatut.hidden = false;
+      mettreAJourSuivi();
+      if (!minuteur) minuteur = setInterval(mettreAJourSuivi, 1000);
+    }
+
+    document.getElementById('access-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      prenomParticipant = nettoyerNom(document.getElementById('prenom').value);
+      nomParticipant = nettoyerNom(document.getElementById('nom').value);
+
+      if (!prenomParticipant || !nomParticipant) {
+        return;
+      }
+
+      heureDebut = Date.now();
+      ecrireSession();
+      demarrerQuiz();
+    });
+
+    // Évite de perdre la grille par une fermeture ou un rechargement involontaire.
+    window.addEventListener('beforeunload', function (event) {
+      if (heureDebut && !envoiEffectue) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    });
+
+    // Réaction aux événements Exolve (grille complète, correcte ou non).
+    function personnaliserExolve(p) {
+      if (!p || p.cocPersonnalise) return;
+      p.cocPersonnalise = true;
+
+      if (p.frame && typeof p.frame.addEventListener === 'function') {
+        p.frame.addEventListener('exolve', function (event) {
+          const detail = event.detail;
+          if (!detail) return;
+
+          if (detail.knownCorrect) {
+            afficherMessage(
+              'Bravo ! Toutes les réponses sont correctes. Vous pouvez envoyer votre résultat.',
+              'success'
+            );
+          } else if (detail.knownIncorrect) {
+            afficherMessage(
+              'La grille contient encore des erreurs. Vous pouvez corriger vos réponses ou envoyer votre résultat.',
+              'error'
+            );
+          }
+        });
+      }
+    }
+
+    // Appelée automatiquement par Exolve lorsque la grille est créée.
+    // C'est ici que l'instance est mémorisée pour l'envoi du résultat.
+    function customizeExolve(p) {
+      window.quizExolve = p;
+      personnaliserExolve(p);
+    }
+
+    const retourExolve = createExolve(`
 exolve-begin
 exolve-id: CyberQuizz26
-exolve-title: Cyber Quizz 2026 - mots croises de cybersecurite
+exolve-title: Cyber Quizz 2026 - mots croisés de cybersécurité
 exolve-setter: Groupe COC
 exolve-width: 21
 exolve-height: 13
@@ -620,17 +904,17 @@ VULNERABILITE.....R.C
 ............O.N...E.T
 ............N.G...L..
 exolve-across:
-4 Faiblesse exploitable dans un systeme informatique. (13)
-9 Secret utilise pour acceder a un compte. (10)
-10 Verification de l identite d un utilisateur. (16)
+4 Faiblesse exploitable dans un système informatique. (13)
+9 Secret utilisé pour accéder à un compte. (10)
+10 Vérification de l’identité d’un utilisateur. (16)
 exolve-down:
-1 Faille inconnue de l editeur ou sans correctif disponible au moment de son exploitation. (7)
-2 Systeme qui filtre les communications reseau. (7)
+1 Faille inconnue de l’éditeur ou sans correctif disponible au moment de son exploitation. (7)
+2 Système qui filtre les communications réseau. (7)
 3 Programme malveillant pouvant infecter un ordinateur. (5)
-5 Extraction clandestine de donnees hors d un systeme. (12)
-6 Logiciel malveillant qui bloque ou chiffre des donnees pour reclamer une rancon. (12)
-7 Transformation de donnees pour les rendre illisibles sans la cle appropriee. (11)
-8 Technique frauduleuse visant a voler des informations en se faisant passer pour un tiers de confiance. (8)
+5 Extraction clandestine de données hors d’un système. (12)
+6 Logiciel malveillant qui bloque ou chiffre des données pour réclamer une rançon. (12)
+7 Transformation de données pour les rendre illisibles sans la clé appropriée. (11)
+8 Technique frauduleuse visant à voler des informations en se faisant passer pour un tiers de confiance. (8)
 exolve-relabel:
   across-label: Horizontalement
   down-label: Verticalement
@@ -644,14 +928,30 @@ exolve-relabel:
 exolve-end
 `, 'puzzle');
 
-    // Récupérer l'instance Exolve créée dans le conteneur.
-    // customizeExolve est appelé automatiquement par createExolve.
-    // L'instance est également récupérée ci-dessous pour l'envoi du résultat.
-    const instanceOriginale = window.exolvePuzzles &&
-      window.exolvePuzzles['CyberQuizz26'];
+    // Filet de sécurité si Exolve n'a pas appelé customizeExolve :
+    // on récupère l'instance retournée ou la dernière grille créée.
+    if (!window.quizExolve) {
+      let instance = null;
 
-    if (instanceOriginale) {
-      window.quizExolve = instanceOriginale;
+      if (retourExolve && retourExolve.grid) {
+        instance = retourExolve;
+      } else if (typeof exolvePuzzles !== 'undefined' && exolvePuzzles && exolvePuzzles.length) {
+        instance = exolvePuzzles[exolvePuzzles.length - 1];
+      }
+
+      if (instance) customizeExolve(instance);
+    }
+
+    // Reprise automatique après un rechargement de l'onglet.
+    const sessionPrecedente = lireSession();
+
+    if (sessionPrecedente) {
+      prenomParticipant = sessionPrecedente.prenom;
+      nomParticipant = sessionPrecedente.nom;
+      heureDebut = sessionPrecedente.debut;
+      demarrerQuiz();
+    } else {
+      document.getElementById('prenom').focus();
     }
   </script>
 
