@@ -335,6 +335,29 @@ exolve-relabel:
   submit: Envoyer
 exolve-end
 `, 'puzzle');
+    function customizeExolve(p) {
+  const message = document.getElementById('message-verification');
+
+  p.frame.querySelectorAll('button').forEach((bouton) => {
+    if (!/check/i.test(bouton.id)) return;
+
+    bouton.addEventListener('click', () => {
+      setTimeout(() => {
+        const grilleComplete =
+          p.numCellsFilled === p.numCellsToFill;
+
+        if (grilleComplete) {
+          message.textContent = 'Bravo, toutes les réponses sont correctes !';
+          message.className = 'success';
+        } else {
+          message.textContent =
+            'Réponse incorrecte ou incomplète : les lettres erronées ont été effacées. Réessaie !';
+          message.className = 'error';
+        }
+      }, 0);
+    });
+  });
+}
   </script>
 </body>
 </html>
