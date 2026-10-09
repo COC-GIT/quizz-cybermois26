@@ -227,21 +227,6 @@
         gap: 4px;
       }
       
-/* Intitulés français dans Exolve */
-#puzzle .exolve-across .exolve-title,
-#puzzle .exolve-down .exolve-title {
-  font-size: 0;
-}
-
-#puzzle .exolve-across .exolve-title::after {
-  content: "Horizontalement";
-  font-size: 18px;
-}
-
-#puzzle .exolve-down .exolve-title::after {
-  content: "Verticalement";
-  font-size: 18px;
-}
     }
   </style>
 </head>
@@ -332,6 +317,17 @@ exolve-down:
 6 Logiciel malveillant qui bloque ou chiffre des donnees pour reclamer une rancon. (12)
 7 Transformation de donnees pour les rendre illisibles sans la cle appropriee. (11)
 8 Technique frauduleuse visant a voler des informations en se faisant passer pour un tiers de confiance. (8)
+
+exolve-relabel:
+  across-label: Horizontalement
+  down-label: Verticalement
+  clear: Effacer
+  clear-all: Tout effacer
+  reveal: Révéler
+  reveal-all: Tout révéler
+  check: Vérifier
+  check-all: Tout vérifier
+  submit: Envoyer
 exolve-end
 `, 'puzzle');
   </script>
