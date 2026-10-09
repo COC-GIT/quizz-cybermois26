@@ -18,7 +18,6 @@
       --coc-black: #171717;
       --coc-gray: #666666;
       --coc-border: #e5e7e6;
-      --coc-background: #ffffff;
       --coc-light: #f6f8f7;
     }
 
@@ -29,13 +28,102 @@
     body {
       margin: 0;
       color: var(--coc-black);
-      background: var(--coc-background);
+      background: #fff;
       font-family: "Montserrat", Arial, sans-serif;
       font-size: 15px;
       font-weight: 300;
       line-height: 1.7;
     }
 
+    /* Écran d'accès */
+    body.access-locked {
+      overflow: hidden;
+    }
+
+    #access-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+      background: #fff;
+    }
+
+    #access-form {
+      width: 100%;
+      max-width: 430px;
+      padding: 32px;
+      border: 1px solid var(--coc-border);
+      border-top: 4px solid var(--coc-green);
+      background: #fff;
+    }
+
+    #access-form .access-label {
+      margin: 0 0 12px;
+      color: var(--coc-green-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    #access-form h1 {
+      margin: 0 0 10px;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    #access-form .access-description {
+      margin: 0 0 24px;
+      color: #555;
+    }
+
+    #access-form label {
+      display: block;
+      margin: 16px 0 5px;
+      font-weight: 700;
+    }
+
+    #access-form input {
+      display: block;
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #cfd5d1;
+      border-radius: 3px;
+      background: #fff;
+      color: var(--coc-black);
+      font: inherit;
+    }
+
+    #access-form input:focus {
+      outline: 2px solid var(--coc-green);
+      outline-offset: 1px;
+    }
+
+    #access-form button {
+      width: 100%;
+      min-height: 46px;
+      margin-top: 24px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 3px;
+      background: var(--coc-green);
+      color: var(--coc-black);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    #access-form button:hover {
+      background: #36b66e;
+    }
+
+    /* En-tête */
     .site-header {
       border-bottom: 1px solid var(--coc-border);
       background: #fff;
@@ -83,6 +171,7 @@
       letter-spacing: -0.5px;
     }
 
+    /* Contenu */
     main {
       max-width: 1160px;
       margin: 0 auto;
@@ -154,17 +243,16 @@
       font-family: inherit;
     }
 
-    /* Masquer les boutons de révélation, conserver la vérification. */
+    /* Masquer les commandes de révélation */
     #puzzle .xlv-controls button[id$="-reveal"],
     #puzzle .xlv-controls button[id$="-reveal-all"],
     #puzzle .xlv-controls button[id$="-revealcell"] {
       display: none !important;
     }
 
-    /* Résultat de la vérification */
+    /* Message de vérification */
     #message-verification {
       margin-top: 16px;
-      padding: 12px 0;
       font-size: 16px;
       font-weight: 700;
     }
@@ -181,6 +269,7 @@
       color: #c62828;
     }
 
+    /* Pied de page */
     footer {
       margin-top: 46px;
       border-top: 1px solid var(--coc-border);
@@ -209,6 +298,14 @@
     }
 
     @media (max-width: 640px) {
+      #access-form {
+        padding: 24px;
+      }
+
+      #access-form h1 {
+        font-size: 23px;
+      }
+
       .header-inner {
         min-height: auto;
         padding: 18px 20px;
@@ -255,7 +352,45 @@
   </style>
 </head>
 
-<body>
+<body class="access-locked">
+
+  <!-- Formulaire obligatoire avant l'accès au quiz -->
+  <div id="access-gate">
+    <form id="access-form">
+      <p class="access-label">Cybermois 2026 · Groupe COC</p>
+
+      <h1>Bienvenue au Cyber Quizz</h1>
+
+      <p class="access-description">
+        Pour accéder au quiz, veuillez renseigner votre prénom et votre nom.
+      </p>
+
+      <label for="prenom">Prénom</label>
+      <input
+        type="text"
+        id="prenom"
+        name="prenom"
+        autocomplete="given-name"
+        placeholder="Votre prénom"
+        maxlength="80"
+        required
+      >
+
+      <label for="nom">Nom</label>
+      <input
+        type="text"
+        id="nom"
+        name="nom"
+        autocomplete="family-name"
+        placeholder="Votre nom"
+        maxlength="80"
+        required
+      >
+
+      <button type="submit">Accéder au quiz</button>
+    </form>
+  </div>
+
   <header class="site-header">
     <div class="header-inner">
       <img
@@ -314,68 +449,44 @@
   </footer>
 
   <script>
+    // L'écran d'accès est affiché par défaut.
+    // Les deux champs sont obligatoires.
+    document.getElementById('access-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const prenom = document.getElementById('prenom').value.trim();
+      const nom = document.getElementById('nom').value.trim();
+
+      if (!prenom || !nom) {
+        return;
+      }
+
+      // Masquer l'écran d'accès et autoriser l'utilisation de la page.
+      document.getElementById('access-gate').remove();
+      document.body.classList.remove('access-locked');
+    });
+
+    // Personnalisation Exolve.
+    // Le comportement natif de ses boutons de vérification est conservé.
     function customizeExolve(p) {
       const message = document.getElementById('message-verification');
 
-      function afficherMessage(correct, tout = false) {
-        if (correct) {
-          message.textContent = tout
-            ? 'Bravo, toutes les réponses sont correctes !'
-            : 'Bravo, cette réponse est correcte !';
+      // Exolve signale les changements d'état de complétion de la grille.
+      p.frame.addEventListener('exolve', function (event) {
+        const detail = event.detail;
 
+        if (!detail) {
+          return;
+        }
+
+        if (detail.knownCorrect) {
+          message.textContent = 'Bravo, toutes les réponses sont correctes !';
           message.className = 'success';
-        } else {
-          message.textContent = tout
-            ? 'Réponse incorrecte ou incomplète : les lettres erronées ont été effacées. Réessaie !'
-            : 'Réponse incorrecte ou incomplète : les lettres erronées ont été effacées. Réessaie !';
-
+        } else if (detail.knownIncorrect) {
+          message.textContent = 'Certaines réponses sont incorrectes. Réessaie !';
           message.className = 'error';
         }
-      }
-
-      // Vérification d'une définition :
-      // comparer les lettres AVANT l'effacement natif d'Exolve.
-      p.checkButton.addEventListener('mouseup', function () {
-        const cellules = p.activeCells.slice();
-
-        const correct = cellules.length > 0 && cellules.every(function (cellule) {
-          const row = cellule[0];
-          const col = cellule[1];
-          return p.grid[row][col].currLetter === p.getSolutionActive(cellule);
-        });
-
-        setTimeout(function () {
-          afficherMessage(correct, false);
-        }, 0);
-      }, true);
-
-      // Vérification de toute la grille :
-      // utiliser le résultat réel renvoyé par Exolve.
-      const verificationOriginale = p.checkAll;
-      const confirmationOriginale = p.maybeConfirm;
-      let confirmationAcceptee = false;
-
-      p.maybeConfirm = function (texte) {
-        const resultat = confirmationOriginale.call(this, texte);
-
-        if (texte === this.textLabels['confirm-check-all']) {
-          confirmationAcceptee = resultat;
-        }
-
-        return resultat;
-      };
-
-      p.checkAll = function (conf = true, erase = true) {
-        confirmationAcceptee = !conf;
-
-        const resultat = verificationOriginale.call(this, conf, erase);
-
-        if (confirmationAcceptee) {
-          afficherMessage(resultat, true);
-        }
-
-        return resultat;
-      };
+      });
     }
 
     createExolve(`
@@ -424,5 +535,6 @@ exolve-relabel:
 exolve-end
 `, 'puzzle');
   </script>
+
 </body>
 </html>
