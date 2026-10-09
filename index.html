@@ -1,11 +1,10 @@
-
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="icon" type="image/png" href="./favicon.png">
   <title>Cyber Quizz 2026 | Groupe COC</title>
   <meta name="description" content="Participez au Cyber Quizz 2026 du Groupe COC et testez vos connaissances en cybersécurité.">
 
@@ -22,12 +21,7 @@
       --coc-background: #ffffff;
       --coc-light: #f6f8f7;
     }
-  /* Masquer les commandes de révélation Exolve */
-.xlv-controls button[id$="-reveal"],
-.xlv-controls button[id$="-reveal-all"],
-.xlv-controls button[id$="-revealcell"] {
-  display: none !important;
-}
+
     * {
       box-sizing: border-box;
     }
@@ -154,11 +148,37 @@
       overflow-x: auto;
     }
 
-    /* Ajustements visuels de la grille Exolve */
     #puzzle input,
     #puzzle button,
     #puzzle select {
       font-family: inherit;
+    }
+
+    /* Masquer les boutons de révélation, conserver la vérification. */
+    #puzzle .xlv-controls button[id$="-reveal"],
+    #puzzle .xlv-controls button[id$="-reveal-all"],
+    #puzzle .xlv-controls button[id$="-revealcell"] {
+      display: none !important;
+    }
+
+    /* Résultat de la vérification */
+    #message-verification {
+      margin-top: 16px;
+      padding: 12px 0;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    #message-verification:empty {
+      display: none;
+    }
+
+    #message-verification.success {
+      color: var(--coc-green-dark);
+    }
+
+    #message-verification.error {
+      color: #c62828;
     }
 
     footer {
@@ -231,7 +251,6 @@
         align-items: flex-start;
         gap: 4px;
       }
-      
     }
   </style>
 </head>
@@ -278,6 +297,12 @@
       </div>
 
       <div id="puzzle"></div>
+
+      <div
+        id="message-verification"
+        role="status"
+        aria-live="polite"
+      ></div>
     </section>
   </main>
 
@@ -289,6 +314,70 @@
   </footer>
 
   <script>
+    function customizeExolve(p) {
+      const message = document.getElementById('message-verification');
+
+      function afficherMessage(correct, tout = false) {
+        if (correct) {
+          message.textContent = tout
+            ? 'Bravo, toutes les réponses sont correctes !'
+            : 'Bravo, cette réponse est correcte !';
+
+          message.className = 'success';
+        } else {
+          message.textContent = tout
+            ? 'Réponse incorrecte ou incomplète : les lettres erronées ont été effacées. Réessaie !'
+            : 'Réponse incorrecte ou incomplète : les lettres erronées ont été effacées. Réessaie !';
+
+          message.className = 'error';
+        }
+      }
+
+      // Vérification d'une définition :
+      // comparer les lettres AVANT l'effacement natif d'Exolve.
+      p.checkButton.addEventListener('mouseup', function () {
+        const cellules = p.activeCells.slice();
+
+        const correct = cellules.length > 0 && cellules.every(function (cellule) {
+          const row = cellule[0];
+          const col = cellule[1];
+          return p.grid[row][col].currLetter === p.getSolutionActive(cellule);
+        });
+
+        setTimeout(function () {
+          afficherMessage(correct, false);
+        }, 0);
+      }, true);
+
+      // Vérification de toute la grille :
+      // utiliser le résultat réel renvoyé par Exolve.
+      const verificationOriginale = p.checkAll;
+      const confirmationOriginale = p.maybeConfirm;
+      let confirmationAcceptee = false;
+
+      p.maybeConfirm = function (texte) {
+        const resultat = confirmationOriginale.call(this, texte);
+
+        if (texte === this.textLabels['confirm-check-all']) {
+          confirmationAcceptee = resultat;
+        }
+
+        return resultat;
+      };
+
+      p.checkAll = function (conf = true, erase = true) {
+        confirmationAcceptee = !conf;
+
+        const resultat = verificationOriginale.call(this, conf, erase);
+
+        if (confirmationAcceptee) {
+          afficherMessage(resultat, true);
+        }
+
+        return resultat;
+      };
+    }
+
     createExolve(`
 exolve-begin
 exolve-id: CyberQuizz26
@@ -322,7 +411,6 @@ exolve-down:
 6 Logiciel malveillant qui bloque ou chiffre des donnees pour reclamer une rancon. (12)
 7 Transformation de donnees pour les rendre illisibles sans la cle appropriee. (11)
 8 Technique frauduleuse visant a voler des informations en se faisant passer pour un tiers de confiance. (8)
-
 exolve-relabel:
   across-label: Horizontalement
   down-label: Verticalement
@@ -335,29 +423,6 @@ exolve-relabel:
   submit: Envoyer
 exolve-end
 `, 'puzzle');
-    function customizeExolve(p) {
-  const message = document.getElementById('message-verification');
-
-  p.frame.querySelectorAll('button').forEach((bouton) => {
-    if (!/check/i.test(bouton.id)) return;
-
-    bouton.addEventListener('click', () => {
-      setTimeout(() => {
-        const grilleComplete =
-          p.numCellsFilled === p.numCellsToFill;
-
-        if (grilleComplete) {
-          message.textContent = 'Bravo, toutes les réponses sont correctes !';
-          message.className = 'success';
-        } else {
-          message.textContent =
-            'Réponse incorrecte ou incomplète : les lettres erronées ont été effacées. Réessaie !';
-          message.className = 'error';
-        }
-      }, 0);
-    });
-  });
-}
   </script>
 </body>
 </html>
