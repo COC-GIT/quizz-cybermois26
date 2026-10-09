@@ -1,15 +1,469 @@
+
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CyberQuizz 2026 - mots croises de cybersecurite</title>
-<link rel="stylesheet" href="./exolve-m.css">
-<style>body{font-family:Arial,Helvetica,sans-serif;max-width:1100px;margin:0 auto;padding:20px;color:#182230;background:#f5f7fa}header{margin-bottom:20px}.intro{line-height:1.5;max-width:850px}#puzzle{background:white;border:1px solid #d0d5dd;border-radius:12px;padding:16px;overflow:auto}footer{margin-top:20px;font-size:.9rem;color:#475467}</style>
-<script src="./exolve-m.js"></script></head><body>
-<header><h1>Cyber Quizz : Un défi à relever</h1><p class="intro">Une seule grille, 10 mots à decouvrir. Les définitions progressent du très facile au tres difficile. Cliquez sur une case puis saisissez les lettres au clavier. Les reponses s'ecrivent sans accents ni espaces.</p></header>
-<div id="puzzle"></div><footer>Ce quizz vous est proposé par le service informatique du groupe COC</footer>
-<script>createExolve(`
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Cyber Quizz 2026 | Groupe COC</title>
+  <meta name="theme-color" content="#101b2d">
+  <meta name="description" content="Un défi de cybersécurité proposé par le service informatique du Groupe COC.">
+
+  <link rel="stylesheet" href="./exolve-m.css">
+  <script src="./exolve-m.js"></script>
+
+  <style>
+    :root {
+      --navy: #101b2d;
+      --navy-light: #172840;
+      --blue: #2563eb;
+      --cyan: #38d9c4;
+      --text: #182538;
+      --muted: #64748b;
+      --page: #f2f5f9;
+      --border: #dce4ee;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: var(--page);
+      line-height: 1.6;
+    }
+
+    .topbar {
+      height: 6px;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(ellipse at 85% 15%, #2563eb45, transparent 38%),
+        linear-gradient(125deg, var(--navy), #152e48);
+    }
+
+    .hero-inner {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      padding: 48px 0 44px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .brand-icon {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border: 1px solid #ffffff35;
+      border-radius: 12px;
+      background: #ffffff12;
+      color: var(--cyan);
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .brand-name {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      display: block;
+      color: #b6c7db;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(34px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -1.8px;
+      line-height: 1.1;
+    }
+
+    h1 span {
+      color: var(--cyan);
+    }
+
+    .hero-description {
+      max-width: 650px;
+      margin: 18px 0 0;
+      color: #d0dbea;
+      font-size: 17px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .hero-tag {
+      padding: 7px 12px;
+      border: 1px solid #ffffff2b;
+      border-radius: 8px;
+      background: #ffffff0c;
+      color: #e8f0fa;
+      font-size: 13px;
+    }
+
+    .hero-tag strong {
+      color: var(--cyan);
+    }
+
+    main {
+      width: min(1100px, 92%);
+      margin: 32px auto 54px;
+    }
+
+    .mission {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 23px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--white);
+      box-shadow: 0 4px 15px #18253808;
+    }
+
+    .mission-icon {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border-radius: 12px;
+      background: #e3f8f5;
+      color: #087f73;
+      font-size: 23px;
+    }
+
+    .mission h2 {
+      margin: 0 0 5px;
+      font-size: 19px;
+      letter-spacing: -.3px;
+    }
+
+    .mission p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .instructions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      margin-top: 13px;
+      color: #475569;
+      font-size: 13px;
+    }
+
+    .instructions span::before {
+      content: "✓";
+      margin-right: 7px;
+      color: #0d9488;
+      font-weight: 800;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 34px 0 14px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -.6px;
+    }
+
+    .section-heading p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-label {
+      flex-shrink: 0;
+      padding: 6px 10px;
+      border-radius: 7px;
+      background: #e0f2fe;
+      color: #075985;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .puzzle-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--white);
+      box-shadow: 0 8px 28px #1825380c;
+    }
+
+    .puzzle-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 17px 22px;
+      border-bottom: 1px solid var(--border);
+      background: #fbfcfe;
+    }
+
+    .puzzle-status {
+      width: 9px;
+      height: 9px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 4px #10b98120;
+    }
+
+    .puzzle-top strong {
+      font-size: 14px;
+    }
+
+    .puzzle-top small {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    #puzzle {
+      min-width: 0;
+      padding: 22px;
+      overflow-x: auto;
+      color: #172033;
+      background: white;
+    }
+
+    #puzzle .xlv-frame {
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #puzzle button {
+      cursor: pointer;
+      border-radius: 7px;
+    }
+
+    #puzzle input,
+    #puzzle select {
+      max-width: 100%;
+    }
+
+    .bottom-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 22px;
+      padding: 17px 20px;
+      border: 1px solid #cbdff5;
+      border-radius: 12px;
+      background: #edf6ff;
+      color: #24476a;
+      font-size: 13px;
+    }
+
+    .bottom-note strong {
+      display: block;
+      margin-bottom: 2px;
+      color: #173b60;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    .footer-inner {
+      display: flex;
+      width: min(1100px, 92%);
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 0 auto;
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-inner strong {
+      color: #334155;
+    }
+
+    @media (max-width: 650px) {
+      .hero-inner {
+        padding: 32px 0;
+      }
+
+      .brand {
+        margin-bottom: 27px;
+      }
+
+      .hero-description {
+        font-size: 15px;
+      }
+
+      main {
+        width: 94%;
+        margin-top: 20px;
+      }
+
+      .mission {
+        grid-template-columns: 1fr;
+        padding: 18px;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .puzzle-top {
+        padding: 14px;
+      }
+
+      #puzzle {
+        padding: 10px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">C</div>
+        <div class="brand-name">
+          Groupe COC
+          <span class="brand-sub">Service informatique</span>
+        </div>
+      </div>
+
+      <p class="eyebrow">Sensibilisation à la cybersécurité · 2026</p>
+      <h1>Cyber Quizz <span>2026</span></h1>
+      <p class="hero-description">
+        Un défi à relever. Dix mots à découvrir.
+        Testez vos connaissances et progressez des bases
+        de la cybersécurité jusqu'aux notions les plus avancées.
+      </p>
+
+      <div class="hero-tags">
+        <div class="hero-tag"><strong>10</strong> mots à trouver</div>
+        <div class="hero-tag">Une seule grille</div>
+        <div class="hero-tag">Du débutant à l'expert</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="mission">
+      <div class="mission-icon" aria-hidden="true">⌁</div>
+      <div>
+        <h2>Votre mission</h2>
+        <p>
+          Chaque définition vous donne un indice sur un terme de cybersécurité.
+          Complétez les mots croisés et mettez vos connaissances à l'épreuve.
+        </p>
+        <div class="instructions">
+          <span>Cliquez sur une case</span>
+          <span>Saisissez les lettres au clavier</span>
+          <span>Réponses sans accents ni espaces</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-heading">
+      <div>
+        <h2>La grille de jeu</h2>
+        <p>Lisez les définitions et trouvez les mots correspondants.</p>
+      </div>
+      <div class="section-label">DÉFI CYBERSÉCURITÉ</div>
+    </div>
+
+    <section class="puzzle-card" aria-label="Mots croisés de cybersécurité">
+      <div class="puzzle-top">
+        <span class="puzzle-status" aria-hidden="true"></span>
+        <strong>Cyber Quizz · Grille principale</strong>
+        <small>Groupe COC</small>
+      </div>
+
+      <div id="puzzle"></div>
+    </section>
+
+    <aside class="bottom-note">
+      <span aria-hidden="true">ⓘ</span>
+      <div>
+        <strong>Un conseil pour réussir</strong>
+        Commencez par les définitions qui vous semblent les plus simples.
+        Les lettres déjà trouvées vous aideront à résoudre les mots les plus difficiles.
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div><strong>Groupe COC</strong> · Service informatique</div>
+      <div>Cyber Quizz 2026 · Sensibilisation aux risques numériques</div>
+    </div>
+  </footer>
+
+  <script>
+    createExolve(`
 exolve-begin
 exolve-id: CyberQuizz26
-exolve-title: CyberQuizz 2026 - mots croises de cybersecurite
+exolve-title: Cyber Quizz 2026 - mots croises de cybersecurite
 exolve-setter: Groupe COC
 exolve-width: 21
 exolve-height: 13
@@ -40,4 +494,7 @@ exolve-down:
 7 Transformation de donnees pour les rendre illisibles sans la cle appropriee. (11)
 8 Technique frauduleuse visant a voler des informations en se faisant passer pour un tiers de confiance. (8)
 exolve-end
-`, 'puzzle');</script></body></html>
+    `, 'puzzle');
+  </script>
+</body>
+</html>
