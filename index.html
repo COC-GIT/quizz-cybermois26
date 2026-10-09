@@ -22,7 +22,12 @@
       --coc-background: #ffffff;
       --coc-light: #f6f8f7;
     }
-
+  /* Masquer les commandes de révélation Exolve */
+.xlv-controls button[id$="-reveal"],
+.xlv-controls button[id$="-reveal-all"],
+.xlv-controls button[id$="-revealcell"] {
+  display: none !important;
+}
     * {
       box-sizing: border-box;
     }
