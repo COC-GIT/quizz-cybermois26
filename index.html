@@ -226,6 +226,22 @@
         align-items: flex-start;
         gap: 4px;
       }
+      
+/* Intitulés français dans Exolve */
+#puzzle .exolve-across .exolve-title,
+#puzzle .exolve-down .exolve-title {
+  font-size: 0;
+}
+
+#puzzle .exolve-across .exolve-title::after {
+  content: "Horizontalement";
+  font-size: 18px;
+}
+
+#puzzle .exolve-down .exolve-title::after {
+  content: "Verticalement";
+  font-size: 18px;
+}
     }
   </style>
 </head>
