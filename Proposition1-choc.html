@@ -907,43 +907,56 @@
     const GRILLE_VIERGE = SOLUTION.replace(/[A-Z]/g, '0');
     const TOTAL_CASES = SOLUTION.replace(/\./g, '').length;
 
-    const TEXTE_GRILLE = `
+        const TEXTE_GRILLE = `
 exolve-begin
-exolve-id: MotsCroiseCybCoc26
+exolve-id: MotsCroiseCybCoc26-V2
 exolve-title: Les mots croisés du Cybermois 2026
 exolve-setter: Groupe COC
-exolve-width: 21
-exolve-height: 13
+exolve-width: 13
+exolve-height: 12
 exolve-option: color-background:transparent
 exolve-grid:
-....Z.P...V..........
-VULNERABILITE.....R.C
-....R.R...R.X.....A.H
-....O.E...U.F.....N.I
-....D.F...S.I.....C.F
-....A.E.....L.P...O.F
-....Y.U.....T.H...N.R
-............R.I...G.E
-......MOTDEPASSE..I.M
-............T.H...C.E
-.....AUTHENTIFICATION
-............O.N...E.T
-............N.G...L..
+EXFILTRATION.
+.........D...
+SAUVEGARDE..D
+.......I.N..D
+.......B.T..O
+P.......VIRUS
+I........F...
+RANCONGICIEL.
+A........A...
+T.HAMECONNAGE
+E........T...
+.MOTDEPASSE..
 exolve-across:
-4 Faiblesse exploitable dans un systeme informatique. (13)
-9 Secret utilise pour acceder a un compte. (10)
-10 Verification de l identite d un utilisateur. (16)
+1 Difficile · Extraction non autorisée d’informations. (12)
+  Hint: En 2023, une coopérative céréalière de l'Aube a subi une cyberattaque : des pièces d'identité et des contrats ont été dérobés pour être diffusés sur le dark web. Comment appelle-t-on le fait d'extraire illicitement des données d'un système informatique ?
+3 Moyen · Copie de sécurité qui aide à restaurer les fichiers. (10)
+  Hint: Après une cyberattaque, je peux permettre de récupérer les données de pesée, les contrats et les documents de l'entreprise. Qui suis-je ?
+7 Facile · Programme malveillant qui se propage dans un ordinateur. (5)
+  Hint: Je peux infecter un ordinateur sans rendre son utilisateur malade. Qui suis-je ?
+8 Moyen · Logiciel qui prend des données en otage. (12)
+  Hint: Je peux bloquer les fichiers d'une coopérative en pleine moisson et réclamer de l'argent pour les récupérer. Qui suis-je ?
+9 Moyen · Tentative de fraude qui imite un message officiel. (11)
+  Hint: Un faux mail des impôts vous annonce un remboursement et vous demande de cliquer sur un lien. Comment appelle-t-on cette technique de fraude ?
+10 Facile · Secret utilisé pour protéger l’accès à un compte. (10)
+  Hint: Je protège vos comptes, mais si vous me partagez, je ne sers plus à grand-chose. Qui suis-je ?
 exolve-down:
-1 Faille inconnue de l editeur ou sans correctif disponible au moment de son exploitation. (7)
-2 Systeme qui filtre les communications reseau. (7)
-3 Programme malveillant pouvant infecter un ordinateur. (5)
-5 Extraction clandestine de donnees hors d un systeme. (12)
-6 Logiciel malveillant qui bloque ou chiffre des donnees pour reclamer une rancon. (12)
-7 Transformation de donnees pour les rendre illisibles sans la cle appropriee. (11)
-8 Technique frauduleuse visant a voler des informations en se faisant passer pour un tiers de confiance. (8)
+2 Moyen · Informations permettant de s’authentifier. (12)
+  Hint: Durant l'été 2026, des accès frauduleux aux systèmes des impôts ont notamment reposé sur l'usurpation de ceux d'un agent et d'un tiers autorisé. Que sont-ils ?
+4 Moyen · Document à contrôler avant de modifier un paiement. (3)
+  Hint: Un fournisseur habituel de la coopérative vous envoie une facture avec de nouvelles coordonnées bancaires. Quel document faut-il impérativement vérifier avant de payer ?
+5 Difficile · Sigle anglais d’une attaque de saturation. (4)
+  Hint: Je peux rendre inaccessible le site Internet d'une coopérative en le submergeant de demandes. Mon nom est un sigle anglais de quatre lettres. Qui suis-je ?
+6 Facile · Individu qui cherche à accéder à des données sans autorisation. (6)
+  Hint: Je ne navigue pas forcément en mer, mais je peux voler vos données. Qui suis-je ?
 exolve-relabel:
   across-label: Horizontalement
   down-label: Verticalement
+  hint: Indice
+  hint-bulb.hover: Cliquez pour voir l'indice.
+  hint-bulb-another.hover: Cliquez pour voir un autre indice.
+  hint.hover: Cliquez pour masquer les indices.
   clear: Effacer
   clear-all: Tout effacer
   reveal: Révéler
