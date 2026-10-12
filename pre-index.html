@@ -1,15 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#47c47f">
 
   <title>Cyber Quizz 2026 | Groupe COC</title>
   <meta name="description" content="Cyber Quizz 2026 du Groupe COC : testez vos connaissances en cybersécurité.">
   <link rel="icon" type="image/png" href="./favicon.png">
+
   <link rel="stylesheet" href="./exolve-m.css">
   <script src="./exolve-m.js"></script>
 
@@ -33,22 +31,10 @@
       font-size: 15px;
       font-weight: 300;
       line-height: 1.7;
-      -webkit-text-size-adjust: 100%;
     }
 
+    /* Écran d'identification */
     body.access-locked { overflow: hidden; }
-
-    button { font-family: inherit; cursor: pointer; }
-
-    button:focus-visible {
-      outline: 2px solid var(--black);
-      outline-offset: 2px;
-    }
-
-    button:disabled {
-      cursor: not-allowed;
-      opacity: 0.65;
-    }
 
     #access-gate {
       position: fixed;
@@ -115,47 +101,22 @@
       outline-offset: 1px;
     }
 
-    .access-note {
-      margin: 16px 0 0;
-      color: var(--gray);
-      font-size: 12.5px;
-      line-height: 1.5;
-    }
-
-    .access-message {
-      margin-top: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1.5;
-    }
-
-    .access-message:empty { display: none; }
-
-    .access-message.error {
-      padding: 10px 12px;
-      border-left: 3px solid #b42318;
-      background: #fff3f2;
-      color: #b42318;
-    }
-
-    .access-message.success { color: var(--green-dark); }
-
-    #access-form button,
-    #submit-result,
-    #pause-result {
-      width: 100%;
-      min-height: 46px;
-      padding: 10px 16px;
-      border-radius: 3px;
-      font-size: 15px;
-      font-weight: 700;
+    button {
+      font-family: inherit;
+      cursor: pointer;
     }
 
     #access-form button,
     #submit-result {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 16px;
       border: 0;
+      border-radius: 3px;
       background: var(--green);
       color: var(--black);
+      font-size: 15px;
+      font-weight: 700;
     }
 
     #access-form button { margin-top: 24px; }
@@ -165,19 +126,12 @@
       background: #36b66e;
     }
 
-    #pause-result {
-      display: block;
-      max-width: 360px;
-      margin-top: 12px;
-      border: 1px solid var(--green-dark);
-      background: #fff;
-      color: var(--green-dark);
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
     }
 
-    #pause-result:hover {
-      background: #edf8f1;
-    }
-
+    /* En-tête */
     .site-header {
       border-bottom: 1px solid var(--border);
       background: #fff;
@@ -225,26 +179,7 @@
       letter-spacing: -0.5px;
     }
 
-    .header-participant {
-      margin: 0 0 0 auto;
-      padding-left: 20px;
-      border-left: 1px solid var(--border);
-      color: var(--gray);
-      font-size: 13px;
-      line-height: 1.4;
-      text-align: right;
-    }
-
-    .header-participant strong {
-      display: block;
-      color: var(--black);
-      font-size: 15px;
-      font-weight: 700;
-      overflow-wrap: anywhere;
-    }
-
-    .header-participant:empty { display: none; }
-
+    /* Contenu principal */
     main {
       max-width: 1160px;
       margin: 0 auto;
@@ -263,10 +198,7 @@
       line-height: 1.4;
     }
 
-    .intro p {
-      margin: 0 0 12px;
-      color: #444;
-    }
+    .intro p { margin: 0 0 12px; color: #444; }
 
     .instructions {
       margin-top: 18px;
@@ -274,11 +206,6 @@
       border-left: 3px solid var(--green);
       color: #444;
       font-size: 14px;
-    }
-
-    .instructions ul {
-      margin: 6px 0 0;
-      padding-left: 18px;
     }
 
     .puzzle-heading {
@@ -317,6 +244,7 @@
       font-family: inherit;
     }
 
+    /* Masquer les boutons permettant de révéler les réponses */
     #puzzle .xlv-controls button[id$="-reveal"],
     #puzzle .xlv-controls button[id$="-reveal-all"],
     #puzzle .xlv-controls button[id$="-revealcell"] {
@@ -354,53 +282,7 @@
     #result-message.success { color: var(--green-dark); }
     #result-message.error { color: #b42318; }
 
-    #live-status {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 1000;
-      min-width: 190px;
-      padding: 10px 14px 12px;
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--green);
-      background: #fff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-      font-size: 13px;
-      line-height: 1.35;
-    }
-
-    #live-status.stopped { border-top-color: var(--gray); }
-
-    .live-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 14px;
-    }
-
-    .live-label { color: var(--gray); }
-
-    .live-value {
-      color: var(--black);
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-    }
-
-    #live-time { font-size: 20px; }
-
-    .live-track {
-      height: 4px;
-      margin-top: 8px;
-      background: var(--border);
-    }
-
-    #live-bar {
-      width: 0;
-      height: 100%;
-      background: var(--green);
-      transition: width 0.25s ease;
-    }
-
+    /* Pied de page */
     footer {
       margin-top: 46px;
       border-top: 1px solid var(--border);
@@ -431,7 +313,6 @@
       #access-form h1 { font-size: 23px; }
 
       .header-inner {
-        flex-wrap: wrap;
         min-height: auto;
         gap: 18px;
         padding: 18px 20px;
@@ -442,28 +323,10 @@
       .header-title { font-size: 21px; }
       .header-label { font-size: 9px; letter-spacing: 1px; }
 
-      .header-participant {
-        flex: 1 0 100%;
-        margin: 0;
-        padding: 10px 0 0;
-        border-top: 1px solid var(--border);
-        border-left: 0;
-        text-align: left;
-      }
-
       main { padding: 28px 16px 16px; }
       .intro h2 { font-size: 21px; }
       #puzzle { padding: 10px; }
       #submit-area { padding: 16px; }
-
-      #live-status {
-        right: 10px;
-        bottom: 10px;
-        min-width: 160px;
-        padding: 8px 12px 10px;
-      }
-
-      #live-time { font-size: 17px; }
 
       .footer-inner {
         flex-direction: column;
@@ -473,52 +336,95 @@
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      #live-bar { transition: none; }
+    /* Identification : retour serveur */
+    .access-message { margin-top: 16px; font-size: 14px; line-height: 1.55; }
+    .access-message:empty { display: none; }
+    .access-message.error { color: #b42318; }
+    .access-message.success { color: var(--green-dark); }
+    .access-message.info { color: #344b3c; }
+
+    /* Suivi en temps réel */
+    #quiz-tracker {
+      display: none;
+      margin: 0 0 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      background: var(--light);
+    }
+    #participant-info { font-weight: 700; margin-bottom: 12px; }
+    .tracker-items { display: flex; gap: 24px; flex-wrap: wrap; }
+    .tracker-item { min-width: 115px; }
+    .tracker-label { display: block; color: var(--gray); font-size: 12px; font-weight: 700; }
+    .tracker-value { display: block; color: var(--black); font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .tracker-bar { height: 7px; overflow: hidden; margin-top: 14px; background: #dde5df; border-radius: 8px; }
+    #live-bar { width: 0; height: 100%; background: var(--green); transition: width .2s ease; }
+    #save-status { margin-top: 9px; color: var(--gray); font-size: 12px; }
+    #save-status.error { color: #b42318; font-weight: 700; }
+    #save-status.success { color: var(--green-dark); }
+
+    .quiz-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    #pause-result, #save-result {
+      min-height: 46px;
+      padding: 10px 18px;
+      border: 1px solid #b7c9bc;
+      border-radius: 3px;
+      background: white;
+      color: #24573a;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    #pause-result:hover, #save-result:hover { background: #e9f6ed; }
+    .quiz-actions #submit-result { flex: 1 1 240px; max-width: 360px; }
+    .quiz-actions #pause-result { flex: 1 1 180px; }
+    .quiz-actions #save-result { flex: 0 1 180px; }
+    #puzzle.quiz-completed { pointer-events: none; opacity: .7; }
+    #puzzle button[id*="-reveal"], #puzzle button[id*="-check"] { display: none !important; }
+
+    @media (max-width: 640px) {
+      .quiz-actions button { width: 100%; max-width: none !important; }
+      .tracker-items { gap: 12px; }
+      .tracker-item { min-width: 90px; }
+      .tracker-value { font-size: 20px; }
     }
   </style>
 </head>
 
 <body class="access-locked">
 
-  <noscript>
-    <p style="padding:20px;margin:0;background:#fff3f2;color:#b42318;font-weight:700;">
-      JavaScript est nécessaire pour afficher et envoyer le quiz.
-      Activez-le dans votre navigateur, puis rechargez la page.
-    </p>
-  </noscript>
-
-  <div id="access-gate" role="dialog" aria-modal="true" aria-labelledby="access-title">
+  <!-- Identification obligatoire -->
+  <div id="access-gate">
     <form id="access-form">
       <p class="access-label">Cybermois 2026 · Groupe COC</p>
-      <h1 id="access-title">Bienvenue au Cyber Quizz</h1>
+      <h1>Bienvenue au Cyber Quizz</h1>
       <p class="access-description">
-        Renseignez votre prénom et votre nom pour accéder au quiz.
-        Le chronomètre démarre dès que vous cliquez sur le bouton.
+        Renseignez votre prénom et votre nom. Si vous avez déjà commencé, votre grille et votre temps seront récupérés automatiquement.
       </p>
 
       <label for="prenom">Prénom</label>
-      <input type="text" id="prenom" name="prenom"
-             autocomplete="given-name" placeholder="Votre prénom"
-             maxlength="80" required>
+      <input
+        type="text"
+        id="prenom"
+        name="prenom"
+        autocomplete="given-name"
+        placeholder="Votre prénom"
+        maxlength="80"
+        required
+      >
 
       <label for="nom">Nom</label>
-      <input type="text" id="nom" name="nom"
-             autocomplete="family-name" placeholder="Votre nom"
-             maxlength="80" required>
+      <input
+        type="text"
+        id="nom"
+        name="nom"
+        autocomplete="family-name"
+        placeholder="Votre nom"
+        maxlength="80"
+        required
+      >
 
-      <button type="submit">Accéder au quiz</button>
-
-      <div id="access-message" class="access-message"
-           role="status" aria-live="polite"></div>
-
-      <p class="access-note">
-        Votre prénom, votre nom, votre score et votre temps seront
-        enregistrés pour le classement du Cybermois.
-        Une seule participation est autorisée par prénom et nom.
-        Vous pouvez suspendre le quiz et le reprendre ultérieurement
-        depuis le même navigateur.
-      </p>
+      <button id="access-submit" type="submit">Accéder au quiz</button>
+      <div id="access-message" class="access-message" role="status" aria-live="polite"></div>
     </form>
   </div>
 
@@ -530,7 +436,6 @@
         <p class="header-label">Cybermois 2026</p>
         <h1 class="header-title">Cyber Quizz</h1>
       </div>
-      <p class="header-participant" id="participant-info"></p>
     </div>
   </header>
 
@@ -543,19 +448,28 @@
       </p>
       <div class="instructions">
         <strong>Comment jouer ?</strong>
-        <ul>
-          <li>Cliquez sur une case de la grille, puis saisissez votre réponse au clavier.</li>
-          <li>Les réponses s'écrivent sans accents, sans espaces et sans tirets.</li>
-          <li>Le chronomètre tourne pendant que vous jouez : il est affiché en bas de l'écran.</li>
-          <li>Le bouton « Continuer plus tard » sauvegarde votre session et vous redirige vers l'extranet.</li>
-          <li>Lorsque vous avez terminé, cliquez sur « Envoyer mon résultat ». Une seule participation est autorisée par prénom et nom.</li>
-        </ul>
+        Cliquez sur une case de la grille, puis saisissez votre réponse
+        au clavier. Les réponses s'écrivent sans accents ni espaces.
+        Votre score et votre temps sont enregistrés régulièrement dans Google Sheets.
+        Vous pouvez cliquer sur « Continuer plus tard » pour reprendre votre grille.
+        Lorsque vous avez terminé, cliquez sur « Envoyer mon résultat ».
       </div>
     </section>
 
     <section aria-labelledby="grille-title">
       <div class="puzzle-heading">
         <h2 id="grille-title">La grille</h2>
+      </div>
+
+      <div id="quiz-tracker" role="group" aria-label="Progression du quiz">
+        <div id="participant-info"></div>
+        <div class="tracker-items">
+          <div class="tracker-item"><span class="tracker-label">Temps écoulé</span><span id="live-time" class="tracker-value">00:00</span></div>
+          <div class="tracker-item"><span class="tracker-label">Cases remplies</span><span id="live-count" class="tracker-value">0 / 0</span></div>
+          <div class="tracker-item"><span class="tracker-label">Score actuel</span><span id="live-score" class="tracker-value">0 %</span></div>
+        </div>
+        <div class="tracker-bar"><div id="live-bar"></div></div>
+        <div id="save-status" role="status" aria-live="polite">En attente de connexion…</div>
       </div>
 
       <div id="puzzle"></div>
@@ -565,34 +479,17 @@
         <p>
           Envoyez votre grille pour enregistrer votre résultat.
           Les cases non remplies seront comptées comme incorrectes.
+          L’envoi est définitif : une seconde participation ne sera pas autorisée.
         </p>
-
-        <button id="submit-result" type="button">
-          Envoyer mon résultat
-        </button>
-
-        <button id="pause-result" type="button">
-          Continuer plus tard
-        </button>
-
+        <div class="quiz-actions">
+          <button id="save-result" type="button">Enregistrer maintenant</button>
+          <button id="pause-result" type="button">Continuer plus tard</button>
+          <button id="submit-result" type="button">Envoyer mon résultat</button>
+        </div>
         <div id="result-message" role="status" aria-live="polite"></div>
       </div>
     </section>
   </main>
-
-  <aside id="live-status" aria-label="Chronomètre et progression" hidden>
-    <div class="live-row">
-      <span class="live-label">Temps</span>
-      <span class="live-value" id="live-time">00:00</span>
-    </div>
-    <div class="live-row">
-      <span class="live-label">Cases remplies</span>
-      <span class="live-value" id="live-count">0 / 0</span>
-    </div>
-    <div class="live-track" aria-hidden="true">
-      <div id="live-bar"></div>
-    </div>
-  </aside>
 
   <footer>
     <div class="footer-inner">
@@ -602,12 +499,17 @@
   </footer>
 
   <script>
+    'use strict';
+
+    // Web App Google Apps Script actuellement utilisée par le quiz.
     const GOOGLE_SCRIPT_URL =
-      'https://script.google.com/macros/s/AKfycbw2e89j7Pr17sTEsd2M6GyiCOKohzkeYKLIsmnqONEpRdExj35rylwC2mB0gWx9xYFX/exec';
-
+      'https://script.google.com/macros/s/AKfycbzT1ra_pJXuNm5wXSHFJD6aSZgw2uiMwAFiOoJhs1SoBW4ATCt2wqI1llcaofvd0Yhr/exec';
     const URL_EXTRANET = 'https://groupecoc.sharepoint.com/';
-    const CLE_SESSION = 'cyberQuizz2026CoC';
+    const INTERVALLE_SAUVEGARDE_MS = 15000;
 
+    // Grille authentique et dix définitions de la version fournie.
+    // Le score affiché dans le navigateur est indicatif ; Google Apps Script
+    // doit recalculer le score à partir de sa propre solution.
     const SOLUTION_ROWS = [
       '....Z.P...V..........',
       'VULNERABILITE.....R.C',
@@ -623,525 +525,14 @@
       '............O.N...E.T',
       '............N.G...L..'
     ];
-
-    let prenomParticipant = '';
-    let nomParticipant = '';
-    let heureDebut = 0;
-    let tempsCumule = 0;
-    let envoiEffectue = false;
-    let verrouEnvoi = false;
-    let sessionSuspendue = false;
-    let redirectionEnCours = false;
-    let minuteur = null;
-
-    const TOTAL_CASES = SOLUTION_ROWS.join('').replace(/\./g, '').length;
-
-    const messageResultat = document.getElementById('result-message');
-    const boutonEnvoi = document.getElementById('submit-result');
-    const boutonPause = document.getElementById('pause-result');
-    const elChrono = document.getElementById('live-time');
-    const elCompteur = document.getElementById('live-count');
-    const elBarre = document.getElementById('live-bar');
-    const elStatut = document.getElementById('live-status');
-    const elParticipant = document.getElementById('participant-info');
-
-    const formulaireAcces = document.getElementById('access-form');
-    const messageAcces = document.getElementById('access-message');
-    const boutonAcces = formulaireAcces.querySelector('button[type="submit"]');
-
-    function afficherMessage(texte, type) {
-      messageResultat.textContent = texte;
-      messageResultat.className = type || '';
-    }
-
-    function nettoyerNom(valeur) {
-      return String(valeur || '').replace(/\s+/g, ' ').trim();
-    }
-
-    function formaterDuree(secondes) {
-      secondes = Math.max(0, Math.floor(secondes));
-
-      const h = Math.floor(secondes / 3600);
-      const m = Math.floor((secondes % 3600) / 60);
-      const s = secondes % 60;
-
-      const mm = String(m).padStart(2, '0');
-      const ss = String(s).padStart(2, '0');
-
-      return h > 0 ? h + ':' + mm + ':' + ss : mm + ':' + ss;
-    }
-
-    function tempsEcouleActuel() {
-      if (!heureDebut) return tempsCumule;
-
-      return tempsCumule + Math.max(
-        0,
-        Math.floor((Date.now() - heureDebut) / 1000)
-      );
-    }
-
-    function ecrireSession(suspendue = false) {
-      const session = {
-        prenom: prenomParticipant,
-        nom: nomParticipant,
-        tempsCumule: tempsEcouleActuel(),
-        suspendue: Boolean(suspendue),
-        sauvegarde: Date.now()
-      };
-
-      localStorage.setItem(CLE_SESSION, JSON.stringify(session));
-    }
-
-    function lireSession() {
-      try {
-        const brut = localStorage.getItem(CLE_SESSION);
-        if (!brut) return null;
-
-        const d = JSON.parse(brut);
-
-        if (
-          !d ||
-          typeof d.prenom !== 'string' ||
-          typeof d.nom !== 'string' ||
-          !d.prenom.trim() ||
-          !d.nom.trim() ||
-          !Number.isFinite(d.tempsCumule) ||
-          d.tempsCumule < 0
-        ) {
-          return null;
-        }
-
-        return d;
-      } catch (e) {
-        return null;
-      }
-    }
-
-    /*
-      Communication avec Google Apps Script.
-      Le serveur doit répondre en JSONP.
-    */
-    function appelerAppsScript(parametres) {
-      return new Promise(function (resolve, reject) {
-        const callback = 'cyberQuiz_' + Date.now() + '_' +
-          Math.random().toString(36).slice(2);
-
-        const script = document.createElement('script');
-        const url = new URL(GOOGLE_SCRIPT_URL);
-
-        Object.entries(parametres).forEach(function ([cle, valeur]) {
-          url.searchParams.set(cle, String(valeur));
-        });
-
-        url.searchParams.set('callback', callback);
-
-        let termine = false;
-
-        function nettoyer() {
-          delete window[callback];
-          script.remove();
-        }
-
-        const delai = setTimeout(function () {
-          if (termine) return;
-          termine = true;
-          nettoyer();
-          reject(new Error(
-            'Le serveur ne répond pas. Vérifiez votre connexion puis réessayez.'
-          ));
-        }, 20000);
-
-        window[callback] = function (resultat) {
-          if (termine) return;
-          termine = true;
-          clearTimeout(delai);
-          nettoyer();
-          resolve(resultat);
-        };
-
-        script.onerror = function () {
-          if (termine) return;
-          termine = true;
-          clearTimeout(delai);
-          nettoyer();
-          reject(new Error(
-            'Impossible de contacter le serveur. Vérifiez votre connexion puis réessayez.'
-          ));
-        };
-
-        script.src = url.toString();
-        document.head.appendChild(script);
-      });
-    }
-
-    function construireGrilleSoumise(p) {
-      let resultat = '';
-
-      for (let r = 0; r < SOLUTION_ROWS.length; r++) {
-        for (let c = 0; c < SOLUTION_ROWS[r].length; c++) {
-          if (SOLUTION_ROWS[r][c] === '.') {
-            resultat += '.';
-            continue;
-          }
-
-          const cellule = p.grid[r][c];
-          let lettre = cellule && cellule.currLetter
-            ? String(cellule.currLetter).toUpperCase()
-            : '0';
-
-          if (lettre === '0' || lettre === '?' || lettre === '.') {
-            lettre = '0';
-          }
-
-          resultat += lettre;
-        }
-      }
-
-      return resultat;
-    }
-
-    function compterCasesRemplies() {
-      if (!window.quizExolve || !window.quizExolve.grid) return 0;
-
-      try {
-        const grille = construireGrilleSoumise(window.quizExolve);
-        let n = 0;
-
-        for (let i = 0; i < grille.length; i++) {
-          if (grille[i] !== '.' && grille[i] !== '0') n++;
-        }
-
-        return n;
-      } catch (e) {
-        return 0;
-      }
-    }
-
-    function mettreAJourSuivi() {
-      if (!heureDebut || sessionSuspendue || envoiEffectue) return;
-
-      const ecoule = tempsEcouleActuel();
-      elChrono.textContent = formaterDuree(ecoule);
-
-      const remplies = compterCasesRemplies();
-      elCompteur.textContent = remplies + ' / ' + TOTAL_CASES;
-      elBarre.style.width =
-        Math.round((remplies / TOTAL_CASES) * 100) + '%';
-
-      // Sauvegarde périodique du temps et de l'identité.
-      try {
-        ecrireSession(false);
-      } catch (e) {
-        // Le message d'erreur sera affiché si la sauvegarde est demandée.
-      }
-    }
-
-    function demarrerQuiz() {
-      const porte = document.getElementById('access-gate');
-
-      if (porte) porte.remove();
-
-      document.body.classList.remove('access-locked');
-
-      elParticipant.textContent = '';
-      elParticipant.appendChild(document.createTextNode('Participant'));
-
-      const nomAffiche = document.createElement('strong');
-      nomAffiche.textContent =
-        prenomParticipant + ' ' + nomParticipant;
-
-      elParticipant.appendChild(nomAffiche);
-
-      elStatut.hidden = false;
-      elChrono.textContent = formaterDuree(tempsEcouleActuel());
-      mettreAJourSuivi();
-
-      if (!minuteur) {
-        minuteur = setInterval(mettreAJourSuivi, 1000);
-      }
-    }
-
-    /*
-      Connexion et vérification de la participation.
-    */
-    formulaireAcces.addEventListener('submit', async function (event) {
-      event.preventDefault();
-
-      if (boutonAcces.disabled) return;
-
-      const prenomSaisi = nettoyerNom(
-        document.getElementById('prenom').value
-      );
-
-      const nomSaisi = nettoyerNom(
-        document.getElementById('nom').value
-      );
-
-      if (!prenomSaisi || !nomSaisi) return;
-
-      boutonAcces.disabled = true;
-      boutonAcces.textContent = 'Vérification en cours…';
-      messageAcces.textContent = '';
-      messageAcces.className = 'access-message';
-
-      try {
-        const resultat = await appelerAppsScript({
-          action: 'check',
-          prenom: prenomSaisi,
-          nom: nomSaisi
-        });
-
-        if (!resultat.ok) {
-          throw new Error(resultat.message || 'Vérification impossible.');
-        }
-
-        if (resultat.dejaParticipe) {
-          messageAcces.textContent =
-            'Accès refusé : une participation a déjà été enregistrée avec ce prénom et ce nom. Vous ne pouvez participer qu’une seule fois.';
-          messageAcces.className = 'access-message error';
-          return;
-        }
-
-        // Une session sauvegardée est reprise uniquement si l'identité correspond.
-        const session = lireSession();
-        const identiteCorrespond =
-          session &&
-          session.prenom.toLocaleLowerCase('fr') === prenomSaisi.toLocaleLowerCase('fr') &&
-          session.nom.toLocaleLowerCase('fr') === nomSaisi.toLocaleLowerCase('fr');
-
-        prenomParticipant = prenomSaisi;
-        nomParticipant = nomSaisi;
-
-        if (identiteCorrespond) {
-          tempsCumule = session.tempsCumule;
-        } else {
-          tempsCumule = 0;
-        }
-
-        heureDebut = Date.now();
-        sessionSuspendue = false;
-        envoiEffectue = false;
-
-        ecrireSession(false);
-        demarrerQuiz();
-
-      } catch (erreur) {
-        messageAcces.textContent =
-          'Impossible de vérifier votre participation pour le moment. Aucun accès au quiz ne sera accordé tant que la vérification n’aura pas abouti. Réessayez.';
-        messageAcces.className = 'access-message error';
-
-      } finally {
-        boutonAcces.disabled = false;
-        boutonAcces.textContent = 'Accéder au quiz';
-      }
-    });
-
-    /*
-      Envoi du résultat.
-      Le temps est envoyé quel que soit le score.
-    */
-    boutonEnvoi.addEventListener('click', async function () {
-      if (envoiEffectue || verrouEnvoi || sessionSuspendue) return;
-
-      if (!prenomParticipant || !nomParticipant || !heureDebut) {
-        afficherMessage(
-          'Veuillez d’abord renseigner votre prénom et votre nom.',
-          'error'
-        );
-        return;
-      }
-
-      if (!window.quizExolve) {
-        afficherMessage(
-          'La grille n’est pas encore prête. Réessayez dans quelques secondes.',
-          'error'
-        );
-        return;
-      }
-
-      verrouEnvoi = true;
-
-      const reponse = construireGrilleSoumise(window.quizExolve);
-      const tempsEcoule = tempsEcouleActuel();
-
-      boutonEnvoi.disabled = true;
-      boutonPause.disabled = true;
-      boutonEnvoi.textContent = 'Envoi en cours…';
-
-      afficherMessage('Vérification et enregistrement du résultat…', '');
-
-      try {
-        const resultat = await appelerAppsScript({
-          action: 'submit',
-          prenom: prenomParticipant,
-          nom: nomParticipant,
-          k: reponse,
-          elapsed: tempsEcoule
-        });
-
-        if (!resultat.ok) {
-          if (resultat.dejaParticipe) {
-            envoiEffectue = true;
-            afficherMessage(resultat.message, 'error');
-            boutonEnvoi.textContent = 'Participation déjà enregistrée';
-            return;
-          }
-
-          throw new Error(resultat.message || 'Enregistrement impossible.');
-        }
-
-        envoiEffectue = true;
-        heureDebut = 0;
-        tempsCumule = tempsEcoule;
-
-        if (minuteur) {
-          clearInterval(minuteur);
-          minuteur = null;
-        }
-
-        boutonEnvoi.textContent = 'Résultat envoyé';
-        boutonPause.disabled = true;
-
-        afficherMessage(
-          (resultat.message || 'Votre résultat a été enregistré.') +
-          ' Temps : ' + formaterDuree(tempsEcoule) + '.',
-          'success'
-        );
-
-        try {
-          localStorage.removeItem(CLE_SESSION);
-        } catch (e) {}
-
-      } catch (erreur) {
-        boutonEnvoi.disabled = false;
-        boutonPause.disabled = false;
-        boutonEnvoi.textContent = 'Réessayer l’envoi';
-
-        afficherMessage(
-          erreur.message || 'Erreur lors de l’envoi. Veuillez réessayer.',
-          'error'
-        );
-
-      } finally {
-        verrouEnvoi = false;
-      }
-    });
-
-    /*
-      Suspension : sauvegarder le temps, arrêter le chronomètre,
-      puis rediriger vers l'extranet.
-    */
-    boutonPause.addEventListener('click', function () {
-      if (
-        envoiEffectue ||
-        verrouEnvoi ||
-        sessionSuspendue ||
-        !prenomParticipant ||
-        !nomParticipant ||
-        !heureDebut
-      ) {
-        return;
-      }
-
-      const confirmation = window.confirm(
-        'Suspendre votre quiz ? Votre temps écoulé sera sauvegardé et vous serez redirigé vers l’extranet du Groupe COC.'
-      );
-
-      if (!confirmation) return;
-
-      boutonPause.disabled = true;
-      boutonEnvoi.disabled = true;
-      boutonPause.textContent = 'Sauvegarde en cours…';
-
-      try {
-        // Calculer et figer le temps avant de quitter la page.
-        tempsCumule = tempsEcouleActuel();
-        heureDebut = 0;
-        sessionSuspendue = true;
-
-        if (minuteur) {
-          clearInterval(minuteur);
-          minuteur = null;
-        }
-
-        // Enregistrer avant la redirection.
-        ecrireSession(true);
-
-        redirectionEnCours = true;
-        window.location.replace(URL_EXTRANET);
-
-      } catch (erreur) {
-        sessionSuspendue = false;
-        heureDebut = Date.now();
-
-        boutonPause.disabled = false;
-        boutonEnvoi.disabled = false;
-        boutonPause.textContent = 'Continuer plus tard';
-
-        if (!minuteur) {
-          minuteur = setInterval(mettreAJourSuivi, 1000);
-        }
-
-        afficherMessage(
-          'La session n’a pas pu être sauvegardée dans le navigateur. Vérifiez les paramètres de stockage puis réessayez.',
-          'error'
-        );
-      }
-    });
-
-    /*
-      Avertissement lors d'une sortie imprévue.
-    */
-    window.addEventListener('beforeunload', function (event) {
-      if (heureDebut && !envoiEffectue && !redirectionEnCours) {
-        try {
-          ecrireSession(false);
-        } catch (e) {}
-
-        event.preventDefault();
-        event.returnValue = '';
-      }
-    });
-
-    /*
-      Personnalisation des événements Exolve.
-    */
-    function personnaliserExolve(p) {
-      if (!p || p.cocPersonnalise) return;
-      p.cocPersonnalise = true;
-
-      if (p.frame && typeof p.frame.addEventListener === 'function') {
-        p.frame.addEventListener('exolve', function (event) {
-          const detail = event.detail;
-          if (!detail || envoiEffectue) return;
-
-          if (detail.knownCorrect) {
-            afficherMessage(
-              'Bravo ! Toutes les réponses sont correctes. Vous pouvez envoyer votre résultat.',
-              'success'
-            );
-          } else if (detail.knownIncorrect) {
-            afficherMessage(
-              'La grille contient encore des erreurs. Vous pouvez corriger vos réponses ou envoyer votre résultat.',
-              'error'
-            );
-          }
-        });
-      }
-    }
-
-    function customizeExolve(p) {
-      window.quizExolve = p;
-      personnaliserExolve(p);
-    }
-
-    /*
-      Création de la grille de mots croisés.
-    */
-    const retourExolve = createExolve(`
+    const SOLUTION = SOLUTION_ROWS.join('');
+    const GRILLE_VIERGE = SOLUTION.replace(/[A-Z]/g, '0');
+    const TOTAL_CASES = SOLUTION.replace(/\./g, '').length;
+
+    const TEXTE_GRILLE = `
 exolve-begin
 exolve-id: CyberQuizz26
-exolve-title: Cyber Quizz 2026 - mots croisés de cybersécurité
+exolve-title: Cyber Quizz 2026 - mots croises de cybersecurite
 exolve-setter: Groupe COC
 exolve-width: 21
 exolve-height: 13
@@ -1160,17 +551,17 @@ VULNERABILITE.....R.C
 ............O.N...E.T
 ............N.G...L..
 exolve-across:
-4 Faiblesse exploitable dans un système informatique. (13)
-9 Secret utilisé pour accéder à un compte. (10)
-10 Vérification de l’identité d’un utilisateur. (16)
+4 Faiblesse exploitable dans un systeme informatique. (13)
+9 Secret utilise pour acceder a un compte. (10)
+10 Verification de l identite d un utilisateur. (16)
 exolve-down:
-1 Faille inconnue de l’éditeur ou sans correctif disponible au moment de son exploitation. (7)
-2 Système qui filtre les communications réseau. (7)
+1 Faille inconnue de l editeur ou sans correctif disponible au moment de son exploitation. (7)
+2 Systeme qui filtre les communications reseau. (7)
 3 Programme malveillant pouvant infecter un ordinateur. (5)
-5 Extraction clandestine de données hors d’un système. (12)
-6 Logiciel malveillant qui bloque ou chiffre des données pour réclamer une rançon. (12)
-7 Transformation de données pour les rendre illisibles sans la clé appropriée. (11)
-8 Technique frauduleuse visant à voler des informations en se faisant passer pour un tiers de confiance. (8)
+5 Extraction clandestine de donnees hors d un systeme. (12)
+6 Logiciel malveillant qui bloque ou chiffre des donnees pour reclamer une rancon. (12)
+7 Transformation de donnees pour les rendre illisibles sans la cle appropriee. (11)
+8 Technique frauduleuse visant a voler des informations en se faisant passer pour un tiers de confiance. (8)
 exolve-relabel:
   across-label: Horizontalement
   down-label: Verticalement
@@ -1182,84 +573,388 @@ exolve-relabel:
   check-all: Tout vérifier
   submit: Envoyer
 exolve-end
-`, 'puzzle');
+`;
 
-    /*
-      Récupérer l'instance Exolve.
-    */
-    if (!window.quizExolve) {
-      let instance = null;
+    const $ = id => document.getElementById(id);
+    const formulaireAcces = $('access-form');
+    const boutonAcces = $('access-submit');
+    const boutonSauvegarde = $('save-result');
+    const boutonPause = $('pause-result');
+    const boutonEnvoi = $('submit-result');
 
-      if (retourExolve && retourExolve.grid) {
-        instance = retourExolve;
-      } else if (
-        typeof exolvePuzzles !== 'undefined' &&
-        exolvePuzzles &&
-        exolvePuzzles.length
-      ) {
-        instance = exolvePuzzles[exolvePuzzles.length - 1];
-      }
+    let participant = { prenom: '', nom: '' };
+    let quizExolve = null;
+    let tempsCumule = 0;
+    let debutChrono = 0;
+    let minuterie = null;
+    let intervalleSauvegarde = null;
+    let termine = false;
+    let pauseEnCours = false;
+    let operationFinale = false;
+    let sortieAutorisee = false;
+    let sauvegardeAutoEnCours = false;
+    let derniereGrilleSauvegardee = '';
+    let derniereSauvegardeA = 0;
+    let chaineRequetes = Promise.resolve();
 
-      if (instance) customizeExolve(instance);
+    function nettoyerNom(texte) {
+      return String(texte || '').replace(/\s+/g, ' ').trim();
     }
 
-    /*
-      Reprise automatique après retour sur la page.
-      Le serveur vérifie que le participant n'a pas déjà envoyé son résultat.
-    */
-    const sessionPrecedente = lireSession();
+    function afficherMessage(texte, type = '') {
+      const el = $('result-message');
+      el.textContent = texte;
+      el.className = type;
+    }
 
-    if (sessionPrecedente) {
-      prenomParticipant = sessionPrecedente.prenom;
-      nomParticipant = sessionPrecedente.nom;
-      tempsCumule = sessionPrecedente.tempsCumule;
+    function afficherMessageAcces(texte, type = 'info') {
+      const el = $('access-message');
+      el.textContent = texte;
+      el.className = 'access-message ' + type;
+    }
 
-      document.getElementById('prenom').value = prenomParticipant;
-      document.getElementById('nom').value = nomParticipant;
+    function afficherStatut(texte, type = '') {
+      const el = $('save-status');
+      el.textContent = texte;
+      el.className = type;
+    }
+
+    function formaterDuree(valeur) {
+      const s = Math.max(0, Math.floor(Number(valeur) || 0));
+      const h = Math.floor(s / 3600);
+      const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+      const sec = String(s % 60).padStart(2, '0');
+      return h ? h + ':' + m + ':' + sec : m + ':' + sec;
+    }
+
+    function tempsEcoule() {
+      return tempsCumule + (debutChrono
+        ? Math.max(0, Math.floor((Date.now() - debutChrono) / 1000))
+        : 0);
+    }
+
+    function demarrerChrono() {
+      if (debutChrono) return;
+      debutChrono = Date.now();
+      if (minuterie) clearInterval(minuterie);
+      minuterie = setInterval(actualiserSuivi, 1000);
+      actualiserSuivi();
+    }
+
+    function figerChrono() {
+      if (debutChrono) {
+        tempsCumule = tempsEcoule();
+        debutChrono = 0;
+      }
+      if (minuterie) clearInterval(minuterie);
+      minuterie = null;
+      actualiserSuivi();
+    }
+
+    function normaliserGrille(grille) {
+      if (typeof grille !== 'string' || grille.length !== SOLUTION.length) {
+        throw new Error('Sauvegarde de grille absente ou incorrecte.');
+      }
+      let propre = '';
+      for (let i = 0; i < SOLUTION.length; i++) {
+        const caseAttendue = SOLUTION[i];
+        const valeur = grille[i].toUpperCase();
+        if (caseAttendue === '.') {
+          if (valeur !== '.') throw new Error('La grille sauvegardée est incompatible.');
+          propre += '.';
+        } else if (/^[A-Z0]$/.test(valeur)) {
+          propre += valeur;
+        } else {
+          throw new Error('La grille contient une valeur non reconnue.');
+        }
+      }
+      return propre;
+    }
+
+    function construireGrilleSoumise() {
+      if (!quizExolve || !quizExolve.grid) throw new Error('Grille indisponible.');
+      let chaine = '';
+      for (let r = 0; r < SOLUTION_ROWS.length; r++) {
+        for (let c = 0; c < SOLUTION_ROWS[r].length; c++) {
+          if (SOLUTION_ROWS[r][c] === '.') {
+            chaine += '.';
+          } else {
+            const cellule = quizExolve.grid[r][c];
+            const lettre = String(cellule && cellule.currLetter || '0').toUpperCase();
+            chaine += /^[A-Z]$/.test(lettre) ? lettre : '0';
+          }
+        }
+      }
+      return chaine;
+    }
+
+    function scoreGrille(grille) {
+      let correctes = 0, remplies = 0;
+      for (let i = 0; i < SOLUTION.length; i++) {
+        if (SOLUTION[i] === '.') continue;
+        if (grille[i] !== '0') remplies++;
+        if (grille[i] === SOLUTION[i]) correctes++;
+      }
+      return { remplies, score: Math.round(correctes * 100 / TOTAL_CASES) };
+    }
+
+    function actualiserSuivi() {
+      $('live-time').textContent = formaterDuree(tempsEcoule());
+      if (!quizExolve) return;
+      const progression = scoreGrille(construireGrilleSoumise());
+      $('live-count').textContent = progression.remplies + ' / ' + TOTAL_CASES;
+      $('live-score').textContent = progression.score + ' %';
+      $('live-bar').style.width = (progression.remplies * 100 / TOTAL_CASES) + '%';
+    }
+
+    /**
+     * Communication JSONP : requiert que Code.gs renvoie
+     * callback({ok:true,...}) pour les actions open/save/submit.
+     */
+    function appelerAppsScript(parametres) {
+      return new Promise((resolve, reject) => {
+        const callback = 'cyberQuiz_' + Date.now() + '_' +
+          Math.random().toString(36).slice(2);
+        const script = document.createElement('script');
+        const url = new URL(GOOGLE_SCRIPT_URL);
+        const timeout = setTimeout(() => terminerErreur(
+          new Error('Le serveur Google Sheets ne répond pas (20 secondes).')
+        ), 20000);
+        let acheve = false;
+
+        function nettoyer() {
+          clearTimeout(timeout);
+          delete window[callback];
+          script.remove();
+        }
+        function terminerErreur(erreur) {
+          if (acheve) return;
+          acheve = true;
+          nettoyer();
+          reject(erreur);
+        }
+        window[callback] = resultat => {
+          if (acheve) return;
+          acheve = true;
+          nettoyer();
+          if (resultat && resultat.ok) resolve(resultat);
+          else reject(new Error((resultat && resultat.message) || 'Requête refusée par le serveur.'));
+        };
+        script.onerror = () => terminerErreur(
+          new Error('Impossible de contacter Google Apps Script.')
+        );
+        for (const [cle, valeur] of Object.entries(parametres)) {
+          url.searchParams.set(cle, String(valeur));
+        }
+        url.searchParams.set('callback', callback);
+        script.src = url.toString();
+        document.head.appendChild(script);
+      });
+    }
+
+    /** Sérialise tous les envois : aucune sauvegarde tardive n'écrase la finale. */
+    function mettreEnFile(tache) {
+      const promesse = chaineRequetes.catch(() => {}).then(tache);
+      chaineRequetes = promesse.catch(() => {});
+      return promesse;
+    }
+
+    function paramsIdentite() {
+      return { prenom: participant.prenom, nom: participant.nom };
+    }
+
+    /** parseState appelle setCellLetter : les lettres réapparaissent dans le SVG Exolve. */
+    function restaurerLettres(grille) {
+      const etat = normaliserGrille(grille);
+      if (typeof quizExolve.parseState !== 'function' ||
+          typeof quizExolve.resetState !== 'function') {
+        throw new Error('Version Exolve incompatible avec la reprise.');
+      }
+      quizExolve.resetState();
+      if (!quizExolve.parseState(etat)) {
+        throw new Error('Impossible de rétablir la grille dans Exolve.');
+      }
+      if (typeof quizExolve.updateAndSaveState === 'function') {
+        quizExolve.updateAndSaveState(false);
+      }
+      derniereGrilleSauvegardee = etat;
+    }
+
+    function personnaliserExolve(p) {
+      if (!p || !p.frame) return;
+      p.frame.addEventListener('exolve', event => {
+        if (termine || pauseEnCours) return;
+        if (event.detail && event.detail.knownCorrect) {
+          afficherMessage('Bravo, toutes les réponses sont correctes ! Vous pouvez envoyer votre résultat.', 'success');
+        } else if (event.detail && event.detail.knownIncorrect) {
+          afficherMessage('La grille est complète, mais comporte encore des erreurs.', 'error');
+        }
+      });
+    }
+
+    function demarrerJeu(grilleServeur, tempsServeur, reprise) {
+      $('quiz-tracker').style.display = 'block';
+      $('participant-info').textContent = participant.prenom + ' ' + participant.nom;
+      if (typeof createExolve !== 'function') {
+        throw new Error('Le fichier exolve-m.js est introuvable ou n’a pas été chargé.');
+      }
+      if (!quizExolve) {
+        // On conserve les dix définitions et la disposition d'origine.
+        quizExolve = createExolve(TEXTE_GRILLE, 'puzzle');
+        window.quizExolve = quizExolve;
+        personnaliserExolve(quizExolve);
+      }
+      restaurerLettres(grilleServeur || GRILLE_VIERGE);
+      tempsCumule = Math.max(0, Number(tempsServeur) || 0);
+      $('access-gate').remove();
+      document.body.classList.remove('access-locked');
+      afficherStatut(reprise ? 'Ancienne partie retrouvée : grille et temps restaurés.' :
+        'Nouvelle participation enregistrée dans Google Sheets.', 'success');
+      demarrerChrono();
+      intervalleSauvegarde = setInterval(sauvegardeAutomatique, INTERVALLE_SAUVEGARDE_MS);
+    }
+
+    formulaireAcces.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (boutonAcces.disabled) return;
+      const prenom = nettoyerNom($('prenom').value);
+      const nom = nettoyerNom($('nom').value);
+      if (!prenom || !nom) return;
 
       boutonAcces.disabled = true;
-      boutonAcces.textContent = 'Vérification en cours…';
-
-      appelerAppsScript({
-        action: 'check',
-        prenom: prenomParticipant,
-        nom: nomParticipant
-      }).then(function (resultat) {
-        if (!resultat.ok) {
-          throw new Error(
-            resultat.message || 'Vérification impossible.'
-          );
+      boutonAcces.textContent = 'Connexion et enregistrement…';
+      afficherMessageAcces('Connexion à Google Sheets…', 'info');
+      try {
+        const resultat = await appelerAppsScript({ action: 'open', prenom, nom });
+        if (resultat.status === 'Terminé' || resultat.dejaParticipe) {
+          throw new Error('Une participation a déjà été terminée avec ce nom.');
         }
-
-        if (resultat.dejaParticipe) {
-          localStorage.removeItem(CLE_SESSION);
-
-          messageAcces.textContent =
-            'Accès refusé : une participation a déjà été enregistrée avec ce prénom et ce nom.';
-          messageAcces.className = 'access-message error';
-          return;
-        }
-
-        // Reprendre le temps cumulé, sans compter le temps passé sur SharePoint.
-        heureDebut = Date.now();
-        sessionSuspendue = false;
-
-        ecrireSession(false);
-        demarrerQuiz();
-
-      }).catch(function () {
-        messageAcces.textContent =
-          'Impossible de vérifier votre participation. Rechargez la page et réessayez.';
-        messageAcces.className = 'access-message error';
-
-      }).finally(function () {
+        participant = { prenom, nom };
+        // La sauvegarde serveur fait autorité : pas de mélange avec une
+        // ancienne grille d'un autre utilisateur sur le même navigateur.
+        demarrerJeu(resultat.grid || GRILLE_VIERGE, resultat.elapsed || 0,
+          Boolean(resultat.resumed));
+      } catch (erreur) {
+        afficherMessageAcces(erreur.message || 'Connexion impossible.', 'error');
+      } finally {
         boutonAcces.disabled = false;
         boutonAcces.textContent = 'Accéder au quiz';
-      });
+      }
+    });
 
-    } else {
-      document.getElementById('prenom').focus();
+    /** Sauvegarde régulière du score, du temps et des réponses. */
+    function sauvegarderProgression(afficherConfirmation = false) {
+      return mettreEnFile(async () => {
+        if (termine) throw new Error('La participation est déjà terminée.');
+        const grille = construireGrilleSoumise();
+        const ecoule = tempsEcoule();
+        const resultat = await appelerAppsScript({
+          action: 'save', ...paramsIdentite(), k: grille, elapsed: ecoule
+        });
+        derniereGrilleSauvegardee = grille;
+        derniereSauvegardeA = Date.now();
+        const h = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        afficherStatut('Enregistré dans Google Sheets à ' + h + ' · Score : ' +
+          (typeof resultat.score === 'number' ? resultat.score : scoreGrille(grille).score) + ' %', 'success');
+        if (afficherConfirmation) afficherMessage('Progression enregistrée.', 'success');
+        return resultat;
+      });
     }
+
+    async function sauvegardeAutomatique() {
+      if (!quizExolve || !debutChrono || operationFinale || sauvegardeAutoEnCours || termine) return;
+      sauvegardeAutoEnCours = true;
+      try {
+        await sauvegarderProgression(false);
+      } catch (erreur) {
+        afficherStatut('Sauvegarde automatique impossible : ' + erreur.message, 'error');
+      } finally {
+        sauvegardeAutoEnCours = false;
+      }
+    }
+
+    function bloquerBoutons(actif) {
+      boutonSauvegarde.disabled = actif;
+      boutonPause.disabled = actif;
+      boutonEnvoi.disabled = actif;
+    }
+
+    boutonSauvegarde.addEventListener('click', async () => {
+      if (operationFinale || termine) return;
+      boutonSauvegarde.disabled = true;
+      afficherStatut('Sauvegarde en cours…');
+      try {
+        await sauvegarderProgression(true);
+      } catch (erreur) {
+        afficherMessage('Échec de sauvegarde : ' + erreur.message, 'error');
+        afficherStatut('Sauvegarde non confirmée.', 'error');
+      } finally {
+        boutonSauvegarde.disabled = false;
+      }
+    });
+
+    boutonPause.addEventListener('click', async () => {
+      if (!quizExolve || termine || operationFinale) return;
+      if (!confirm('Enregistrer votre progression et revenir sur l’extranet du Groupe COC ?')) return;
+      operationFinale = true;
+      pauseEnCours = true;
+      bloquerBoutons(true);
+      figerChrono();
+      afficherStatut('Enregistrement de votre progression avant redirection…');
+      try {
+        await sauvegarderProgression(false);
+        sortieAutorisee = true;
+        window.location.assign(URL_EXTRANET);
+      } catch (erreur) {
+        operationFinale = false;
+        pauseEnCours = false;
+        bloquerBoutons(false);
+        demarrerChrono();
+        afficherStatut('Sauvegarde non confirmée. Vous restez dans le quiz.', 'error');
+        afficherMessage('Impossible de continuer plus tard : ' + erreur.message, 'error');
+      }
+    });
+
+    boutonEnvoi.addEventListener('click', async () => {
+      if (!quizExolve || termine || operationFinale) return;
+      if (!confirm('Envoyer définitivement votre résultat ? Vous ne pourrez plus participer avec ce nom.')) return;
+      operationFinale = true;
+      bloquerBoutons(true);
+      figerChrono();
+      afficherStatut('Envoi du résultat définitif…');
+      boutonEnvoi.textContent = 'Enregistrement…';
+      try {
+        const resultat = await mettreEnFile(() => appelerAppsScript({
+          action: 'submit', ...paramsIdentite(),
+          k: construireGrilleSoumise(), elapsed: tempsEcoule()
+        }));
+        termine = true;
+        if (intervalleSauvegarde) clearInterval(intervalleSauvegarde);
+        intervalleSauvegarde = null;
+        boutonEnvoi.textContent = 'Résultat enregistré';
+        $('puzzle').classList.add('quiz-completed');
+        afficherStatut('Participation terminée et enregistrée.', 'success');
+        afficherMessage(
+          'Votre résultat a été enregistré : ' + resultat.score + ' % en ' +
+          formaterDuree(tempsEcoule()) + '. Merci pour votre participation !',
+          'success'
+        );
+      } catch (erreur) {
+        operationFinale = false;
+        bloquerBoutons(false);
+        boutonEnvoi.textContent = 'Réessayer l’envoi';
+        demarrerChrono();
+        afficherStatut('L’envoi du résultat n’a pas été confirmé.', 'error');
+        afficherMessage('Résultat non confirmé : ' + erreur.message, 'error');
+      }
+    });
+
+    window.addEventListener('beforeunload', event => {
+      if (quizExolve && !termine && !sortieAutorisee) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    });
   </script>
 
 </body>
