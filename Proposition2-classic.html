@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Les mots croisés du Cybermois 2026 | Groupe COC</title>
+  <meta name="description" content="Les mots croisés du Cybermois 2026">
+  <link rel="icon" type="image/png" href="./favicon.png">
+
+  <link rel="stylesheet" href="./exolve-m.css">
+  <script src="./exolve-m.js"></script>
+
+  <style>
+    :root {
+      --green: #47c47f;
+      --green-dark: #238653;
+      --black: #171717;
+      --gray: #666;
+      --border: #e5e7e6;
+      --light: #f6f8f7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--black);
+      background: #fff;
+      font-family: Montserrat, Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* Écran d'identification */
+    body.access-locked { overflow: hidden; }
+
+    #access-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+      background: #fff;
+    }
+
+    #access-form {
+      width: 100%;
+      max-width: 430px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--green);
+      background: #fff;
+    }
+
+    .access-label {
+      margin: 0 0 12px;
+      color: var(--green-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    #access-form h1 {
+      margin: 0 0 10px;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .access-description {
+      margin: 0 0 24px;
+      color: #555;
+    }
+
+    #access-form label {
+      display: block;
+      margin: 16px 0 5px;
+      font-weight: 700;
+    }
+
+    #access-form input {
+      display: block;
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #cfd5d1;
+      border-radius: 3px;
+      background: #fff;
+      color: var(--black);
+      font: inherit;
+    }
+
+    #access-form input:focus {
+      outline: 2px solid var(--green);
+      outline-offset: 1px;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    #access-form button,
+    #submit-result {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 3px;
+      background: var(--green);
+      color: var(--black);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    #access-form button { margin-top: 24px; }
+
+    #access-form button:hover,
+    #submit-result:hover {
+      background: #36b66e;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    /* En-tête */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      max-width: 1160px;
+      min-height: 112px;
+      margin: 0 auto;
+      padding: 22px 28px;
+    }
+
+    .logo {
+      display: block;
+      width: 155px;
+      max-height: 72px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .header-divider {
+      width: 3px;
+      height: 56px;
+      flex: 0 0 3px;
+      background: var(--green);
+    }
+
+    .header-label {
+      margin: 0 0 3px;
+      color: var(--green-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .header-title {
+      margin: 0;
+      font-size: 27px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+    }
+
+    /* Contenu principal */
+    main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 38px 28px 20px;
+    }
+
+    .intro {
+      max-width: 780px;
+      margin-bottom: 32px;
+    }
+
+    .intro h2 {
+      margin: 0 0 12px;
+      font-size: 23px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .intro p { margin: 0 0 12px; color: #444; }
+
+    .instructions {
+      margin-top: 18px;
+      padding-left: 15px;
+      border-left: 3px solid var(--green);
+      color: #444;
+      font-size: 14px;
+    }
+
+    .puzzle-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 34px 0 16px;
+    }
+
+    .puzzle-heading::before {
+      content: "";
+      display: block;
+      width: 24px;
+      height: 3px;
+      flex: 0 0 24px;
+      background: var(--green);
+    }
+
+    .puzzle-heading h2 {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    #puzzle {
+      min-width: 0;
+      padding: 20px;
+      border: 1px solid var(--border);
+      background: #fff;
+      overflow-x: auto;
+    }
+
+    #puzzle input,
+    #puzzle button,
+    #puzzle select {
+      font-family: inherit;
+    }
+
+    /* Masquer les boutons permettant de révéler les réponses */
+    #puzzle .xlv-controls button[id$="-reveal"],
+    #puzzle .xlv-controls button[id$="-reveal-all"],
+    #puzzle .xlv-controls button[id$="-revealcell"] {
+      display: none !important;
+    }
+
+    #submit-area {
+      margin-top: 22px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      background: var(--light);
+    }
+
+    #submit-area h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    #submit-area p {
+      margin: 0 0 16px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    #submit-result { max-width: 360px; }
+
+    #result-message {
+      margin-top: 12px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    #result-message:empty { display: none; }
+    #result-message.success { color: var(--green-dark); }
+    #result-message.error { color: #b42318; }
+
+    /* Pied de page */
+    footer {
+      margin-top: 46px;
+      border-top: 1px solid var(--border);
+      background: var(--light);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 20px 28px;
+      color: var(--gray);
+      font-size: 12px;
+    }
+
+    .footer-inner p { margin: 0; }
+
+    .footer-mark {
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+
+    @media (max-width: 640px) {
+      #access-form { padding: 24px; }
+      #access-form h1 { font-size: 23px; }
+
+      .header-inner {
+        min-height: auto;
+        gap: 18px;
+        padding: 18px 20px;
+      }
+
+      .logo { width: 105px; max-height: 58px; }
+      .header-divider { height: 48px; }
+      .header-title { font-size: 21px; }
+      .header-label { font-size: 9px; letter-spacing: 1px; }
+
+      main { padding: 28px 16px 16px; }
+      .intro h2 { font-size: 21px; }
+      #puzzle { padding: 10px; }
+      #submit-area { padding: 16px; }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 18px 20px;
+      }
+    }
+
+    /* Identification : retour serveur */
+    .access-message { margin-top: 16px; font-size: 14px; line-height: 1.55; }
+    .access-message:empty { display: none; }
+    .access-message.error { color: #b42318; }
+    .access-message.success { color: var(--green-dark); }
+    .access-message.info { color: #344b3c; }
+
+    /* Suivi en temps réel */
+    #quiz-tracker {
+      display: none;
+      margin: 0 0 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      background: var(--light);
+    }
+    #participant-info { font-weight: 700; margin-bottom: 12px; }
+    .tracker-items { display: flex; gap: 24px; flex-wrap: wrap; }
+    .tracker-item { min-width: 115px; }
+    .tracker-label { display: block; color: var(--gray); font-size: 12px; font-weight: 700; }
+    .tracker-value { display: block; color: var(--black); font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .tracker-bar { height: 7px; overflow: hidden; margin-top: 14px; background: #dde5df; border-radius: 8px; }
+    #live-bar { width: 0; height: 100%; background: var(--green); transition: width .2s ease; }
+    #save-status { margin-top: 9px; color: var(--gray); font-size: 12px; }
+    #save-status.error { color: #b42318; font-weight: 700; }
+    #save-status.success { color: var(--green-dark); }
+
+    .quiz-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    #pause-result {
+      min-height: 46px;
+      padding: 10px 18px;
+      border: 1px solid #b7c9bc;
+      border-radius: 3px;
+      background: white;
+      color: #24573a;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    #pause-result:hover { background: #e9f6ed; }
+    .quiz-actions #submit-result { flex: 1 1 240px; max-width: 360px; }
+    .quiz-actions #pause-result { flex: 1 1 180px; }
+    #puzzle.quiz-completed { pointer-events: none; opacity: .7; }
+    #puzzle button[id*="-reveal"], #puzzle button[id*="-check"] { display: none !important; }
+
+    @media (max-width: 640px) {
+      .quiz-actions button { width: 100%; max-width: none !important; }
+      .tracker-items { gap: 12px; }
+      .tracker-item { min-width: 90px; }
+      .tracker-value { font-size: 20px; }
+    }
+
+    /* Arrière-plan Cybermois : image à la racine du dépôt GitHub. */
+    body {
+      background-color: #edf4ef;
+      background-image:
+        linear-gradient(180deg, rgba(245, 250, 246, .68), rgba(245, 250, 246, .82)),
+        url('./bg_login.jpg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    /* L'écran de connexion affiche le même visuel sans l'étirer. */
+    #access-gate {
+      background-color: #edf4ef;
+      background-image:
+        linear-gradient(125deg, rgba(20, 39, 29, .28), rgba(20, 39, 29, .09)),
+        url('./bg_login.jpg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    #access-form {
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 20px 55px rgba(17, 39, 25, .20);
+      border-radius: 7px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* Panneaux discrets pour garder les contenus lisibles sur la photo. */
+    .site-header {
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .intro {
+      max-width: 825px;
+      padding: 24px 28px;
+      background: rgba(255, 255, 255, .93);
+      border: 1px solid rgba(225, 234, 228, .9);
+      border-radius: 7px;
+      box-shadow: 0 5px 24px rgba(15, 35, 23, .09);
+    }
+
+    .puzzle-heading {
+      width: fit-content;
+      max-width: 100%;
+      padding: 9px 18px;
+      background: rgba(255, 255, 255, .94);
+      border-radius: 6px;
+    }
+
+    #puzzle, #quiz-tracker, #submit-area {
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 5px 22px rgba(15, 35, 23, .08);
+    }
+
+    footer { background: rgba(255, 255, 255, .96); }
+
+    @media (max-width: 640px) {
+      body { background-attachment: scroll; }
+      .intro { padding: 18px; }
+    }
+
+    /* Le fond de la photo reste visible entre les cases jouables d’Exolve. */
+    #puzzle {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+
+    /* ==========================================================
+       COC ÉDITION — Design clair, sobre et institutionnel
+       Habillage uniquement : aucune modification du moteur Exolve
+       ========================================================== */
+    :root {
+      --coc-green: #47c47f;
+      --coc-forest: #1e5136;
+      --coc-ink: #193326;
+      --coc-muted: #667a6e;
+      --coc-paper: #ffffff;
+    }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.6;
+      background-color: #f1f6f1;
+      background-image:
+        linear-gradient(180deg, rgba(245,250,246,.82), rgba(244,249,245,.93)),
+        url('./bg_login.jpg');
+      background-position: center top;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--coc-ink);
+    }
+    .site-header {
+      background: rgba(255,255,255,.97);
+      border-bottom: 1px solid #e1ece4;
+      box-shadow: 0 3px 18px rgba(24,74,43,.045);
+      backdrop-filter: blur(10px);
+    }
+    .site-header::before {
+      content: "";
+      display: block;
+      height: 4px;
+      background: linear-gradient(90deg, #47c47f 0%, #238653 58%, #b0e7c0 100%);
+    }
+    .header-inner {
+      min-height: 104px;
+      max-width: 1160px;
+      padding: 21px 27px;
+      gap: 26px;
+    }
+    .header-inner .logo { width: 152px; max-height: 65px; }
+    .header-divider { width: 1px; flex-basis: 1px; height: 49px; background: #d4e5d9; }
+    .header-copy { min-width: 0; }
+    .header-label { font-size: 10px; letter-spacing: 1.6px; color: #298754; margin-bottom: 6px; font-weight: 800; }
+    .header-bullet { color: #8bb99b; padding: 0 5px; }
+    .header-title { font-size: clamp(18px,2.4vw,25px); font-weight: 800; letter-spacing: -.7px; line-height: 1.3; color: #193326; }
+    .edition-pill {
+      margin-left: auto;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #277f4b;
+      background: #eaf7ef;
+      border: 1px solid #d6ebdd;
+      padding: 9px 14px;
+      border-radius: 99px;
+      font-size: 10px;
+      letter-spacing: .9px;
+      font-weight: 850;
+    }
+    .edition-dot { width: 7px; height: 7px; background: #47c47f; border-radius: 50%; }
+    main { max-width: 1140px; padding: 37px 25px 28px; }
+
+    /* Carte d'introduction : épurée, vert COC, avec motif mots croisés */
+    .intro {
+      max-width: none;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 225px;
+      position: relative;
+      overflow: hidden;
+      gap: 20px 31px;
+      margin: 0 0 35px;
+      padding: 37px 42px 27px;
+      border-radius: 18px;
+      border: 1px solid rgba(215,230,219,.95);
+      border-top: 4px solid #47c47f;
+      background: rgba(255,255,255,.97);
+      box-shadow: 0 19px 55px rgba(34,83,53,.09);
+    }
+    .intro-content { min-width: 0; }
+    .hero-eyebrow {
+      margin: 0 0 20px !important;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: #318a57 !important;
+      letter-spacing: 1.8px;
+      font-weight: 800;
+      font-size: 10px;
+    }
+    .hero-eyebrow-icon { font-size: 16px; color: #45c17b; }
+    .intro h2 {
+      margin: 0 0 19px;
+      color: #173b29;
+      font-size: clamp(31px, 4.15vw, 49px);
+      font-weight: 800;
+      line-height: 1.16;
+      letter-spacing: -1.8px;
+    }
+    .intro h2 em { color: #32a363; font-style: normal; }
+    .intro .hero-subtitle {
+      color: #566e5f;
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 0 22px;
+    }
+    .hero-facts { display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-facts span {
+      padding: 8px 13px;
+      background: #f1f8f3;
+      border: 1px solid #e0efe4;
+      border-radius: 7px;
+      color: #54725e;
+      font-size: 12px;
+    }
+    .hero-facts strong { color: #26804a; font-weight: 850; margin-right: 4px; }
+    .hero-art {
+      position: relative;
+      align-self: stretch;
+      min-height: 240px;
+      background: radial-gradient(ellipse at 70% 40%, #c7ecd4 0, #e9f6ed 48%, #f6fbf7 84%);
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .hero-art::before {
+      content: "";
+      position: absolute;
+      width: 310px;
+      height: 310px;
+      border: 1px solid rgba(47,153,87,.12);
+      border-radius: 50%;
+      transform: translate(35px,-35px);
+    }
+    .hero-art-mark {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      color: rgba(27,125,70,.19);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+    .hero-art-mark span { color: rgba(27,125,70,.35); }
+    .hero-art-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 27px);
+      gap: 4px;
+      transform: rotate(-8deg) translate(-2px,13px);
+      filter: drop-shadow(0 15px 16px rgba(17,91,42,.12));
+    }
+    .hero-art-grid i {
+      width: 27px;
+      height: 27px;
+      border: 1px solid rgba(40,127,72,.23);
+      border-radius: 2px;
+      background: #fff;
+    }
+    .hero-art-grid i.filled { background: #47c47f; border-color: #32a765; }
+    .intro .instructions {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 14px;
+      align-items: start;
+      padding: 17px 20px;
+      margin: 9px 0 0;
+      color: #466c50;
+      background: #f0f8f2;
+      border: 1px solid #dceee1;
+      border-left: 3px solid #47c47f;
+      border-radius: 9px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .instructions-icon {
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #d9efdf;
+      flex: 0 0 24px;
+      color: #207b43;
+      font-weight: 900;
+      font-style: italic;
+      font-family: Georgia, serif;
+    }
+    .instructions strong { display: block; color: #215839; margin-bottom: 3px; font-weight: 800; }
+    .instructions p { margin: 0; color: #5c7161; }
+
+    /* Titre de la zone de jeu */
+    .puzzle-heading {
+      width: 100%; max-width: none;
+      padding: 2px 0 14px;
+      margin: 0 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      background: transparent;
+      border-bottom: 1px solid #dce8df;
+      border-radius: 0;
+    }
+    .puzzle-heading::before { display: none; }
+    .section-heading-copy { display: grid; gap: 2px; }
+    .section-kicker { font-size: 10px; font-weight: 800; letter-spacing: 1.7px; color: #32965c; }
+    .puzzle-heading h2 { margin: 0; font-size: 27px; font-weight: 800; color: #173b29; letter-spacing: -.7px; }
+    .section-note { font-size: 12px; color: #668071; padding-bottom: 5px; }
+
+    /* Tableau de bord clair, numéros lisibles */
+    #quiz-tracker {
+      margin: 0 0 21px;
+      padding: 21px 24px 17px;
+      border: 1px solid #dce9df;
+      border-left: 4px solid #47c47f;
+      border-radius: 13px;
+      background: rgba(255,255,255,.97);
+      box-shadow: 0 8px 28px rgba(27,81,43,.08);
+    }
+    #participant-info { font-size: 14px; color: #25543a; font-weight: 800; margin-bottom: 16px; }
+    #participant-info::before {
+      content: "PARTICIPANT";
+      font-size: 10px;
+      letter-spacing: 1.2px;
+      font-weight: 850;
+      color: #659171;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .tracker-items { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+    .tracker-item {
+      position: relative;
+      min-width: 0;
+      padding: 16px 15px 14px 53px;
+      border: 1px solid #e4efe7;
+      border-radius: 10px;
+      background: #f7fbf8;
+    }
+    .tracker-symbol {
+      position: absolute;
+      left: 17px;
+      top: 15px;
+      color: #399963;
+      font-size: 21px;
+      line-height: 1.4;
+    }
+    .tracker-label { color: #668273; font-size: 11px; letter-spacing: .3px; }
+    .tracker-value { color: #1b5033; font-size: clamp(22px,2.3vw,29px); font-weight: 850; letter-spacing: -.6px; line-height: 1.4; }
+    #live-score { color: #238653; }
+    .tracker-bar { height: 7px; background: #e1ede4; border-radius: 99px; margin-top: 17px; }
+    #live-bar { background: linear-gradient(90deg, #39b76d, #7cdda0); border-radius: 99px; }
+    #save-status { color: #6c8774; font-size: 11px; }
+    #save-status.success { color: #2b8551; }
+    #save-status.error { color: #af2f26; }
+
+    /* Les cases SVG Exolve restent inchangées. */
+    #puzzle {
+      padding: 6px 1px 21px;
+      border: none;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    /* Fin de partie, boutons contrastés mais discrets */
+    #submit-area {
+      margin-top: 25px;
+      padding: 28px 32px;
+      background: rgba(255,255,255,.97);
+      border: 1px solid #dbe9de;
+      border-radius: 13px;
+      border-top: 3px solid #47c47f;
+      box-shadow: 0 13px 35px rgba(28,78,41,.08);
+    }
+    .finish-label {
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 1.5px;
+      color: #328f58;
+    }
+    #submit-area h3 { margin: 4px 0 9px; font-size: 23px; color: #193b28; font-weight: 800; letter-spacing: -.5px; }
+    #submit-area > p { max-width: 760px; color: #617368; line-height: 1.65; }
+    .quiz-actions { gap: 14px; }
+    #pause-result {
+      min-height: 51px;
+      padding: 12px 18px;
+      border: 1px solid #bfdcc8;
+      border-radius: 8px;
+      color: #2c7448;
+      background: #fff;
+      font-weight: 750;
+      transition: transform .15s, background .15s;
+    }
+    #pause-result span { margin-left: 8px; }
+    #pause-result:hover { background: #eff8f2; transform: translateY(-1px); }
+    .quiz-actions #submit-result {
+      min-height: 51px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      background: linear-gradient(100deg,#269b58,#39b76b);
+      font-weight: 800;
+      box-shadow: 0 7px 19px rgba(41,157,83,.16);
+      transition: transform .15s, filter .15s;
+    }
+    #submit-result span { margin-left: 12px; }
+    .quiz-actions #submit-result:hover { background: linear-gradient(100deg,#238c50,#2ba861); filter: brightness(1.04); transform: translateY(-1px); }
+    #result-message.success { color: #298253; }
+    #result-message.error { color: #b42318; }
+
+    /* Identification : carte lumineuse au-dessus de bg_login.jpg */
+    #access-gate {
+      background-color: #e6f1e9;
+      background-image: linear-gradient(110deg,rgba(246,251,247,.80),rgba(216,236,223,.44)),url('./bg_login.jpg');
+    }
+    #access-form {
+      max-width: 475px;
+      padding: 40px 38px 36px;
+      border: 1px solid #e1eee4;
+      border-top: 5px solid #47c47f;
+      border-radius: 15px;
+      background: rgba(255,255,255,.97);
+      box-shadow: 0 24px 70px rgba(17,66,38,.20);
+      color: #244a32;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .access-label { color: #318955; font-size: 10px; letter-spacing: 1.35px; font-weight: 800; margin: 0 0 20px; }
+    .login-brand-dot { width: 8px; height: 8px; background: #47c47f; border-radius: 50%; display: inline-block; margin-right: 8px; }
+    #access-form h1 { font-size: clamp(27px,5vw,37px); font-weight: 800; line-height: 1.2; letter-spacing: -1px; margin-bottom: 16px; color: #173b29; }
+    #access-form h1 em { font-style: normal; color: #2b9d5b; }
+    .access-description { color: #64766a; font-size: 14px; line-height: 1.75; margin-bottom: 24px; }
+    #access-form label { font-size: 12px; color: #2e513a; margin: 17px 0 7px; }
+    #access-form input { border-radius: 7px; border-color: #d4e5d9; background: rgba(250,253,251,.95); font-size: 14px; }
+    #access-form input:focus { outline: 2px solid #47c47f; border-color: #47c47f; }
+    #access-form button {
+      min-height: 52px;
+      margin-top: 26px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 15px;
+      background: linear-gradient(105deg,#299f5c,#42c375);
+      box-shadow: 0 8px 21px rgba(38,155,83,.20);
+      transition: filter .15s;
+    }
+    #access-form button:hover { background: linear-gradient(105deg,#258f51,#33ae66); }
+
+    footer { margin-top: 47px; background: rgba(255,255,255,.96); border-top: 1px solid #e1ede4; }
+    .footer-inner { max-width: 1140px; color: #718275; }
+    .footer-mark { color: #318955; }
+
+    @media (max-width: 790px) {
+      .intro { grid-template-columns: minmax(0,1fr) 160px; padding: 28px 28px 23px; }
+      .hero-art { min-height: 208px; }
+      .hero-art-grid { transform: scale(.85) rotate(-8deg); }
+      .edition-pill { display: none; }
+      .tracker-item { padding-left: 44px; }
+      .tracker-symbol { left: 12px; }
+    }
+    @media (max-width: 640px) {
+      body { background-attachment: scroll; }
+      .header-inner { padding: 17px 17px; min-height: 85px; gap: 14px; }
+      .header-inner .logo { width: 104px; }
+      .header-divider { height: 42px; }
+      .header-label { font-size: 8px; letter-spacing: .7px; }
+      .header-title { font-size: 17px; }
+      main { padding: 20px 13px 26px; }
+      .intro { grid-template-columns: 1fr; padding: 28px 20px 20px; gap: 12px; }
+      .intro h2 { font-size: clamp(31px,8vw,40px); letter-spacing: -1.2px; }
+      .hero-subtitle br { display: none; }
+      .hero-art { display: none; }
+      .hero-facts span { font-size: 11px; padding: 7px 9px; }
+      .intro .instructions { padding: 14px 13px; gap: 10px; margin-top: 12px; }
+      .puzzle-heading h2 { font-size: 23px; }
+      .section-note { display: none; }
+      #quiz-tracker { padding: 17px 14px 13px; }
+      #participant-info::before { display: block; margin: 0 0 5px; }
+      .tracker-items { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+      .tracker-item { padding: 11px 9px 11px 37px; }
+      .tracker-item:last-child { grid-column: 1/-1; }
+      .tracker-symbol { left: 10px; top: 10px; font-size: 19px; }
+      .tracker-label { font-size: 10px; }
+      .tracker-value { font-size: 23px; }
+      #puzzle { padding: 0 0 17px; }
+      #submit-area { padding: 21px 18px; }
+      #submit-area h3 { font-size: 20px; }
+      #access-form { padding: 30px 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #pause-result, #submit-result, #access-form button { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body class="access-locked">
+
+  <!-- Identification obligatoire -->
+  <div id="access-gate">
+    <form id="access-form">
+      <p class="access-label"><span class="login-brand-dot" aria-hidden="true"></span> GROUPE COC · CYBERMOIS 2026</p>
+      <h1>Bienvenue dans<br><em>les mots croisés</em></h1>
+      <p class="access-description">
+        Dix mots pour tester vos connaissances en cybersécurité. Indiquez votre prénom et votre nom pour commencer ou retrouver une partie déjà commencée.
+      </p>
+
+      <label for="prenom">Prénom</label>
+      <input
+        type="text"
+        id="prenom"
+        name="prenom"
+        autocomplete="given-name"
+        placeholder="Votre prénom"
+        maxlength="80"
+        required
+      >
+
+      <label for="nom">Nom</label>
+      <input
+        type="text"
+        id="nom"
+        name="nom"
+        autocomplete="family-name"
+        placeholder="Votre nom"
+        maxlength="80"
+        required
+      >
+
+      <button id="access-submit" type="submit">Accéder au jeu</button>
+      <div id="access-message" class="access-message" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <img class="logo" src="./logo-coc.png" alt="Groupe COC">
+      <div class="header-divider" aria-hidden="true"></div>
+      <div class="header-copy">
+        <p class="header-label">GROUPE COC <span class="header-bullet" aria-hidden="true">·</span> CYBERMOIS 2026</p>
+        <h1 class="header-title">Les mots croisés du Cybermois</h1>
+      </div>
+      <span class="edition-pill" aria-label="Édition 2026"><span class="edition-dot" aria-hidden="true"></span> ÉDITION 2026</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="intro-content">
+        <p class="hero-eyebrow"><span class="hero-eyebrow-icon" aria-hidden="true">✳</span> LE RENDEZ-VOUS CYBER DU GROUPE COC</p>
+        <h2 id="intro-title">Et si la cybersécurité<br>devenait <em>un jeu ?</em></h2>
+        <p class="hero-subtitle">Dix mots à retrouver, quelques bonnes habitudes à découvrir.<br>Une grille pour tester vos réflexes en cybersécurité, à votre rythme.</p>
+        <div class="hero-facts" aria-label="En bref">
+          <span><strong>10</strong> mots à trouver</span>
+          <span><strong>1</strong> seule participation</span>
+          <span><strong>2026</strong> Cybermois</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="hero-art-mark">C<span>O</span>C</div>
+        <div class="hero-art-grid">
+          <i></i><i></i><i class="filled"></i><i></i><i></i>
+          <i></i><i class="filled"></i><i></i><i></i><i class="filled"></i>
+          <i></i><i></i><i class="filled"></i><i></i><i></i>
+          <i class="filled"></i><i></i><i></i><i class="filled"></i><i></i>
+          <i></i><i></i><i class="filled"></i><i></i><i></i>
+        </div>
+      </div>
+      <div class="instructions">
+        <span class="instructions-icon" aria-hidden="true">i</span>
+        <div><strong>Comment jouer ?</strong><p>Cliquez sur une case et saisissez votre réponse sans accents ni espaces. La progression est enregistrée automatiquement. Vous pouvez reprendre votre grille plus tard ou envoyer votre résultat définitivement.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="grille-title">
+      <div class="puzzle-heading">
+        <div class="section-heading-copy"><span class="section-kicker">VOTRE JEU</span><h2 id="grille-title">À vous de jouer</h2></div>
+        <span class="section-note">Complétez les cases blanches de la grille</span>
+      </div>
+
+      <div id="quiz-tracker" role="group" aria-label="Progression du quiz">
+        <div id="participant-info"></div>
+        <div class="tracker-items">
+          <div class="tracker-item"><span class="tracker-symbol" aria-hidden="true">◷</span><span class="tracker-label">Temps écoulé</span><span id="live-time" class="tracker-value">00:00</span></div>
+          <div class="tracker-item"><span class="tracker-symbol" aria-hidden="true">▦</span><span class="tracker-label">Cases remplies</span><span id="live-count" class="tracker-value">0 / 0</span></div>
+          <div class="tracker-item"><span class="tracker-symbol" aria-hidden="true">◎</span><span class="tracker-label">Score actuel</span><span id="live-score" class="tracker-value">0 %</span></div>
+        </div>
+        <div class="tracker-bar"><div id="live-bar"></div></div>
+        <div id="save-status" role="status" aria-live="polite">En attente de connexion…</div>
+      </div>
+
+      <div id="puzzle"></div>
+
+      <div id="submit-area">
+        <span class="finish-label">VOTRE PARTICIPATION</span>
+        <h3>Un dernier clic avant de terminer</h3>
+        <p>
+          Envoyez votre grille pour enregistrer votre résultat.
+          Les cases non remplies seront comptées comme incorrectes.
+          L’envoi est définitif : une seconde participation ne sera pas autorisée.
+        </p>
+        <div class="quiz-actions">
+          <button id="pause-result" type="button">Continuer plus tard <span aria-hidden="true">↗</span></button>
+          <button id="submit-result" type="button">Envoyer ma grille <span aria-hidden="true">→</span></button>
+        </div>
+        <div id="result-message" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p>Un jeu proposé par le service informatique du Groupe COC.</p>
+      <p class="footer-mark">Groupe COC · Cybermois 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    'use strict';
+
+    // Web App Google Apps Script actuellement utilisée par le quiz.
+    const GOOGLE_SCRIPT_URL =
+      'https://script.google.com/macros/s/AKfycbwDx5DA-kFkUateQDakzXdQ4i41DiBpsIQ2tYRiJR72jT0X9NI_9jNp3VpOOjQury5r/exec';
+    const URL_EXTRANET = 'https://groupecoc.sharepoint.com/';
+    const INTERVALLE_SAUVEGARDE_MS = 15000;
+
+    // Grille authentique et dix définitions de la version fournie.
+    // Le score affiché dans le navigateur est indicatif ; Google Apps Script
+    // doit recalculer le score à partir de sa propre solution.
+    const SOLUTION_ROWS = [
+      '....Z.P...V..........',
+      'VULNERABILITE.....R.C',
+      '....R.R...R.X.....A.H',
+      '....O.E...U.F.....N.I',
+      '....D.F...S.I.....C.F',
+      '....A.E.....L.P...O.F',
+      '....Y.U.....T.H...N.R',
+      '............R.I...G.E',
+      '......MOTDEPASSE..I.M',
+      '............T.H...C.E',
+      '.....AUTHENTIFICATION',
+      '............O.N...E.T',
+      '............N.G...L..'
+    ];
+    const SOLUTION = SOLUTION_ROWS.join('');
+    const GRILLE_VIERGE = SOLUTION.replace(/[A-Z]/g, '0');
+    const TOTAL_CASES = SOLUTION.replace(/\./g, '').length;
+
+    const TEXTE_GRILLE = `
+exolve-begin
+exolve-id: MotsCroiseCybCoc26
+exolve-title: Les mots croisés du Cybermois 2026
+exolve-setter: Groupe COC
+exolve-width: 21
+exolve-height: 13
+exolve-option: color-background:transparent
+exolve-grid:
+....Z.P...V..........
+VULNERABILITE.....R.C
+....R.R...R.X.....A.H
+....O.E...U.F.....N.I
+....D.F...S.I.....C.F
+....A.E.....L.P...O.F
+....Y.U.....T.H...N.R
+............R.I...G.E
+......MOTDEPASSE..I.M
+............T.H...C.E
+.....AUTHENTIFICATION
+............O.N...E.T
+............N.G...L..
+exolve-across:
+4 Faiblesse exploitable dans un systeme informatique. (13)
+9 Secret utilise pour acceder a un compte. (10)
+10 Verification de l identite d un utilisateur. (16)
+exolve-down:
+1 Faille inconnue de l editeur ou sans correctif disponible au moment de son exploitation. (7)
+2 Systeme qui filtre les communications reseau. (7)
+3 Programme malveillant pouvant infecter un ordinateur. (5)
+5 Extraction clandestine de donnees hors d un systeme. (12)
+6 Logiciel malveillant qui bloque ou chiffre des donnees pour reclamer une rancon. (12)
+7 Transformation de donnees pour les rendre illisibles sans la cle appropriee. (11)
+8 Technique frauduleuse visant a voler des informations en se faisant passer pour un tiers de confiance. (8)
+exolve-relabel:
+  across-label: Horizontalement
+  down-label: Verticalement
+  clear: Effacer
+  clear-all: Tout effacer
+  reveal: Révéler
+  reveal-all: Tout révéler
+  check: Vérifier
+  check-all: Tout vérifier
+  submit: Envoyer
+exolve-end
+`;
+
+    const $ = id => document.getElementById(id);
+    const formulaireAcces = $('access-form');
+    const boutonAcces = $('access-submit');
+    const boutonPause = $('pause-result');
+    const boutonEnvoi = $('submit-result');
+
+    let participant = { prenom: '', nom: '' };
+    let quizExolve = null;
+    let tempsCumule = 0;
+    let debutChrono = 0;
+    let minuterie = null;
+    let intervalleSauvegarde = null;
+    let termine = false;
+    let pauseEnCours = false;
+    let operationFinale = false;
+    let sortieAutorisee = false;
+    let sauvegardeAutoEnCours = false;
+    let derniereGrilleSauvegardee = '';
+    let derniereSauvegardeA = 0;
+    let chaineRequetes = Promise.resolve();
+
+    function nettoyerNom(texte) {
+      return String(texte || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function afficherMessage(texte, type = '') {
+      const el = $('result-message');
+      el.textContent = texte;
+      el.className = type;
+    }
+
+    function afficherMessageAcces(texte, type = 'info') {
+      const el = $('access-message');
+      el.textContent = texte;
+      el.className = 'access-message ' + type;
+    }
+
+    function afficherStatut(texte, type = '') {
+      const el = $('save-status');
+      el.textContent = texte;
+      el.className = type;
+    }
+
+    function formaterDuree(valeur) {
+      const s = Math.max(0, Math.floor(Number(valeur) || 0));
+      const h = Math.floor(s / 3600);
+      const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+      const sec = String(s % 60).padStart(2, '0');
+      return h ? h + ':' + m + ':' + sec : m + ':' + sec;
+    }
+
+    function tempsEcoule() {
+      return tempsCumule + (debutChrono
+        ? Math.max(0, Math.floor((Date.now() - debutChrono) / 1000))
+        : 0);
+    }
+
+    function demarrerChrono() {
+      if (debutChrono) return;
+      debutChrono = Date.now();
+      if (minuterie) clearInterval(minuterie);
+      minuterie = setInterval(actualiserSuivi, 1000);
+      actualiserSuivi();
+    }
+
+    function figerChrono() {
+      if (debutChrono) {
+        tempsCumule = tempsEcoule();
+        debutChrono = 0;
+      }
+      if (minuterie) clearInterval(minuterie);
+      minuterie = null;
+      actualiserSuivi();
+    }
+
+    function normaliserGrille(grille) {
+      if (typeof grille !== 'string' || grille.length !== SOLUTION.length) {
+        throw new Error('Sauvegarde de grille absente ou incorrecte.');
+      }
+      let propre = '';
+      for (let i = 0; i < SOLUTION.length; i++) {
+        const caseAttendue = SOLUTION[i];
+        const valeur = grille[i].toUpperCase();
+        if (caseAttendue === '.') {
+          if (valeur !== '.') throw new Error('La grille sauvegardée est incompatible.');
+          propre += '.';
+        } else if (/^[A-Z0]$/.test(valeur)) {
+          propre += valeur;
+        } else {
+          throw new Error('La grille contient une valeur non reconnue.');
+        }
+      }
+      return propre;
+    }
+
+    function construireGrilleSoumise() {
+      if (!quizExolve || !quizExolve.grid) throw new Error('Grille indisponible.');
+      let chaine = '';
+      for (let r = 0; r < SOLUTION_ROWS.length; r++) {
+        for (let c = 0; c < SOLUTION_ROWS[r].length; c++) {
+          if (SOLUTION_ROWS[r][c] === '.') {
+            chaine += '.';
+          } else {
+            const cellule = quizExolve.grid[r][c];
+            const lettre = String(cellule && cellule.currLetter || '0').toUpperCase();
+            chaine += /^[A-Z]$/.test(lettre) ? lettre : '0';
+          }
+        }
+      }
+      return chaine;
+    }
+
+    function scoreGrille(grille) {
+      let correctes = 0, remplies = 0;
+      for (let i = 0; i < SOLUTION.length; i++) {
+        if (SOLUTION[i] === '.') continue;
+        if (grille[i] !== '0') remplies++;
+        if (grille[i] === SOLUTION[i]) correctes++;
+      }
+      return { remplies, score: Math.round(correctes * 100 / TOTAL_CASES) };
+    }
+
+    function actualiserSuivi() {
+      $('live-time').textContent = formaterDuree(tempsEcoule());
+      if (!quizExolve) return;
+      const progression = scoreGrille(construireGrilleSoumise());
+      $('live-count').textContent = progression.remplies + ' / ' + TOTAL_CASES;
+      $('live-score').textContent = progression.score + ' %';
+      $('live-bar').style.width = (progression.remplies * 100 / TOTAL_CASES) + '%';
+    }
+
+    /**
+     * Communication JSONP : requiert que Code.gs renvoie
+     * callback({ok:true,...}) pour les actions open/save/submit.
+     */
+    function appelerAppsScript(parametres) {
+      return new Promise((resolve, reject) => {
+        const callback = 'cyberQuiz_' + Date.now() + '_' +
+          Math.random().toString(36).slice(2);
+        const script = document.createElement('script');
+        const url = new URL(GOOGLE_SCRIPT_URL);
+        const timeout = setTimeout(() => terminerErreur(
+          new Error('Le serveur ne répond pas (20 secondes).')
+        ), 20000);
+        let acheve = false;
+
+        function nettoyer() {
+          clearTimeout(timeout);
+          delete window[callback];
+          script.remove();
+        }
+        function terminerErreur(erreur) {
+          if (acheve) return;
+          acheve = true;
+          nettoyer();
+          reject(erreur);
+        }
+        window[callback] = resultat => {
+          if (acheve) return;
+          acheve = true;
+          nettoyer();
+          if (resultat && resultat.ok) resolve(resultat);
+          else reject(new Error((resultat && resultat.message) || 'Requête refusée par le serveur.'));
+        };
+        script.onerror = () => terminerErreur(
+          new Error('Impossible de contacter Google Apps Script.')
+        );
+        for (const [cle, valeur] of Object.entries(parametres)) {
+          url.searchParams.set(cle, String(valeur));
+        }
+        url.searchParams.set('callback', callback);
+        script.src = url.toString();
+        document.head.appendChild(script);
+      });
+    }
+
+    /** Sérialise tous les envois : aucune sauvegarde tardive n'écrase la finale. */
+    function mettreEnFile(tache) {
+      const promesse = chaineRequetes.catch(() => {}).then(tache);
+      chaineRequetes = promesse.catch(() => {});
+      return promesse;
+    }
+
+    function paramsIdentite() {
+      return { prenom: participant.prenom, nom: participant.nom };
+    }
+
+    /** parseState appelle setCellLetter : les lettres réapparaissent dans le SVG Exolve. */
+    function restaurerLettres(grille) {
+      const etat = normaliserGrille(grille);
+      if (typeof quizExolve.parseState !== 'function' ||
+          typeof quizExolve.resetState !== 'function') {
+        throw new Error('Version Exolve incompatible avec la reprise.');
+      }
+      quizExolve.resetState();
+      if (!quizExolve.parseState(etat)) {
+        throw new Error('Impossible de rétablir la grille dans Exolve.');
+      }
+      if (typeof quizExolve.updateAndSaveState === 'function') {
+        quizExolve.updateAndSaveState(false);
+      }
+      derniereGrilleSauvegardee = etat;
+    }
+
+    /**
+     * Avec color-background:transparent, Exolve rend aussi ses traits
+     * de separation transparents. On redessine UNIQUEMENT les cases
+     * jouables, en blanc avec un contour, sur le SVG d'origine.
+     * Les zones bloquees restent transparentes sur bg_login.jpg.
+     */
+    function dessinerCasesBlanches(p) {
+      if (!p || !p.background || !p.grid) return;
+      for (let r = 0; r < p.gridHeight; r++) {
+        for (let c = 0; c < p.gridWidth; c++) {
+          if (!p.grid[r][c].isLight) continue;
+
+          const rect = document.createElementNS(
+            'http://www.w3.org/2000/svg', 'rect'
+          );
+          rect.setAttribute('x', p.cellLeftPos(c, 0));
+          rect.setAttribute('y', p.cellTopPos(r, 0));
+          rect.setAttribute('width', p.cellW + 2 * p.GRIDLINE);
+          rect.setAttribute('height', p.cellH + 2 * p.GRIDLINE);
+          rect.setAttribute('fill', '#ffffff');
+          rect.setAttribute('stroke', '#34443a');
+          rect.setAttribute('stroke-width', '1');
+          rect.setAttribute('pointer-events', 'none');
+
+          // Insere derriere les numeros et lettres du SVG Exolve.
+          p.background.after(rect);
+        }
+      }
+    }
+
+    function personnaliserExolve(p) {
+      dessinerCasesBlanches(p);
+      if (!p || !p.frame) return;
+      p.frame.addEventListener('exolve', event => {
+        if (termine || pauseEnCours) return;
+        if (event.detail && event.detail.knownCorrect) {
+          afficherMessage('Bravo, toutes les réponses sont correctes ! Vous pouvez envoyer votre résultat.', 'success');
+        } else if (event.detail && event.detail.knownIncorrect) {
+          afficherMessage('La grille est complète, mais comporte encore des erreurs.', 'error');
+        }
+      });
+    }
+
+    function demarrerJeu(grilleServeur, tempsServeur, reprise) {
+      $('quiz-tracker').style.display = 'block';
+      $('participant-info').textContent = participant.prenom + ' ' + participant.nom;
+      if (typeof createExolve !== 'function') {
+        throw new Error('Le fichier exolve-m.js est introuvable ou n’a pas été chargé.');
+      }
+      if (!quizExolve) {
+        // On conserve les dix définitions et la disposition d'origine.
+        quizExolve = createExolve(TEXTE_GRILLE, 'puzzle');
+        window.quizExolve = quizExolve;
+        personnaliserExolve(quizExolve);
+      }
+      restaurerLettres(grilleServeur || GRILLE_VIERGE);
+      tempsCumule = Math.max(0, Number(tempsServeur) || 0);
+      $('access-gate').remove();
+      document.body.classList.remove('access-locked');
+      afficherStatut(reprise ? 'Ancienne partie retrouvée : grille et temps restaurés.' :
+        'Nouvelle participation enregistrée.', 'success');
+      demarrerChrono();
+      intervalleSauvegarde = setInterval(sauvegardeAutomatique, INTERVALLE_SAUVEGARDE_MS);
+    }
+
+    formulaireAcces.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (boutonAcces.disabled) return;
+      const prenom = nettoyerNom($('prenom').value);
+      const nom = nettoyerNom($('nom').value);
+      if (!prenom || !nom) return;
+
+      boutonAcces.disabled = true;
+      boutonAcces.textContent = 'Connexion et enregistrement…';
+      afficherMessageAcces('Connexion en cours…', 'info');
+      try {
+        const resultat = await appelerAppsScript({ action: 'open', prenom, nom });
+        if (resultat.status === 'Terminé' || resultat.dejaParticipe) {
+          throw new Error('Vous avez déja participé.');
+        }
+        participant = { prenom, nom };
+        // La sauvegarde serveur fait autorité : pas de mélange avec une
+        // ancienne grille d'un autre utilisateur sur le même navigateur.
+        demarrerJeu(resultat.grid || GRILLE_VIERGE, resultat.elapsed || 0,
+          Boolean(resultat.resumed));
+      } catch (erreur) {
+        afficherMessageAcces(erreur.message || 'Connexion impossible.', 'error');
+      } finally {
+        boutonAcces.disabled = false;
+        boutonAcces.textContent = 'Accéder au quiz';
+      }
+    });
+
+    /** Sauvegarde régulière du score, du temps et des réponses. */
+    function sauvegarderProgression() {
+      return mettreEnFile(async () => {
+        if (termine) throw new Error('La participation est déjà terminée.');
+        const grille = construireGrilleSoumise();
+        const ecoule = tempsEcoule();
+        const resultat = await appelerAppsScript({
+          action: 'save', ...paramsIdentite(), k: grille, elapsed: ecoule
+        });
+        derniereGrilleSauvegardee = grille;
+        derniereSauvegardeA = Date.now();
+        const h = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        afficherStatut('Dernier enregistrement à ' + h + ' · Score : ' +
+          (typeof resultat.score === 'number' ? resultat.score : scoreGrille(grille).score) + ' %', 'success');
+        return resultat;
+      });
+    }
+
+    async function sauvegardeAutomatique() {
+      if (!quizExolve || !debutChrono || operationFinale || sauvegardeAutoEnCours || termine) return;
+      sauvegardeAutoEnCours = true;
+      try {
+        await sauvegarderProgression();
+      } catch (erreur) {
+        afficherStatut('Sauvegarde automatique impossible : ' + erreur.message, 'error');
+      } finally {
+        sauvegardeAutoEnCours = false;
+      }
+    }
+
+    function bloquerBoutons(actif) {
+      boutonPause.disabled = actif;
+      boutonEnvoi.disabled = actif;
+    }
+
+    boutonPause.addEventListener('click', async () => {
+      if (!quizExolve || termine || operationFinale) return;
+      if (!confirm('Enregistrer votre progression et revenir sur l’extranet du Groupe COC ?')) return;
+      operationFinale = true;
+      pauseEnCours = true;
+      bloquerBoutons(true);
+      figerChrono();
+      afficherStatut('Enregistrement de votre progression avant redirection…');
+      try {
+        await sauvegarderProgression();
+        sortieAutorisee = true;
+        window.location.assign(URL_EXTRANET);
+      } catch (erreur) {
+        operationFinale = false;
+        pauseEnCours = false;
+        bloquerBoutons(false);
+        demarrerChrono();
+        afficherStatut('Sauvegarde non confirmée. Vous restez dans le jeu.', 'error');
+        afficherMessage('Impossible de continuer plus tard : ' + erreur.message, 'error');
+      }
+    });
+
+    boutonEnvoi.addEventListener('click', async () => {
+      if (!quizExolve || termine || operationFinale) return;
+      if (!confirm('Envoyer définitivement votre résultat ? Vous ne pourrez plus participer.')) return;
+      operationFinale = true;
+      bloquerBoutons(true);
+      figerChrono();
+      afficherStatut('Envoi du résultat définitif…');
+      boutonEnvoi.textContent = 'Enregistrement…';
+      try {
+        const resultat = await mettreEnFile(() => appelerAppsScript({
+          action: 'submit', ...paramsIdentite(),
+          k: construireGrilleSoumise(), elapsed: tempsEcoule()
+        }));
+        termine = true;
+        if (intervalleSauvegarde) clearInterval(intervalleSauvegarde);
+        intervalleSauvegarde = null;
+        boutonEnvoi.textContent = 'Résultat enregistré';
+        $('puzzle').classList.add('quiz-completed');
+        afficherStatut('Participation terminée et enregistrée.', 'success');
+        afficherMessage(
+          'Votre résultat a été enregistré : ' + resultat.score + ' % en ' +
+          formaterDuree(tempsEcoule()) + '. Merci pour votre participation !',
+          'success'
+        );
+      } catch (erreur) {
+        operationFinale = false;
+        bloquerBoutons(false);
+        boutonEnvoi.textContent = 'Réessayer l’envoi';
+        demarrerChrono();
+        afficherStatut('L’envoi du résultat n’a pas été confirmé.', 'error');
+        afficherMessage('Résultat non confirmé : ' + erreur.message, 'error');
+      }
+    });
+
+    window.addEventListener('beforeunload', event => {
+      if (quizExolve && !termine && !sortieAutorisee) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    });
+  </script>
+
+</body>
+</html>
