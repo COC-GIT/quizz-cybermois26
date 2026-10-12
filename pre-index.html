@@ -873,7 +873,7 @@ exolve-end
       $('access-gate').remove();
       document.body.classList.remove('access-locked');
       afficherStatut(reprise ? 'Ancienne partie retrouvée : grille et temps restaurés.' :
-        'Nouvelle participation enregistrée dans Google Sheets.', 'success');
+        'Nouvelle participation enregistrée.', 'success');
       demarrerChrono();
       intervalleSauvegarde = setInterval(sauvegardeAutomatique, INTERVALLE_SAUVEGARDE_MS);
     }
@@ -887,11 +887,11 @@ exolve-end
 
       boutonAcces.disabled = true;
       boutonAcces.textContent = 'Connexion et enregistrement…';
-      afficherMessageAcces('Connexion à Google Sheets…', 'info');
+      afficherMessageAcces('Connexion en cours…', 'info');
       try {
         const resultat = await appelerAppsScript({ action: 'open', prenom, nom });
         if (resultat.status === 'Terminé' || resultat.dejaParticipe) {
-          throw new Error('Une participation a déjà été terminée avec ce nom.');
+          throw new Error('Vous avez déja participé.');
         }
         participant = { prenom, nom };
         // La sauvegarde serveur fait autorité : pas de mélange avec une
@@ -918,7 +918,7 @@ exolve-end
         derniereGrilleSauvegardee = grille;
         derniereSauvegardeA = Date.now();
         const h = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        afficherStatut('Enregistré dans Google Sheets à ' + h + ' · Score : ' +
+        afficherStatut('Dernier enregistrement à ' + h + ' · Score : ' +
           (typeof resultat.score === 'number' ? resultat.score : scoreGrille(grille).score) + ' %', 'success');
         return resultat;
       });
