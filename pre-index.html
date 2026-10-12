@@ -364,7 +364,7 @@
     #save-status.success { color: var(--green-dark); }
 
     .quiz-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
-    #pause-result, #save-result {
+    #pause-result {
       min-height: 46px;
       padding: 10px 18px;
       border: 1px solid #b7c9bc;
@@ -374,10 +374,9 @@
       font-size: 14px;
       font-weight: 700;
     }
-    #pause-result:hover, #save-result:hover { background: #e9f6ed; }
+    #pause-result:hover { background: #e9f6ed; }
     .quiz-actions #submit-result { flex: 1 1 240px; max-width: 360px; }
     .quiz-actions #pause-result { flex: 1 1 180px; }
-    .quiz-actions #save-result { flex: 0 1 180px; }
     #puzzle.quiz-completed { pointer-events: none; opacity: .7; }
     #puzzle button[id*="-reveal"], #puzzle button[id*="-check"] { display: none !important; }
 
@@ -482,7 +481,6 @@
           L’envoi est définitif : une seconde participation ne sera pas autorisée.
         </p>
         <div class="quiz-actions">
-          <button id="save-result" type="button">Enregistrer maintenant</button>
           <button id="pause-result" type="button">Continuer plus tard</button>
           <button id="submit-result" type="button">Envoyer mon résultat</button>
         </div>
@@ -578,7 +576,6 @@ exolve-end
     const $ = id => document.getElementById(id);
     const formulaireAcces = $('access-form');
     const boutonAcces = $('access-submit');
-    const boutonSauvegarde = $('save-result');
     const boutonPause = $('pause-result');
     const boutonEnvoi = $('submit-result');
 
@@ -843,7 +840,7 @@ exolve-end
     });
 
     /** Sauvegarde régulière du score, du temps et des réponses. */
-    function sauvegarderProgression(afficherConfirmation = false) {
+    function sauvegarderProgression() {
       return mettreEnFile(async () => {
         if (termine) throw new Error('La participation est déjà terminée.');
         const grille = construireGrilleSoumise();
@@ -856,7 +853,6 @@ exolve-end
         const h = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         afficherStatut('Enregistré dans Google Sheets à ' + h + ' · Score : ' +
           (typeof resultat.score === 'number' ? resultat.score : scoreGrille(grille).score) + ' %', 'success');
-        if (afficherConfirmation) afficherMessage('Progression enregistrée.', 'success');
         return resultat;
       });
     }
@@ -865,7 +861,7 @@ exolve-end
       if (!quizExolve || !debutChrono || operationFinale || sauvegardeAutoEnCours || termine) return;
       sauvegardeAutoEnCours = true;
       try {
-        await sauvegarderProgression(false);
+        await sauvegarderProgression();
       } catch (erreur) {
         afficherStatut('Sauvegarde automatique impossible : ' + erreur.message, 'error');
       } finally {
@@ -874,24 +870,9 @@ exolve-end
     }
 
     function bloquerBoutons(actif) {
-      boutonSauvegarde.disabled = actif;
       boutonPause.disabled = actif;
       boutonEnvoi.disabled = actif;
     }
-
-    boutonSauvegarde.addEventListener('click', async () => {
-      if (operationFinale || termine) return;
-      boutonSauvegarde.disabled = true;
-      afficherStatut('Sauvegarde en cours…');
-      try {
-        await sauvegarderProgression(true);
-      } catch (erreur) {
-        afficherMessage('Échec de sauvegarde : ' + erreur.message, 'error');
-        afficherStatut('Sauvegarde non confirmée.', 'error');
-      } finally {
-        boutonSauvegarde.disabled = false;
-      }
-    });
 
     boutonPause.addEventListener('click', async () => {
       if (!quizExolve || termine || operationFinale) return;
@@ -902,7 +883,7 @@ exolve-end
       figerChrono();
       afficherStatut('Enregistrement de votre progression avant redirection…');
       try {
-        await sauvegarderProgression(false);
+        await sauvegarderProgression();
         sortieAutorisee = true;
         window.location.assign(URL_EXTRANET);
       } catch (erreur) {
