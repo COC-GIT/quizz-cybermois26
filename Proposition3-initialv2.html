@@ -455,10 +455,14 @@
     }
 
     /* Le fond de la photo reste visible entre les cases jouables d’Exolve. */
-    #puzzle {
-      background: transparent !important;
-      box-shadow: none !important;
-    }
+   /* Cadre blanc autour du mot croisé */
+#puzzle {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid #e1e9e3 !important;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(20, 45, 28, 0.12) !important;
+  padding: 24px;
+}
   </style>
 </head>
 
