@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Cyber Quizz 2026 | Groupe COC</title>
-  <meta name="description" content="Cyber Quizz 2026 du Groupe COC : testez vos connaissances en cybersécurité.">
+  <title>Les mots croisés du Cybermois 2026 | Groupe COC</title>
+  <meta name="description" content="Les mots croisés du Cybermois 2026">
   <link rel="icon" type="image/png" href="./favicon.png">
 
   <link rel="stylesheet" href="./exolve-m.css">
@@ -395,7 +395,7 @@
   <div id="access-gate">
     <form id="access-form">
       <p class="access-label">Cybermois 2026 · Groupe COC</p>
-      <h1>Bienvenue au Cyber Quizz</h1>
+      <h1>Bienvenue dans notre jeu : Les mots croisés du Cybermois 2026</h1>
       <p class="access-description">
         Renseignez votre prénom et votre nom. Si vous avez déjà commencé, votre grille et votre temps seront récupérés automatiquement.
       </p>
@@ -422,7 +422,7 @@
         required
       >
 
-      <button id="access-submit" type="submit">Accéder au quiz</button>
+      <button id="access-submit" type="submit">Accéder au jeu</button>
       <div id="access-message" class="access-message" role="status" aria-live="polite"></div>
     </form>
   </div>
@@ -433,7 +433,7 @@
       <div class="header-divider" aria-hidden="true"></div>
       <div>
         <p class="header-label">Cybermois 2026</p>
-        <h1 class="header-title">Cyber Quizz</h1>
+        <h1 class="header-title">Les mots croisés du Cybermois 2026</h1>
       </div>
     </div>
   </header>
@@ -449,7 +449,7 @@
         <strong>Comment jouer ?</strong>
         Cliquez sur une case de la grille, puis saisissez votre réponse
         au clavier. Les réponses s'écrivent sans accents ni espaces.
-        Votre score et votre temps sont enregistrés régulièrement dans Google Sheets.
+        Votre score et votre temps sont enregistrés régulièrement.
         Vous pouvez cliquer sur « Continuer plus tard » pour reprendre votre grille.
         Lorsque vous avez terminé, cliquez sur « Envoyer mon résultat ».
       </div>
@@ -474,15 +474,15 @@
       <div id="puzzle"></div>
 
       <div id="submit-area">
-        <h3>Terminer le quiz</h3>
+        <h3>Ma grille est terminée</h3>
         <p>
           Envoyez votre grille pour enregistrer votre résultat.
           Les cases non remplies seront comptées comme incorrectes.
           L’envoi est définitif : une seconde participation ne sera pas autorisée.
         </p>
         <div class="quiz-actions">
-          <button id="pause-result" type="button">Continuer plus tard</button>
-          <button id="submit-result" type="button">Envoyer mon résultat</button>
+          <button id="pause-result" type="button">Continuer ma grille plus tard</button>
+          <button id="submit-result" type="button">Envoyer ma grille</button>
         </div>
         <div id="result-message" role="status" aria-live="polite"></div>
       </div>
@@ -491,7 +491,7 @@
 
   <footer>
     <div class="footer-inner">
-      <p>Un quiz proposé par le service informatique du Groupe COC.</p>
+      <p>Un jeu proposé par le service informatique du Groupe COC.</p>
       <p class="footer-mark">Groupe COC · Cybermois 2026</p>
     </div>
   </footer>
@@ -529,8 +529,8 @@
 
     const TEXTE_GRILLE = `
 exolve-begin
-exolve-id: CyberQuizz26
-exolve-title: Cyber Quizz 2026 - mots croises de cybersecurite
+exolve-id: MotsCroiseCybCoc26
+exolve-title: Les mots croisés du Cybermois 2026
 exolve-setter: Groupe COC
 exolve-width: 21
 exolve-height: 13
@@ -715,7 +715,7 @@ exolve-end
         const script = document.createElement('script');
         const url = new URL(GOOGLE_SCRIPT_URL);
         const timeout = setTimeout(() => terminerErreur(
-          new Error('Le serveur Google Sheets ne répond pas (20 secondes).')
+          new Error('Le serveur ne répond pas (20 secondes).')
         ), 20000);
         let acheve = false;
 
@@ -891,14 +891,14 @@ exolve-end
         pauseEnCours = false;
         bloquerBoutons(false);
         demarrerChrono();
-        afficherStatut('Sauvegarde non confirmée. Vous restez dans le quiz.', 'error');
+        afficherStatut('Sauvegarde non confirmée. Vous restez dans le jeu.', 'error');
         afficherMessage('Impossible de continuer plus tard : ' + erreur.message, 'error');
       }
     });
 
     boutonEnvoi.addEventListener('click', async () => {
       if (!quizExolve || termine || operationFinale) return;
-      if (!confirm('Envoyer définitivement votre résultat ? Vous ne pourrez plus participer avec ce nom.')) return;
+      if (!confirm('Envoyer définitivement votre résultat ? Vous ne pourrez plus participer.')) return;
       operationFinale = true;
       bloquerBoutons(true);
       figerChrono();
