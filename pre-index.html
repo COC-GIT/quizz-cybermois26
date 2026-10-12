@@ -453,6 +453,18 @@
       body { background-attachment: scroll; }
       .intro { padding: 18px; }
     }
+
+    #puzzle,
+#puzzle svg {
+  background: transparent !important;
+}
+
+#puzzle svg rect[fill="black"],
+#puzzle svg rect[fill="#000"],
+#puzzle svg rect[fill="#000000"] {
+  fill: transparent !important;
+  stroke: transparent !important;
+}
   </style>
 </head>
 
