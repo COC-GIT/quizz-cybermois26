@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Cyber Quizz 2026 | Groupe COC</title>
-  <meta name="description" content="Cyber Quizz 2026 du Groupe COC : testez vos connaissances en cybersécurité.">
+  <title>Les mots croisés du Cybermois 2026 | Groupe COC</title>
+  <meta name="description" content="Les mots croisés du Cybermois 2026">
   <link rel="icon" type="image/png" href="./favicon.png">
 
   <link rel="stylesheet" href="./exolve-m.css">
@@ -187,7 +187,7 @@
     }
 
     .intro {
-      max-width: 780px;
+      max-width: 100%;
       margin-bottom: 32px;
     }
 
@@ -335,6 +335,134 @@
         padding: 18px 20px;
       }
     }
+
+    /* Identification : retour serveur */
+    .access-message { margin-top: 16px; font-size: 14px; line-height: 1.55; }
+    .access-message:empty { display: none; }
+    .access-message.error { color: #b42318; }
+    .access-message.success { color: var(--green-dark); }
+    .access-message.info { color: #344b3c; }
+
+    /* Suivi en temps réel */
+    #quiz-tracker {
+      display: none;
+      margin: 0 0 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      background: var(--light);
+    }
+    #participant-info { font-weight: 700; margin-bottom: 12px; }
+    .tracker-items { display: flex; gap: 24px; flex-wrap: wrap; }
+    .tracker-item { min-width: 115px; }
+    .tracker-label { display: block; color: var(--gray); font-size: 12px; font-weight: 700; }
+    .tracker-value { display: block; color: var(--black); font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .tracker-bar { height: 7px; overflow: hidden; margin-top: 14px; background: #dde5df; border-radius: 8px; }
+    #live-bar { width: 0; height: 100%; background: var(--green); transition: width .2s ease; }
+    #save-status { margin-top: 9px; color: var(--gray); font-size: 12px; }
+    #save-status.error { color: #b42318; font-weight: 700; }
+    #save-status.success { color: var(--green-dark); }
+
+    .quiz-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    #pause-result {
+      min-height: 46px;
+      padding: 10px 18px;
+      border: 1px solid #b7c9bc;
+      border-radius: 3px;
+      background: white;
+      color: #24573a;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    #pause-result:hover { background: #e9f6ed; }
+    .quiz-actions #submit-result { flex: 1 1 240px; max-width: 360px; }
+    .quiz-actions #pause-result { flex: 1 1 180px; }
+    #puzzle.quiz-completed { pointer-events: none; opacity: .7; }
+    #puzzle button[id*="-reveal"], #puzzle button[id*="-check"] { display: none !important; }
+
+    @media (max-width: 640px) {
+      .quiz-actions button { width: 100%; max-width: none !important; }
+      .tracker-items { gap: 12px; }
+      .tracker-item { min-width: 90px; }
+      .tracker-value { font-size: 20px; }
+    }
+
+    /* Arrière-plan Cybermois : image à la racine du dépôt GitHub. */
+    body {
+      background-color: #edf4ef;
+      background-image:
+        linear-gradient(180deg, rgba(245, 250, 246, .68), rgba(245, 250, 246, .82)),
+        url('./bg_login.jpg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    /* L'écran de connexion affiche le même visuel sans l'étirer. */
+    #access-gate {
+      background-color: #edf4ef;
+      background-image:
+        linear-gradient(125deg, rgba(20, 39, 29, .28), rgba(20, 39, 29, .09)),
+        url('./bg_login.jpg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    #access-form {
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 20px 55px rgba(17, 39, 25, .20);
+      border-radius: 7px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* Panneaux discrets pour garder les contenus lisibles sur la photo. */
+    .site-header {
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .intro {
+      max-width: 100%;
+      padding: 24px 28px;
+      background: rgba(255, 255, 255, .93);
+      border: 1px solid rgba(225, 234, 228, .9);
+      border-radius: 7px;
+      box-shadow: 0 5px 24px rgba(15, 35, 23, .09);
+    }
+
+    .puzzle-heading {
+      width: fit-content;
+      max-width: 100%;
+      padding: 9px 18px;
+      background: rgba(255, 255, 255, .94);
+      border-radius: 6px;
+    }
+
+    #puzzle, #quiz-tracker, #submit-area {
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 5px 22px rgba(15, 35, 23, .08);
+    }
+
+    footer { background: rgba(255, 255, 255, .96); }
+
+    @media (max-width: 640px) {
+      body { background-attachment: scroll; }
+      .intro { padding: 18px; }
+    }
+
+    /* Le fond de la photo reste visible entre les cases jouables d’Exolve. */
+   /* Cadre blanc autour du mot croisé */
+#puzzle {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid #e1e9e3 !important;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(20, 45, 28, 0.12) !important;
+  padding: 24px;
+}
   </style>
 </head>
 
@@ -344,9 +472,9 @@
   <div id="access-gate">
     <form id="access-form">
       <p class="access-label">Cybermois 2026 · Groupe COC</p>
-      <h1>Bienvenue au Cyber Quizz</h1>
+      <h1>Bienvenue dans notre jeu : Les mots croisés du Cybermois 2026</h1>
       <p class="access-description">
-        Renseignez votre prénom et votre nom pour accéder au quiz.
+        Renseignez votre prénom et votre nom. Si vous avez déjà commencé, votre grille et votre temps seront récupérés automatiquement.
       </p>
 
       <label for="prenom">Prénom</label>
@@ -371,7 +499,8 @@
         required
       >
 
-      <button type="submit">Accéder au quiz</button>
+      <button id="access-submit" type="submit">Accéder au jeu</button>
+      <div id="access-message" class="access-message" role="status" aria-live="polite"></div>
     </form>
   </div>
 
@@ -381,7 +510,7 @@
       <div class="header-divider" aria-hidden="true"></div>
       <div>
         <p class="header-label">Cybermois 2026</p>
-        <h1 class="header-title">Cyber Quizz</h1>
+        <h1 class="header-title">Les mots croisés du Cybermois 2026</h1>
       </div>
     </div>
   </header>
@@ -390,14 +519,19 @@
     <section class="intro">
       <h2>Un défi à relever</h2>
       <p>
-        Dix mots à découvrir pour tester vos connaissances en
-        cybersécurité. À vous de jouer !
+        Dix mots à découvrir : <strong>3 faciles, 5 moyens et 2 difficiles</strong>,
+        autour de la cybersécurité et du monde agricole. À vous de jouer !
       </p>
       <div class="instructions">
         <strong>Comment jouer ?</strong>
         Cliquez sur une case de la grille, puis saisissez votre réponse
         au clavier. Les réponses s'écrivent sans accents ni espaces.
-        Lorsque vous avez terminé, cliquez sur « Envoyer mon résultat ».
+        <strong>Besoin d'aide ?</strong> Sélectionnez une définition et cliquez
+        sur l'ampoule 💡 pour afficher son indice.
+        Votre score et votre temps sont enregistrés régulièrement.
+        Vous pouvez cliquer sur « Continuer plus tard » pour reprendre votre grille à un autre moment.
+        Lorsque vous avez terminé, cliquez sur « Envoyer mon résultat ». 
+        Tout envoi est définitif. Aucune autre participation ne sera admise.
       </div>
     </section>
 
@@ -406,17 +540,30 @@
         <h2 id="grille-title">La grille</h2>
       </div>
 
+      <div id="quiz-tracker" role="group" aria-label="Progression du quiz">
+        <div id="participant-info"></div>
+        <div class="tracker-items">
+          <div class="tracker-item"><span class="tracker-label">Temps écoulé</span><span id="live-time" class="tracker-value">00:00</span></div>
+          <div class="tracker-item"><span class="tracker-label">Cases remplies</span><span id="live-count" class="tracker-value">0 / 0</span></div>
+          <div class="tracker-item"><span class="tracker-label">Score actuel</span><span id="live-score" class="tracker-value">0 %</span></div>
+        </div>
+        <div class="tracker-bar"><div id="live-bar"></div></div>
+        <div id="save-status" role="status" aria-live="polite">En attente de connexion…</div>
+      </div>
+
       <div id="puzzle"></div>
 
       <div id="submit-area">
-        <h3>Terminer le quiz</h3>
+        <h3>Ma grille est terminée</h3>
         <p>
           Envoyez votre grille pour enregistrer votre résultat.
           Les cases non remplies seront comptées comme incorrectes.
+          L’envoi est définitif : une seconde participation ne sera pas autorisée.
         </p>
-        <button id="submit-result" type="button">
-          Envoyer mon résultat
-        </button>
+        <div class="quiz-actions">
+          <button id="pause-result" type="button">Continuer ma grille plus tard</button>
+          <button id="submit-result" type="button">Envoyer ma grille</button>
+        </div>
         <div id="result-message" role="status" aria-live="polite"></div>
       </div>
     </section>
@@ -424,216 +571,92 @@
 
   <footer>
     <div class="footer-inner">
-      <p>Un quiz proposé par le service informatique du Groupe COC.</p>
+      <p>Un jeu proposé par le service informatique du Groupe COC.</p>
       <p class="footer-mark">Groupe COC · Cybermois 2026</p>
     </div>
   </footer>
 
   <script>
+    'use strict';
+
+    // Web App Google Apps Script actuellement utilisée par le quiz.
     const GOOGLE_SCRIPT_URL =
-      'https://script.google.com/macros/s/AKfycbzuQwIB_t2QenPdHn4CifTBg_HT3_DiDVYn4f_PpH2-ffVIbnqaSrWow-A9ft3yc4uy/exec';
+      'https://script.google.com/macros/s/AKfycbxAMeFoXWzPR895hcq9s5x9ugmtLUFWaUwRDZSNTu_O2_J3IfwXjPhmBEKC-pBNe8fz/exec';
+    const URL_EXTRANET = 'https://groupecoc.sharepoint.com/';
+    const INTERVALLE_SAUVEGARDE_MS = 15000;
+    const VERSION_GRILLE = 'CYBERMOIS2026-G2';
 
-    // Cette grille doit rester identique à celle d'Exolve
-    // et à la constante SOLUTION du Google Apps Script.
+    // Grille authentique et dix définitions de la version fournie.
+    // Le score affiché dans le navigateur est indicatif ; Google Apps Script
+    // doit recalculer le score à partir de sa propre solution.
     const SOLUTION_ROWS = [
-      '....Z.P...V..........',
-      'VULNERABILITE.....R.C',
-      '....R.R...R.X.....A.H',
-      '....O.E...U.F.....N.I',
-      '....D.F...S.I.....C.F',
-      '....A.E.....L.P...O.F',
-      '....Y.U.....T.H...N.R',
-      '............R.I...G.E',
-      '......MOTDEPASSE..I.M',
-      '............T.H...C.E',
-      '.....AUTHENTIFICATION',
-      '............O.N...E.T',
-      '............N.G...L..'
+      'EXFILTRATION.',
+      '.........D...',
+      'SAUVEGARDE..D',
+      '.......I.N..D',
+      '.......B.T..O',
+      'P.......VIRUS',
+      'I........F...',
+      'RANCONGICIEL.',
+      'A........A...',
+      'T.HAMECONNAGE',
+      'E........T...',
+      '.MOTDEPASSE..'
     ];
+    const SOLUTION = SOLUTION_ROWS.join('');
+    const GRILLE_VIERGE = SOLUTION.replace(/[A-Z]/g, '0');
+    const TOTAL_CASES = SOLUTION.replace(/\./g, '').length;
 
-    let prenomParticipant = '';
-    let nomParticipant = '';
-    let heureDebut = 0;
-    let envoiEffectue = false;
-
-    const messageResultat = document.getElementById('result-message');
-    const boutonEnvoi = document.getElementById('submit-result');
-
-    document.getElementById('access-form').addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      prenomParticipant =
-        document.getElementById('prenom').value.trim();
-
-      nomParticipant =
-        document.getElementById('nom').value.trim();
-
-      if (!prenomParticipant || !nomParticipant) {
-        return;
-      }
-
-      heureDebut = Date.now();
-
-      document.getElementById('access-gate').remove();
-      document.body.classList.remove('access-locked');
-    });
-
-    function afficherMessage(texte, type) {
-      messageResultat.textContent = texte;
-      messageResultat.className = type || '';
-    }
-
-    function personnaliserExolve(p) {
-      // L'événement Exolve signale quand la grille est entièrement remplie
-      // et, si la solution est fournie, si les réponses sont correctes.
-      p.frame.addEventListener('exolve', function (event) {
-        const detail = event.detail;
-        if (!detail) return;
-
-        if (detail.knownCorrect) {
-          afficherMessage(
-            'Bravo ! Toutes les réponses sont correctes. Vous pouvez envoyer votre résultat.',
-            'success'
-          );
-        } else if (detail.knownIncorrect) {
-          afficherMessage(
-            'La grille contient encore des erreurs. Vous pouvez corriger vos réponses ou envoyer votre résultat.',
-            'error'
-          );
-        }
-      });
-    }
-
-    function construireGrilleSoumise(p) {
-      let resultat = '';
-
-      for (let r = 0; r < SOLUTION_ROWS.length; r++) {
-        for (let c = 0; c < SOLUTION_ROWS[r].length; c++) {
-          // Les cases noires restent des points.
-          if (SOLUTION_ROWS[r][c] === '.') {
-            resultat += '.';
-            continue;
-          }
-
-          const cellule = p.grid[r][c];
-          let lettre = cellule && cellule.currLetter
-            ? String(cellule.currLetter).toUpperCase()
-            : '0';
-
-          // Exolve utilise 0 ou ? pour une case non remplie.
-          if (lettre === '0' || lettre === '?' || lettre === '.') {
-            lettre = '0';
-          }
-
-          resultat += lettre;
-        }
-      }
-
-      return resultat;
-    }
-
-    boutonEnvoi.addEventListener('click', function () {
-      if (envoiEffectue) return;
-
-      if (!prenomParticipant || !nomParticipant || !heureDebut) {
-        afficherMessage(
-          'Veuillez d’abord renseigner votre prénom et votre nom.',
-          'error'
-        );
-        return;
-      }
-
-      if (!window.quizExolve) {
-        afficherMessage(
-          'La grille n’est pas encore prête. Réessayez dans quelques secondes.',
-          'error'
-        );
-        return;
-      }
-
-      const reponse = construireGrilleSoumise(window.quizExolve);
-      const nomComplet = prenomParticipant + ' ' + nomParticipant;
-      const tempsEcoule = Math.max(
-        0,
-        Math.floor((Date.now() - heureDebut) / 1000)
-      );
-
-      const parametres = new URLSearchParams({
-        name: nomComplet,
-        prenom: prenomParticipant,
-        nom: nomParticipant,
-        k: reponse,
-        elapsed: String(tempsEcoule)
-      });
-
-      const url = GOOGLE_SCRIPT_URL + '?' + parametres.toString();
-
-      boutonEnvoi.disabled = true;
-      boutonEnvoi.textContent = 'Envoi en cours…';
-
-      // Envoi GET vers Apps Script. Le navigateur ne permet pas toujours
-      // de lire la réponse inter-domaine, même lorsque l'enregistrement réussit.
-      window.quizResultBeacon = new Image();
-
-      window.quizResultBeacon.onload = function () {
-        envoiEffectue = true;
-        boutonEnvoi.textContent = 'Résultat envoyé';
-        afficherMessage(
-          'Demande d’envoi effectuée. Vérifiez l’onglet « Résultats » de votre Google Sheets pour confirmer l’enregistrement.',
-          'success'
-        );
-      };
-
-      window.quizResultBeacon.onerror = function () {
-        // Une réponse texte Apps Script n'est pas une image : cet événement
-        // peut arriver même si le serveur a bien reçu la requête.
-        envoiEffectue = true;
-        boutonEnvoi.textContent = 'Envoi demandé';
-        afficherMessage(
-          'La demande a été transmise au navigateur. Vérifiez l’onglet « Résultats » de votre Google Sheets pour confirmer l’enregistrement.',
-          'success'
-        );
-      };
-
-      window.quizResultBeacon.src = url;
-    });
-
-    createExolve(`
+    const TEXTE_GRILLE = `
 exolve-begin
-exolve-id: CyberQuizz26
-exolve-title: Cyber Quizz 2026 - mots croises de cybersecurite
+exolve-id: MotsCroiseCybCoc26-V2
+exolve-title: Les mots croisés du Cybermois 2026
 exolve-setter: Groupe COC
-exolve-width: 21
-exolve-height: 13
+exolve-width: 13
+exolve-height: 12
+exolve-option: color-background:transparent
 exolve-grid:
-....Z.P...V..........
-VULNERABILITE.....R.C
-....R.R...R.X.....A.H
-....O.E...U.F.....N.I
-....D.F...S.I.....C.F
-....A.E.....L.P...O.F
-....Y.U.....T.H...N.R
-............R.I...G.E
-......MOTDEPASSE..I.M
-............T.H...C.E
-.....AUTHENTIFICATION
-............O.N...E.T
-............N.G...L..
+EXFILTRATION.
+.........D...
+SAUVEGARDE..D
+.......I.N..D
+.......B.T..O
+P.......VIRUS
+I........F...
+RANCONGICIEL.
+A........A...
+T.HAMECONNAGE
+E........T...
+.MOTDEPASSE..
 exolve-across:
-4 Faiblesse exploitable dans un systeme informatique. (13)
-9 Secret utilise pour acceder a un compte. (10)
-10 Verification de l identite d un utilisateur. (16)
+1 Difficile · Extraction non autorisée d’informations numériques. (12 lettres)
+  Hint: En 2023, une coopérative céréalière de l'Aube a subi une cyberattaque : des pièces d'identité et des contrats ont été dérobés pour être diffusés sur le dark web. Comment appelle-t-on le fait d'extraire illicitement des données d'un système informatique ?
+3 Moyen · Copie de sécurité. (10 lettres)
+  Hint: Après un incident, je peux permettre de repartir sur des bases saines et récuperer les données de pesée, les contrats et les documents de nos adhérents. Qui suis-je ?
+7 Facile · Programme malveillant qui se propage dans un ordinateur. (5 lettres)
+  Hint: Je peux infecter un ordinateur sans rendre son utilisateur malade. Qui suis-je ?
+8 Moyen · Utilitaire malveillant qui prend des données en otage. (12 lettres)
+  Hint: Je peux bloquer les fichiers d'une coopérative en pleine moisson et réclamer de l'argent pour les récupérer. Qui suis-je ?
+9 Moyen · Tentative de fraude qui imite un message officiel. (11 lettres)
+  Hint: Un faux mail des impôts vous annonce un remboursement et vous demande de cliquer sur un lien. Comment appelle-t-on cette technique de fraude ?
+10 Facile · Suite utilisée pour protéger l’accès à un compte. (10 lettres)
+  Hint: Je protège vos comptes, mais si vous me partagez, je ne sers plus à grand-chose. Qui suis-je ?
 exolve-down:
-1 Faille inconnue de l editeur ou sans correctif disponible au moment de son exploitation. (7)
-2 Systeme qui filtre les communications reseau. (7)
-3 Programme malveillant pouvant infecter un ordinateur. (5)
-5 Extraction clandestine de donnees hors d un systeme. (12)
-6 Logiciel malveillant qui bloque ou chiffre des donnees pour reclamer une rancon. (12)
-7 Transformation de donnees pour les rendre illisibles sans la cle appropriee. (11)
-8 Technique frauduleuse visant a voler des informations en se faisant passer pour un tiers de confiance. (8)
+2 Moyen · Informations permettant de s’authentifier. (12 lettres)
+  Hint: Durant l'été 2026, des accès frauduleux aux systèmes des impôts ont notamment reposé sur l'usurpation de ceux d'un agent et d'un tiers autorisé. Que sont-ils ?
+4 Moyen · Document à contrôler avant de modifier un paiement. (3 lettres)
+  Hint: Un fournisseur habituel de la coopérative vous envoie une facture avec de nouvelles coordonnées bancaires. Quel document faut-il impérativement vérifier avant de payer ?
+5 Difficile · Sigle anglais d’une attaque de saturation. (4 lettres)
+  Hint: Je peux rendre inaccessible le site Internet d'une coopérative en le submergeant de demandes. Mon nom est un sigle anglais de quatre lettres. Qui suis-je ?
+6 Facile · Individu qui cherche à accéder à des données sans autorisation. (6 lettres)
+  Hint: Je ne navigue pas forcément en mer, mais je peux voler vos données. Qui suis-je ?
 exolve-relabel:
   across-label: Horizontalement
   down-label: Verticalement
+  hint: Indice
+  hint-bulb.hover: Cliquez pour voir l'indice.
+  hint-bulb-another.hover: Cliquez pour voir un autre indice.
+  hint.hover: Cliquez pour masquer les indices.
   clear: Effacer
   clear-all: Tout effacer
   reveal: Révéler
@@ -642,17 +665,419 @@ exolve-relabel:
   check-all: Tout vérifier
   submit: Envoyer
 exolve-end
-`, 'puzzle');
+`;
 
-    // Récupérer l'instance Exolve créée dans le conteneur.
-    // customizeExolve est appelé automatiquement par createExolve.
-    // L'instance est également récupérée ci-dessous pour l'envoi du résultat.
-    const instanceOriginale = window.exolvePuzzles &&
-      window.exolvePuzzles['CyberQuizz26'];
+    const $ = id => document.getElementById(id);
+    const formulaireAcces = $('access-form');
+    const boutonAcces = $('access-submit');
+    const boutonPause = $('pause-result');
+    const boutonEnvoi = $('submit-result');
 
-    if (instanceOriginale) {
-      window.quizExolve = instanceOriginale;
+    let participant = { prenom: '', nom: '' };
+    let quizExolve = null;
+    let tempsCumule = 0;
+    let debutChrono = 0;
+    let minuterie = null;
+    let intervalleSauvegarde = null;
+    let termine = false;
+    let pauseEnCours = false;
+    let operationFinale = false;
+    let sortieAutorisee = false;
+    let sauvegardeAutoEnCours = false;
+    let derniereGrilleSauvegardee = '';
+    let derniereSauvegardeA = 0;
+    let chaineRequetes = Promise.resolve();
+
+    function nettoyerNom(texte) {
+      return String(texte || '').replace(/\s+/g, ' ').trim();
     }
+
+    function afficherMessage(texte, type = '') {
+      const el = $('result-message');
+      el.textContent = texte;
+      el.className = type;
+    }
+
+    function afficherMessageAcces(texte, type = 'info') {
+      const el = $('access-message');
+      el.textContent = texte;
+      el.className = 'access-message ' + type;
+    }
+
+    function afficherStatut(texte, type = '') {
+      const el = $('save-status');
+      el.textContent = texte;
+      el.className = type;
+    }
+
+    function formaterDuree(valeur) {
+      const s = Math.max(0, Math.floor(Number(valeur) || 0));
+      const h = Math.floor(s / 3600);
+      const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+      const sec = String(s % 60).padStart(2, '0');
+      return h ? h + ':' + m + ':' + sec : m + ':' + sec;
+    }
+
+    function tempsEcoule() {
+      return tempsCumule + (debutChrono
+        ? Math.max(0, Math.floor((Date.now() - debutChrono) / 1000))
+        : 0);
+    }
+
+    function demarrerChrono() {
+      if (debutChrono) return;
+      debutChrono = Date.now();
+      if (minuterie) clearInterval(minuterie);
+      minuterie = setInterval(actualiserSuivi, 1000);
+      actualiserSuivi();
+    }
+
+    function figerChrono() {
+      if (debutChrono) {
+        tempsCumule = tempsEcoule();
+        debutChrono = 0;
+      }
+      if (minuterie) clearInterval(minuterie);
+      minuterie = null;
+      actualiserSuivi();
+    }
+
+    function normaliserGrille(grille) {
+      if (typeof grille !== 'string' || grille.length !== SOLUTION.length) {
+        throw new Error('Sauvegarde de grille absente ou incorrecte.');
+      }
+      let propre = '';
+      for (let i = 0; i < SOLUTION.length; i++) {
+        const caseAttendue = SOLUTION[i];
+        const valeur = grille[i].toUpperCase();
+        if (caseAttendue === '.') {
+          if (valeur !== '.') throw new Error('La grille sauvegardée est incompatible.');
+          propre += '.';
+        } else if (/^[A-Z0]$/.test(valeur)) {
+          propre += valeur;
+        } else {
+          throw new Error('La grille contient une valeur non reconnue.');
+        }
+      }
+      return propre;
+    }
+
+    function construireGrilleSoumise() {
+      if (!quizExolve || !quizExolve.grid) throw new Error('Grille indisponible.');
+      let chaine = '';
+      for (let r = 0; r < SOLUTION_ROWS.length; r++) {
+        for (let c = 0; c < SOLUTION_ROWS[r].length; c++) {
+          if (SOLUTION_ROWS[r][c] === '.') {
+            chaine += '.';
+          } else {
+            const cellule = quizExolve.grid[r][c];
+            const lettre = String(cellule && cellule.currLetter || '0').toUpperCase();
+            chaine += /^[A-Z]$/.test(lettre) ? lettre : '0';
+          }
+        }
+      }
+      return chaine;
+    }
+
+    function scoreGrille(grille) {
+      let correctes = 0, remplies = 0;
+      for (let i = 0; i < SOLUTION.length; i++) {
+        if (SOLUTION[i] === '.') continue;
+        if (grille[i] !== '0') remplies++;
+        if (grille[i] === SOLUTION[i]) correctes++;
+      }
+      return { remplies, score: Math.round(correctes * 100 / TOTAL_CASES) };
+    }
+
+    function actualiserSuivi() {
+      $('live-time').textContent = formaterDuree(tempsEcoule());
+      if (!quizExolve) return;
+      const progression = scoreGrille(construireGrilleSoumise());
+      $('live-count').textContent = progression.remplies + ' / ' + TOTAL_CASES;
+      $('live-score').textContent = progression.score + ' %';
+      $('live-bar').style.width = (progression.remplies * 100 / TOTAL_CASES) + '%';
+    }
+
+    /**
+     * Communication JSONP : requiert que Code.gs renvoie
+     * callback({ok:true,...}) pour les actions open/save/submit.
+     */
+    function appelerAppsScript(parametres) {
+      return new Promise((resolve, reject) => {
+        const callback = 'cyberQuiz_' + Date.now() + '_' +
+          Math.random().toString(36).slice(2);
+        const script = document.createElement('script');
+        const url = new URL(GOOGLE_SCRIPT_URL);
+        const timeout = setTimeout(() => terminerErreur(
+          new Error('Le serveur ne répond pas (20 secondes).')
+        ), 20000);
+        let acheve = false;
+
+        function nettoyer() {
+          clearTimeout(timeout);
+          delete window[callback];
+          script.remove();
+        }
+        function terminerErreur(erreur) {
+          if (acheve) return;
+          acheve = true;
+          nettoyer();
+          reject(erreur);
+        }
+        window[callback] = resultat => {
+          if (acheve) return;
+          acheve = true;
+          nettoyer();
+          if (resultat && resultat.ok) resolve(resultat);
+          else reject(new Error((resultat && resultat.message) || 'Requête refusée par le serveur.'));
+        };
+        script.onerror = () => terminerErreur(
+          new Error('Impossible de contacter Google Apps Script.')
+        );
+        for (const [cle, valeur] of Object.entries(parametres)) {
+          url.searchParams.set(cle, String(valeur));
+        }
+        url.searchParams.set('callback', callback);
+        script.src = url.toString();
+        document.head.appendChild(script);
+      });
+    }
+
+    /** Sérialise tous les envois : aucune sauvegarde tardive n'écrase la finale. */
+    function mettreEnFile(tache) {
+      const promesse = chaineRequetes.catch(() => {}).then(tache);
+      chaineRequetes = promesse.catch(() => {});
+      return promesse;
+    }
+
+    function paramsIdentite() {
+      return { prenom: participant.prenom, nom: participant.nom };
+    }
+
+    /** parseState appelle setCellLetter : les lettres réapparaissent dans le SVG Exolve. */
+    function restaurerLettres(grille) {
+      const etat = normaliserGrille(grille);
+      if (typeof quizExolve.parseState !== 'function' ||
+          typeof quizExolve.resetState !== 'function') {
+        throw new Error('Version Exolve incompatible avec la reprise.');
+      }
+      quizExolve.resetState();
+      if (!quizExolve.parseState(etat)) {
+        throw new Error('Impossible de rétablir la grille dans Exolve.');
+      }
+      if (typeof quizExolve.updateAndSaveState === 'function') {
+        quizExolve.updateAndSaveState(false);
+      }
+      derniereGrilleSauvegardee = etat;
+    }
+
+    /**
+     * Avec color-background:transparent, Exolve rend aussi ses traits
+     * de separation transparents. On redessine UNIQUEMENT les cases
+     * jouables, en blanc avec un contour, sur le SVG d'origine.
+     * Les zones bloquees restent transparentes sur bg_login.jpg.
+     */
+    function dessinerCasesBlanches(p) {
+      if (!p || !p.background || !p.grid) return;
+      for (let r = 0; r < p.gridHeight; r++) {
+        for (let c = 0; c < p.gridWidth; c++) {
+          if (!p.grid[r][c].isLight) continue;
+
+          const rect = document.createElementNS(
+            'http://www.w3.org/2000/svg', 'rect'
+          );
+          rect.setAttribute('x', p.cellLeftPos(c, 0));
+          rect.setAttribute('y', p.cellTopPos(r, 0));
+          rect.setAttribute('width', p.cellW + 2 * p.GRIDLINE);
+          rect.setAttribute('height', p.cellH + 2 * p.GRIDLINE);
+          rect.setAttribute('fill', '#ffffff');
+          rect.setAttribute('stroke', '#34443a');
+          rect.setAttribute('stroke-width', '1');
+          rect.setAttribute('pointer-events', 'none');
+
+          // Insere derriere les numeros et lettres du SVG Exolve.
+          p.background.after(rect);
+        }
+      }
+    }
+
+    function personnaliserExolve(p) {
+      dessinerCasesBlanches(p);
+      if (!p || !p.frame) return;
+      p.frame.addEventListener('exolve', event => {
+        if (termine || pauseEnCours) return;
+        if (event.detail && event.detail.knownCorrect) {
+          afficherMessage('Bravo, toutes les réponses sont correctes ! Vous pouvez envoyer votre résultat.', 'success');
+        } else if (event.detail && event.detail.knownIncorrect) {
+          afficherMessage('La grille est complète, mais comporte encore des erreurs.', 'error');
+        }
+      });
+    }
+
+    function demarrerJeu(grilleServeur, tempsServeur, reprise) {
+      $('quiz-tracker').style.display = 'block';
+      $('participant-info').textContent = participant.prenom + ' ' + participant.nom;
+      if (typeof createExolve !== 'function') {
+        throw new Error('Le fichier exolve-m.js est introuvable ou n’a pas été chargé.');
+      }
+      if (!quizExolve) {
+        // On conserve les dix définitions et la disposition d'origine.
+        quizExolve = createExolve(TEXTE_GRILLE, 'puzzle');
+        window.quizExolve = quizExolve;
+        personnaliserExolve(quizExolve);
+      }
+      restaurerLettres(grilleServeur || GRILLE_VIERGE);
+      tempsCumule = Math.max(0, Number(tempsServeur) || 0);
+      $('access-gate').remove();
+      document.body.classList.remove('access-locked');
+      afficherStatut(reprise ? 'Ancienne partie retrouvée : grille et temps restaurés.' :
+        'Nouvelle participation enregistrée.', 'success');
+      demarrerChrono();
+      intervalleSauvegarde = setInterval(sauvegardeAutomatique, INTERVALLE_SAUVEGARDE_MS);
+    }
+
+    formulaireAcces.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (boutonAcces.disabled) return;
+      const prenom = nettoyerNom($('prenom').value);
+      const nom = nettoyerNom($('nom').value);
+      if (!prenom || !nom) return;
+
+      boutonAcces.disabled = true;
+      boutonAcces.textContent = 'Connexion et enregistrement…';
+      afficherMessageAcces('Connexion en cours…', 'info');
+      try {
+        // Vérifier la version du serveur avant de créer ou reprendre une ligne.
+        // Sans cela, l'ancien Code.gs pourrait enregistrer l'ancienne grille.
+        let protocole;
+        try {
+          protocole = await appelerAppsScript({ action: 'version' });
+        } catch (erreurVersion) {
+          if (/Action inconnue/i.test(erreurVersion.message || '')) {
+            throw new Error('Le Code.gs déployé est encore celui de l’ancienne grille. Publiez une nouvelle version du déploiement Apps Script existant.');
+          }
+          throw erreurVersion;
+        }
+        if (protocole.version !== VERSION_GRILLE) {
+          throw new Error('Code.gs non mis à jour : déployez la nouvelle version de l’application Web.');
+        }
+        const resultat = await appelerAppsScript({
+          action: 'open', prenom, nom, version: VERSION_GRILLE
+        });
+        if (resultat.status === 'Terminé' || resultat.dejaParticipe) {
+          throw new Error('Vous avez déja participé.');
+        }
+        participant = { prenom, nom };
+        // La sauvegarde serveur fait autorité : pas de mélange avec une
+        // ancienne grille d'un autre utilisateur sur le même navigateur.
+        demarrerJeu(resultat.grid || GRILLE_VIERGE, resultat.elapsed || 0,
+          Boolean(resultat.resumed));
+      } catch (erreur) {
+        afficherMessageAcces(erreur.message || 'Connexion impossible.', 'error');
+      } finally {
+        boutonAcces.disabled = false;
+        boutonAcces.textContent = 'Accéder au quiz';
+      }
+    });
+
+    /** Sauvegarde régulière du score, du temps et des réponses. */
+    function sauvegarderProgression() {
+      return mettreEnFile(async () => {
+        if (termine) throw new Error('La participation est déjà terminée.');
+        const grille = construireGrilleSoumise();
+        const ecoule = tempsEcoule();
+        const resultat = await appelerAppsScript({
+          action: 'save', ...paramsIdentite(), version: VERSION_GRILLE,
+          k: grille, elapsed: ecoule
+        });
+        derniereGrilleSauvegardee = grille;
+        derniereSauvegardeA = Date.now();
+        const h = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        afficherStatut('Dernier enregistrement à ' + h + ' · Score : ' +
+          (typeof resultat.score === 'number' ? resultat.score : scoreGrille(grille).score) + ' %', 'success');
+        return resultat;
+      });
+    }
+
+    async function sauvegardeAutomatique() {
+      if (!quizExolve || !debutChrono || operationFinale || sauvegardeAutoEnCours || termine) return;
+      sauvegardeAutoEnCours = true;
+      try {
+        await sauvegarderProgression();
+      } catch (erreur) {
+        afficherStatut('Sauvegarde automatique impossible : ' + erreur.message, 'error');
+      } finally {
+        sauvegardeAutoEnCours = false;
+      }
+    }
+
+    function bloquerBoutons(actif) {
+      boutonPause.disabled = actif;
+      boutonEnvoi.disabled = actif;
+    }
+
+    boutonPause.addEventListener('click', async () => {
+      if (!quizExolve || termine || operationFinale) return;
+      if (!confirm('Enregistrer votre progression et revenir sur l’extranet du Groupe COC ?')) return;
+      operationFinale = true;
+      pauseEnCours = true;
+      bloquerBoutons(true);
+      figerChrono();
+      afficherStatut('Enregistrement de votre progression avant redirection…');
+      try {
+        await sauvegarderProgression();
+        sortieAutorisee = true;
+        window.location.assign(URL_EXTRANET);
+      } catch (erreur) {
+        operationFinale = false;
+        pauseEnCours = false;
+        bloquerBoutons(false);
+        demarrerChrono();
+        afficherStatut('Sauvegarde non confirmée. Vous restez dans le jeu.', 'error');
+        afficherMessage('Impossible de continuer plus tard : ' + erreur.message, 'error');
+      }
+    });
+
+    boutonEnvoi.addEventListener('click', async () => {
+      if (!quizExolve || termine || operationFinale) return;
+      if (!confirm('Envoyer définitivement votre résultat ? Vous ne pourrez plus participer.')) return;
+      operationFinale = true;
+      bloquerBoutons(true);
+      figerChrono();
+      afficherStatut('Envoi du résultat définitif…');
+      boutonEnvoi.textContent = 'Enregistrement…';
+      try {
+        const resultat = await mettreEnFile(() => appelerAppsScript({
+          action: 'submit', ...paramsIdentite(), version: VERSION_GRILLE,
+          k: construireGrilleSoumise(), elapsed: tempsEcoule()
+        }));
+        termine = true;
+        if (intervalleSauvegarde) clearInterval(intervalleSauvegarde);
+        intervalleSauvegarde = null;
+        boutonEnvoi.textContent = 'Résultat enregistré';
+        $('puzzle').classList.add('quiz-completed');
+        afficherStatut('Participation terminée et enregistrée.', 'success');
+        afficherMessage(
+          'Votre résultat a été enregistré : ' + resultat.score + ' % en ' +
+          formaterDuree(tempsEcoule()) + '. Merci pour votre participation !',
+          'success'
+        );
+      } catch (erreur) {
+        operationFinale = false;
+        bloquerBoutons(false);
+        boutonEnvoi.textContent = 'Réessayer l’envoi';
+        demarrerChrono();
+        afficherStatut('L’envoi du résultat n’a pas été confirmé.', 'error');
+        afficherMessage('Résultat non confirmé : ' + erreur.message, 'error');
+      }
+    });
+
+    window.addEventListener('beforeunload', event => {
+      if (quizExolve && !termine && !sortieAutorisee) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    });
   </script>
 
 </body>
