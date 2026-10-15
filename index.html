@@ -581,9 +581,10 @@
 
     // Web App Google Apps Script actuellement utilisée par le quiz.
     const GOOGLE_SCRIPT_URL =
-      '';
+      'https://script.google.com/macros/s/AKfycbyeyzvx6WYM6dFp75eF6nFLTJkActk8lBoHvfmZfMPxdnXDAKdUpAA6yJIepcLdNLrV/exec';
     const URL_EXTRANET = 'https://groupecoc.sharepoint.com/';
-    const INTERVALLE_SAUVEGARDE_MS = 15000;
+    // 15 joueurs : espacer les sauvegardes pour limiter la contention Google Sheets.
+    const INTERVALLE_SAUVEGARDE_MS = 60000;
     const VERSION_GRILLE = 'CYBERMOIS2026-G2';
 
     // Grille authentique et dix définitions de la version fournie.
@@ -809,8 +810,8 @@ exolve-end
         const script = document.createElement('script');
         const url = new URL(GOOGLE_SCRIPT_URL);
         const timeout = setTimeout(() => terminerErreur(
-          new Error('Le serveur ne répond pas (20 secondes).')
-        ), 20000);
+          new Error('Le serveur ne répond pas (35 secondes).')
+        ), 35000);
         let acheve = false;
 
         function nettoyer() {
@@ -832,8 +833,18 @@ exolve-end
           else reject(new Error((resultat && resultat.message) || 'Requête refusée par le serveur.'));
         };
         script.onerror = () => terminerErreur(
-          new Error('Impossible de contacter Google Apps Script.')
+          new Error('Impossible de contacter Google Apps Script. Vérifiez la connexion réseau et les autorisations.')
         );
+        // Une page d'authentification ou un message Google peut être chargé
+        // comme un script sans exécuter le callback JSONP. Ne pas attendre 35 s
+        // lorsque cette réponse non conforme est déjà arrivée.
+        script.onload = () => {
+          if (!acheve) {
+            terminerErreur(new Error(
+              'Réponse Apps Script invalide : vérifiez les droits d’accès du déploiement et les éventuelles redirections de connexion Google.'
+            ));
+          }
+        };
         for (const [cle, valeur] of Object.entries(parametres)) {
           url.searchParams.set(cle, String(valeur));
         }
@@ -841,6 +852,24 @@ exolve-end
         script.src = url.toString();
         document.head.appendChild(script);
       });
+    }
+
+    /** Relance uniquement les erreurs réseau ou les surcharges temporaires.
+     *  open/save/submit sont idempotents avec le Code.gs optimisé.
+     */
+    async function appelerAvecRelance(parametres, tentatives = 2) {
+      for (let essai = 0; essai < tentatives; essai++) {
+        try {
+          return await appelerAppsScript(parametres);
+        } catch (erreur) {
+          const message = String(erreur && erreur.message || erreur);
+          const passagere = /occupé|occupe|ne répond pas|Impossible de contacter|timeout|verrou|lock|too many times|trop de fois/i.test(message);
+          if (!passagere || essai === tentatives - 1) throw erreur;
+          // Attente progressive avec décalage aléatoire pour éviter un nouvel afflux simultané.
+          const attente = Math.min(12000, 1500 * Math.pow(2, essai)) + Math.floor(Math.random() * 2500);
+          await new Promise(resolve => setTimeout(resolve, attente));
+        }
+      }
     }
 
     /** Sérialise tous les envois : aucune sauvegarde tardive n'écrase la finale. */
@@ -933,7 +962,9 @@ exolve-end
       afficherStatut(reprise ? 'Ancienne partie retrouvée : grille et temps restaurés.' :
         'Nouvelle participation enregistrée.', 'success');
       demarrerChrono();
-      intervalleSauvegarde = setInterval(sauvegardeAutomatique, INTERVALLE_SAUVEGARDE_MS);
+      // Echelonne les requêtes : les participants ne sauvegardent pas tous ensemble.
+      intervalleSauvegarde = setInterval(sauvegardeAutomatique,
+        INTERVALLE_SAUVEGARDE_MS + Math.floor(Math.random() * 15000));
     }
 
     formulaireAcces.addEventListener('submit', async event => {
@@ -947,23 +978,11 @@ exolve-end
       boutonAcces.textContent = 'Connexion et enregistrement…';
       afficherMessageAcces('Connexion en cours…', 'info');
       try {
-        // Vérifier la version du serveur avant de créer ou reprendre une ligne.
-        // Sans cela, l'ancien Code.gs pourrait enregistrer l'ancienne grille.
-        let protocole;
-        try {
-          protocole = await appelerAppsScript({ action: 'version' });
-        } catch (erreurVersion) {
-          if (/Action inconnue/i.test(erreurVersion.message || '')) {
-            throw new Error('Le Code.gs déployé est encore celui de l’ancienne grille. Publiez une nouvelle version du déploiement Apps Script existant.');
-          }
-          throw erreurVersion;
-        }
-        if (protocole.version !== VERSION_GRILLE) {
-          throw new Error('Code.gs non mis à jour : déployez la nouvelle version de l’application Web.');
-        }
-        const resultat = await appelerAppsScript({
+        // Une seule requête pour la connexion. Le serveur valide déjà
+        // VERSION_GRILLE dans l'action 'open', sans appel 'version' préalable.
+        const resultat = await appelerAvecRelance({
           action: 'open', prenom, nom, version: VERSION_GRILLE
-        });
+        }, 4);
         if (resultat.status === 'Terminé' || resultat.dejaParticipe) {
           throw new Error('Vous avez déja participé.');
         }
@@ -981,15 +1000,15 @@ exolve-end
     });
 
     /** Sauvegarde régulière du score, du temps et des réponses. */
-    function sauvegarderProgression() {
+    function sauvegarderProgression(tentatives = 2) {
       return mettreEnFile(async () => {
         if (termine) throw new Error('La participation est déjà terminée.');
         const grille = construireGrilleSoumise();
         const ecoule = tempsEcoule();
-        const resultat = await appelerAppsScript({
+        const resultat = await appelerAvecRelance({
           action: 'save', ...paramsIdentite(), version: VERSION_GRILLE,
           k: grille, elapsed: ecoule
-        });
+        }, tentatives);
         derniereGrilleSauvegardee = grille;
         derniereSauvegardeA = Date.now();
         const h = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -1001,6 +1020,11 @@ exolve-end
 
     async function sauvegardeAutomatique() {
       if (!quizExolve || !debutChrono || operationFinale || sauvegardeAutoEnCours || termine) return;
+      // Si rien n'a changé, enregistrer le temps moins souvent (toutes les 2 minutes).
+      // Les boutons Pause/Envoyer enregistrent toujours immédiatement.
+      const grilleCourante = construireGrilleSoumise();
+      if (grilleCourante === derniereGrilleSauvegardee &&
+          Date.now() - derniereSauvegardeA < 120000) return;
       sauvegardeAutoEnCours = true;
       try {
         await sauvegarderProgression();
@@ -1025,7 +1049,7 @@ exolve-end
       figerChrono();
       afficherStatut('Enregistrement de votre progression avant redirection…');
       try {
-        await sauvegarderProgression();
+        await sauvegarderProgression(4);
         sortieAutorisee = true;
         window.location.assign(URL_EXTRANET);
       } catch (erreur) {
@@ -1047,10 +1071,10 @@ exolve-end
       afficherStatut('Envoi du résultat définitif…');
       boutonEnvoi.textContent = 'Enregistrement…';
       try {
-        const resultat = await mettreEnFile(() => appelerAppsScript({
+        const resultat = await mettreEnFile(() => appelerAvecRelance({
           action: 'submit', ...paramsIdentite(), version: VERSION_GRILLE,
           k: construireGrilleSoumise(), elapsed: tempsEcoule()
-        }));
+        }, 4));
         termine = true;
         if (intervalleSauvegarde) clearInterval(intervalleSauvegarde);
         intervalleSauvegarde = null;
