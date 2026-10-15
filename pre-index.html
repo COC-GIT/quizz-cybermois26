@@ -468,7 +468,7 @@
 
 <body class="access-locked">
 
-  <!-- Identification obligaffftoire -->
+  <!-- Identification obligatoire -->
   <div id="access-gate">
     <form id="access-form">
       <p class="access-label">Cybermois 2026 · Groupe COC</p>
@@ -581,7 +581,7 @@
 
     // Web App Google Apps Script actuellement utilisée par le quiz.
     const GOOGLE_SCRIPT_URL =
-      'https://script.google.com/macros/s/AKfycbzJ8lPHOmoE_Od16uvQVYLxb3kULAKR2jiASAeSAKbGnEZlbolxBNS7uvkP80IQ1ifv/exec';
+      'https://script.google.com/macros/s/AKfycbyeyzvx6WYM6dFp75eF6nFLTJkActk8lBoHvfmZfMPxdnXDAKdUpAA6yJIepcLdNLrV/exec';
     const URL_EXTRANET = 'https://groupecoc.sharepoint.com/';
     // 15 joueurs : espacer les sauvegardes pour limiter la contention Google Sheets.
     const INTERVALLE_SAUVEGARDE_MS = 60000;
@@ -865,8 +865,9 @@ exolve-end
           const message = String(erreur && erreur.message || erreur);
           const passagere = /occupé|occupe|ne répond pas|Impossible de contacter|timeout|verrou|lock|too many times|trop de fois/i.test(message);
           if (!passagere || essai === tentatives - 1) throw erreur;
-          await new Promise(resolve => setTimeout(resolve,
-            1200 * (essai + 1) + Math.floor(Math.random() * 1100)));
+          // Attente progressive avec décalage aléatoire pour éviter un nouvel afflux simultané.
+          const attente = Math.min(12000, 1500 * Math.pow(2, essai)) + Math.floor(Math.random() * 2500);
+          await new Promise(resolve => setTimeout(resolve, attente));
         }
       }
     }
@@ -981,7 +982,7 @@ exolve-end
         // VERSION_GRILLE dans l'action 'open', sans appel 'version' préalable.
         const resultat = await appelerAvecRelance({
           action: 'open', prenom, nom, version: VERSION_GRILLE
-        });
+        }, 4);
         if (resultat.status === 'Terminé' || resultat.dejaParticipe) {
           throw new Error('Vous avez déja participé.');
         }
@@ -999,7 +1000,7 @@ exolve-end
     });
 
     /** Sauvegarde régulière du score, du temps et des réponses. */
-    function sauvegarderProgression() {
+    function sauvegarderProgression(tentatives = 2) {
       return mettreEnFile(async () => {
         if (termine) throw new Error('La participation est déjà terminée.');
         const grille = construireGrilleSoumise();
@@ -1007,7 +1008,7 @@ exolve-end
         const resultat = await appelerAvecRelance({
           action: 'save', ...paramsIdentite(), version: VERSION_GRILLE,
           k: grille, elapsed: ecoule
-        });
+        }, tentatives);
         derniereGrilleSauvegardee = grille;
         derniereSauvegardeA = Date.now();
         const h = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -1019,6 +1020,11 @@ exolve-end
 
     async function sauvegardeAutomatique() {
       if (!quizExolve || !debutChrono || operationFinale || sauvegardeAutoEnCours || termine) return;
+      // Si rien n'a changé, enregistrer le temps moins souvent (toutes les 2 minutes).
+      // Les boutons Pause/Envoyer enregistrent toujours immédiatement.
+      const grilleCourante = construireGrilleSoumise();
+      if (grilleCourante === derniereGrilleSauvegardee &&
+          Date.now() - derniereSauvegardeA < 120000) return;
       sauvegardeAutoEnCours = true;
       try {
         await sauvegarderProgression();
@@ -1043,7 +1049,7 @@ exolve-end
       figerChrono();
       afficherStatut('Enregistrement de votre progression avant redirection…');
       try {
-        await sauvegarderProgression();
+        await sauvegarderProgression(4);
         sortieAutorisee = true;
         window.location.assign(URL_EXTRANET);
       } catch (erreur) {
@@ -1068,7 +1074,7 @@ exolve-end
         const resultat = await mettreEnFile(() => appelerAvecRelance({
           action: 'submit', ...paramsIdentite(), version: VERSION_GRILLE,
           k: construireGrilleSoumise(), elapsed: tempsEcoule()
-        }));
+        }, 4));
         termine = true;
         if (intervalleSauvegarde) clearInterval(intervalleSauvegarde);
         intervalleSauvegarde = null;
