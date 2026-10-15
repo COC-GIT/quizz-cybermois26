@@ -833,8 +833,18 @@ exolve-end
           else reject(new Error((resultat && resultat.message) || 'Requête refusée par le serveur.'));
         };
         script.onerror = () => terminerErreur(
-          new Error('Impossible de contacter Google Apps Script.')
+          new Error('Impossible de contacter Google Apps Script. Vérifiez la connexion réseau et les autorisations.')
         );
+        // Une page d'authentification ou un message Google peut être chargé
+        // comme un script sans exécuter le callback JSONP. Ne pas attendre 35 s
+        // lorsque cette réponse non conforme est déjà arrivée.
+        script.onload = () => {
+          if (!acheve) {
+            terminerErreur(new Error(
+              'Réponse Apps Script invalide : vérifiez les droits d’accès du déploiement et les éventuelles redirections de connexion Google.'
+            ));
+          }
+        };
         for (const [cle, valeur] of Object.entries(parametres)) {
           url.searchParams.set(cle, String(valeur));
         }
@@ -967,20 +977,8 @@ exolve-end
       boutonAcces.textContent = 'Connexion et enregistrement…';
       afficherMessageAcces('Connexion en cours…', 'info');
       try {
-        // Vérifier la version du serveur avant de créer ou reprendre une ligne.
-        // Sans cela, l'ancien Code.gs pourrait enregistrer l'ancienne grille.
-        let protocole;
-        try {
-          protocole = await appelerAvecRelance({ action: 'version' });
-        } catch (erreurVersion) {
-          if (/Action inconnue/i.test(erreurVersion.message || '')) {
-            throw new Error('Le Code.gs déployé est encore celui de l’ancienne grille. Publiez une nouvelle version du déploiement Apps Script existant.');
-          }
-          throw erreurVersion;
-        }
-        if (protocole.version !== VERSION_GRILLE) {
-          throw new Error('Code.gs non mis à jour : déployez la nouvelle version de l’application Web.');
-        }
+        // Une seule requête pour la connexion. Le serveur valide déjà
+        // VERSION_GRILLE dans l'action 'open', sans appel 'version' préalable.
         const resultat = await appelerAvecRelance({
           action: 'open', prenom, nom, version: VERSION_GRILLE
         });
